@@ -1,0 +1,19 @@
+.ippcode18 
+
+# type ok
+
+read GF@a1 int
+
+READ LF@b2 bool
+
+rEaD TF@c3 string
+
+
+
+
+
+
+
+
+
+

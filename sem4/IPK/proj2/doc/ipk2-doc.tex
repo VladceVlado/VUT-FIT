@@ -1,0 +1,337 @@
+% VUT FIT
+% IPK 2017/2018
+% Project 2
+% Variant 3: DNS Lookup nastroj
+% File: ipk2-doc.tex
+% Author: Vladimir Dusek, xdusek27 (2BIT)
+% Date: 9/4/2018
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{pdfpages}
+\usepackage[obeyspaces]{url}
+\usepackage{framed}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[thinlines]{easytable}
+
+\usepackage{float}
+
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		% {\Huge\textsc{Vysoké učení technické v~Brně}} \\
+		% \bigskip
+		% {\huge\textsc{Fakulta informačních technologií}} \\
+		\begin{figure}[htb]
+			\centering
+			\includegraphics[width=0.85\hsize]{fitlogo.pdf}
+		\end{figure}
+
+		\vspace{\stretch{0.382}}
+
+		{\LARGE Počítačové komunikace a sítě} \\
+		\bigskip
+		{\Huge Dokumentace k~2.\,projektu} \\
+		\bigskip
+		{\LARGE Varianta 3: DNS Lookup nástroj}
+		\vspace{\stretch{0.618}}
+
+	\end{center}
+	{\Large \today \hfill Vladimír Dušek, xdusek27}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Popis zadání}
+	Úkolem projektu bylo nastudovat si detaily protokolu DNS, systému DNS obecně a následně naprogramovat v~jazyce C/C++ nástroj, který se za pomocí síťové knihovny BSD sockets dotazuje systému DNS a realizuje překlad doménových jmen a IP adres.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Uvedení do problematiky}
+
+	\subsection{Domain Name System}
+	DNS (Domain Name System) je hierarchický systém doménových jmen, který je realizován servery DNS a protokolem stejného jména, kterým si vyměňují informace. Jeho hlavním úkolem jsou vzájemné převody doménových jmen a IP adres sítě. Slouží de facto jako distribuovaná databáze síťových informací.
+
+
+
+	\subsection{Sestavení dotazu}
+
+	Naše aplikace naváže přes BSD socket komunikaci s~DNS serverem, který ji byl předán uživatelem jako jeden z~parametrů. Aplikace sestaví zprávu (message), která musí přesně odpovídat následujícímu formátu.
+
+	\begin{table}[H]
+		\centering
+		\begin{TAB}(r,3cm,0.9cm)[5pt]{|c|}{|c|c|c|c|c|}
+		%(rows,min,max)[tabcolsep]{columns}{rows}
+			Header \\
+			Question \\
+			Answer \\
+			Authority \\
+			Additional \\
+		\end{TAB}
+		% \caption{Formát DNS zprávy}
+	\end{table}
+
+	Od serveru budeme chtít zjistit IP adresu doménového jména, který uživatel zadal jako další parametr při spuštění programu. Na server tedy budeme chtít odeslat dotaz (query). Asi není překvapením, že při sestavování dotazu, zůstanou sekce Answer, Authority a Additional prázdné. \\
+
+	Jako první nastavíme Header zprávy, ten má pevně danou velikost (12B) a má následující strukturu.
+
+	\begin{table}[H]
+		\centering
+		\begin{TAB}(r,3cm,0.9cm)[5pt]{|c|}{|c|c|c|c|c|c|}
+		%(rows,min,max)[tabcolsep]{columns}{rows}
+			ID \\
+			QR \textbf{|} Opcode \textbf{|} AA \textbf{|} TC \textbf{|} RD \textbf{|} RA \textbf{|} Z~\textbf{|} RCODE \\
+			QDCOUNT \\
+			ANCOUNT \\
+			NSCOUNT \\
+			ARCOUNT \\
+		\end{TAB}
+		% \caption{Formát sekce Header}
+	\end{table}
+
+	\path{ID} je identifikátor dotazu (16\,bitové číslo), odpověď na něho bude mít stejný. Flag \path{QR} specifikuje jestli se jedná o~dotaz nebo odpověď (response). \path{RCODE} je kód odpovědi, má hodnotu 0 pokud nenastala žádná chyba. \path{QDCOUNT} udává počet dotazů v~sekci Question. \path{ANCOUNT}, \path{NSCOUNT} a \path{ARCOUNT} udávají počet zdrojových záznamů (Resource Record) v~sekcích Answer, Authority a Additional. Při dotazu mají hodnotu 0. \\
+
+	Dále je potřeba nastavit sekci Question, ta má následující formát.
+
+	\begin{table}[H]
+		\centering
+		\begin{TAB}(r,3cm,0.9cm)[5pt]{|c|}{|c|c|c|}
+		%(rows,min,max)[tabcolsep]{columns}{rows}
+			QNAME \\
+			QTYPE \\
+			QCLASS \\
+		\end{TAB}
+		% \caption{Formát sekce Question}
+	\end{table}
+
+	\path{QNAME} je proměnné délky (až 255\,bytů) a obsahuje doménové jméno na které se dotazujeme. \path{QTYPE} značí typ požadovaného záznamu (je zadán uživatelem jako parametr, např. A\,--\,IPv4) a \path{QCLASS} třídu požadovaného záznamu (1\,--\,Internet). To je vše co ve zprávě musíme nastavit, následně dotaz odešleme na server.
+
+
+
+	\subsection{Zpracování odpovědi}
+
+	Aplikace poté čeká na odpověď serveru. Dobu čekání specifikuje uživatel přes parametr, nebo je použita výchozí hodnota. Server vrátí zprávu a vyplní zbylé tři sekce (Resource records), ty mají následující formát. Počet záznamů a další informace server specifikuje v~Headeru.
+
+	\begin{table}[H]
+		\centering
+		\begin{TAB}(r,3cm,0.9cm)[5pt]{|c|}{|c|c|c|c|c|c|}
+		%(rows,min,max)[tabcolsep]{columns}{rows}
+			RRNAME \\
+			RRTYPE \\
+			RRCLASS \\
+			TTL \\
+			RDLENGTH \\
+			RDATA \\
+		\end{TAB}
+		% \caption{Formát sekce Resource Record}
+	\end{table}
+
+	\path{RRNAME} je proměnné délky a jedná se o~doménové jméno na které se aplikace ptala. \path{RRTYPE} specifikuje typ dat v~\path{RDATA}. \path{RRCLASS} specifikuje třídu dat v~\path{RDATA}. \path{TTL} (time to live) udává jak dlouho může být záznam uložen v~cache. Po vypršení by měl zaniknout, protože se mezitím mohl změnit. \path{RDLENGTH} značí velikost dat v~\path{RDATA}. A~konečně \path{RDATA} jsou informace o~které jsme server žádali. Například požadovali jsme záznam typu A, třídy IN, bude zde uložena IPv4 adresa doménového jména.
+
+
+
+	\subsection{Způsob dotazování}
+
+	Dotazování může probíhat dvěma způsoby -- rekurzivně, nebo iterativně.
+	\medskip
+
+	V~případě rekurzivního dotazování aplikace pošle DNS serveru pouze jeden dotaz. Server jej zpracuje a pokud nezná odpověď, sám zasílá dotazy dalším serverům. V~případě zjištění odpovědi na původní dotaz ji odešle klientovi.
+	\medskip
+
+	U~iterativního dotazování aplikace pošle DNS serveru dotaz a ten vrátí buďto odpověď nebo adresu dalšího serveru, který by odpověď mohl znát. Aplikace se poté ptá dalších serverů až dokuď nedostane odpověď nebo má komu zasílat dotazy.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Implementace}
+
+	\subsection{Popis implementace}
+
+	Aplikace je napsaná v~jazyce C/C++ podle nejnovějšího standardu C++17. Síťová komunikace využívá UDP protokol a je realizována pomocí BSD socketů na portu 53, na kterém DNS servery pracují.
+
+	Parametry příkazové řádky jsou ošetřeny pomocí funkce \path{getopt()} a je povoleno jejich libovolné pořadí. Timeout je řešen nastavením socketu na daný čas čekání na odpověď pomocí funkce \path{setsockopt()}. Odeslání zprávy na server je řešeno funkcí \path{sendto()} a přijmutí odpovědi funkcí \path{recvfrom()}. Odpověď se poté rozklíčuje a v~případě úspěchu je vypsán záznam na \path{STDOUT} v~následujícím tvaru:
+
+	\begin{center}
+		\path{<name> IN <type> <answer>\n}
+	\end{center}
+
+	Nastane li chyba v~kterékoliv části programu je zavolána funkce \path{error()}, která vypíše příslušnou chybovou zprávu na \path{STDERR} a ukončí program s~odpovídajícím chybovým kódem.
+	\medskip
+
+	Implementace je blíže popsána v~hlavičkových souborech.
+
+	\subsection{Návratové kódy}
+	\begin{itemize}
+		\item 0 -- úspěch, uspokojující odpověď serveru
+		\item 1 -- neúspěch, neexistující záznam nebo vypršení timeoutu
+		\item 2 -- chybné zadání parametrů aplikace
+		\item 3 -- interní chyba (např. chyba alokace paměti)
+		% \item 99 -- neočekáváná chyba
+	\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Použití}
+
+	\subsection{Překlad}
+
+		Překlad programu probíhá pomocí UNIXové utility make podle přiloženého Makefile.
+
+		\begin{description}
+			\item \path{$ make} -- pro překlad programu
+			\item \path{$ make clean} -- pro smazání všech objektových souborů
+			\item \path{$ make clean-all} -- pro smazání všech objektových a binárních souborů
+			\item \path{$ make pack} -- pro zabalení všech zdrojových a hlavičkových souborů, Makefile a dokumentace
+		\end{description}
+
+
+
+	\subsection{Spuštění}
+
+		\path{$ ./ipk-lookup [-h]}
+		\smallskip
+
+		\path{$ ./ipk-lookup -s server [-T timeout] [-t type] [-i] name}
+		\smallskip
+
+		\begin{itemize}
+			\item \path{-h (help)} -- volitelný parametr, při jeho zadání se vypíše nápověda
+			\item \path{-s server} -- povinný parametr, IPv4 adresa DNS serveru, kterého se budeme dotazovat
+			\item \path{-T timeout} -- volitelný parametr, doba čekání (v~sekundách) na odpověď serveru, výchozí hodnota je 5 sekund
+			\item \path{-t type} -- volitelný parametr, typ dotazovaného záznamu (A~(výchozí), AAAA, NS, PTR, CNAME)
+			\item \path{-i (iterative)} -- volitelný parametr, iterativní způsob rezoluce (výchozí rekurzivní)
+			\item \path{name} -- povinný parametr, překládané doménové jméno, v~případě záznamu typu PTR se jedná o~IPv4 nebo IPv6 adresu
+		\end{itemize}
+
+		Všechny parametry mohou být zadávány v~libovolném pořadí a je možná jejich libovolná kombinace. Pouze parametr pro výpis nápovědy (-h) musí být zadán samostatně.
+		\bigskip
+
+
+	\subsection{Příklady spuštění}
+		\begin{framed}
+			\path{$ ./ipk-lookup -s 8.8.4.4 www.fit.vutbr.cz} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			www.fit.vutbr.cz. IN A 147.229.9.23
+		\end{framed}
+
+		\begin{framed}
+			\path{$ ./ipk-lookup -s 8.8.8.8 -t AAAA www.sport.cz} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			www.sport.cz. IN AAAA 2a02:598:2::63
+		\end{framed}
+
+		\begin{framed}
+			\path{$ ./ipk-lookup -s 8.8.4.4 -t AAAA www.vladsminds.blogspot.com} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			www.vladsminds.blogspot.com. IN CNAME blogspot.l.googleusercontent.com. \\
+			blogspot.l.googleusercontent.com. IN AAAA 2a00:1450:4014:80c::2001
+		\end{framed}
+
+		\begin{framed}
+			\path{$ ./ipk-lookup -s 8.8.4.4 -t CNAME -T 3 www.kn.vutbr.cz} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			www.kn.vutbr.cz. IN CNAME web.kn.vutbr.cz.
+		\end{framed}
+
+		\begin{framed}
+			\path{$ ./ipk-lookup -s 8.8.8.8 -t PTR -T 4 147.229.13.249} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			249.13.229.147.in-addr.arpa. IN PTR pc-cznic1.fit.vutbr.cz.
+		\end{framed}
+
+		\begin{framed}
+			\path{$ ./ipk-lookup -s 8.8.8.8 -t PTR 2001:67c:1220:8b0::93e5:b013} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			3.1.0.b.5.e.3.9.0.0.0.0.0.0.0.0.0.b.8.0.0.2.2.1.c.7.6.0.1.0.0.2.ip6.arpa. IN PTR merlin6.fit.vutbr.cz.
+		\end{framed}
+		\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Další informace}
+
+	Program se skládá z~následujících zdrojových souborů:
+	\begin{description}
+		\item \path{main.cpp} -- main, volá zpracování parametrů, poté předá řízení programu modulu lookup
+		\item \path{lookup.cpp}, \path{lookup.h} -- hlavní modul, komunikuje s~DNS servery, sestavuje a zpracovává zprávy
+		\item \path{config.cpp}, \path{config.h} -- zpracovává parametry programu
+		\item \path{error.cpp}, \path{error.h} -- vypisuje chybové hlášení a ukončuje programu v~případě chyby
+		\item \path{Makefile}
+	\end{description}
+	Celkem se jedná o~797 řádků zdrojového kódu. Velikost výsledného binárního souboru \path{ipk-lookup} je 29.9\,kB.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\renewcommand{\refname}{Zdroje}
+\addcontentsline{toc}{section}{Zdroje}
+\begin{thebibliography}{9}
+
+\bibitem{bl}
+	Simon Lewis,
+	DNS messages [online],
+	2013-10-31,
+	\url{https://justanapplication.wordpress.com/category/dns/dns-messages/dns-message-format/dns-message-header-format//},
+	[cit. 2018-04-09]
+
+\bibitem{bl}
+	Silver Moon,
+	DNS Query Code in C with linux sockets [online],
+	2011-10-21,
+	\url{https://www.binarytides.com/dns-query-code-in-c-with-linux-sockets/},
+	[cit. 2018-04-09]
+
+\bibitem{bl}
+	Network Working Group,
+	RFC 1035 - Domain names - implementation and specification [online],
+	1987-11,
+	\url{http://www.faqs.org/rfcs/rfc1035.html/},
+	[cit. 2018-04-09]
+
+\bibitem{bl}
+	Wikipedia contributors,
+	List of DNS record types [online],
+	2018-04-06,
+	\url{https://en.wikipedia.org/wiki/List_of_DNS_record_types/},
+	[cit. 2018-04-09]
+
+\bibitem{bl}
+	Wikipedia contributors,
+	Reverse DNS lookup [online],
+	2018-03-02,
+	\url{https://en.wikipedia.org/wiki/Reverse_DNS_lookup/},
+	[cit. 2018-04-09]
+
+\bibitem{bl}
+	Wikipedia contributors,
+	Domain Name System [online],
+	2018-04-07,
+	\url{https://en.wikipedia.org/wiki/Domain_Name_System/},
+	[cit. 2018-04-09]
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

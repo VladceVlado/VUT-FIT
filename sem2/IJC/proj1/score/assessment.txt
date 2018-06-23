@@ -1,0 +1,14 @@
+[C1]   Neuzavre zdroje - chyby volani va_end
+[Z0.5] Vypise jen devet prvocisel
+[Z1]   ba_get_bit a ba_set_bit nekontroluji meze pole -> je treba mit kontrolu index >= size, nikoliv index > size.
+[C1]   U steganografie vypisuje jeden znak binarniho smeti navic
+[Z1]   Neprosel test na ppm_write -> negeneruje ocekavany PPM obrazky
+--------------------------------------------------
+Celkove hodnoceni:
+--------------------------------------------------
+10.5 bodu
+--------------------------------------------------
+Doporuceni
+--------------------------------------------------
+Zkuste si adaptovat styl komentovani kodu a jeho struktury podle generatoru dokumentace (napr. Doxygen)
+BA_ makra maji pracovat nad libovolnymi poli, i nad temi, ktere nemaji v prvnim prvku ulozenou delku

@@ -1,0 +1,26 @@
+.ippcode18 #...
+
+#hromada ok instrukci
+
+
+MOVE GF@abc1 int@123
+
+and GF@sem bool@true bool@false
+
+or LF@asem LF@tohle TF@atohle
+
+and TF@aasem LF@to bool@true
+
+or GF@aaasem bool@false LF@tadyto
+
+nOt GF@aaasemmm bool@false
+
+nOt LF@this GF@asdf
+
+not TF@fdsm int@1
+
+or LF@fdsm string@1asdfg23 GF@aaaa
+
+and GF@sem bool@true int@123
+
+

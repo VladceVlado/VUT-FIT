@@ -1,0 +1,7 @@
+0:d_empty1: prazdny adresar
+# ./dirgraph dir <stdin >>stdout 2>>stderr; echo $? >>errcode
+# diff -u stderr.ref stderr
+#   --- stderr.ref
+#   +++ stderr
+#   @@ -0,0 +1 @@
+#   +./dirgraph: line 460: [: -ne: unary operator expected

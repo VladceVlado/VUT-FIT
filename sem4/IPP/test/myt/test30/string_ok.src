@@ -1,0 +1,28 @@
+.ippcode18 
+
+# string ok
+
+move GF@var1 string@abcd
+
+move GF@var2 string@1234
+
+move GF@var3 string@~!`@$%^&*()_-+={[}]:;"'|<,>.?
+
+move GF@var4 string@abc/123def
+
+move GF@vvv string@ # prazdny retezec
+
+move GF@vvv string@/000
+
+move GF@vvv string@/999
+
+move GF@vvv string@/123
+
+
+
+
+
+
+
+
+

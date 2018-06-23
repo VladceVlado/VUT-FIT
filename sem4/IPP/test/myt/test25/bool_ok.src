@@ -1,0 +1,17 @@
+.ippcode18 
+
+# bool ok
+
+write bool@true
+
+dprint bool@false
+
+and GF@a bool@true bool@false
+
+
+
+
+
+
+
+

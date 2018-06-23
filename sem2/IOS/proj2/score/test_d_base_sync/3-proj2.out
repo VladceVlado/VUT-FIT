@@ -1,0 +1,134 @@
+1       : C 1   : started
+2       : C 1   : waiting : 0   : 0   
+3       : C 2   : started
+4       : C 2   : waiting : 0   : 0   
+5       : C 3   : started
+6       : C 3   : waiting : 0   : 0   
+7       : A 1   : started
+8       : A 1   : enter
+9       : C 1   : enter
+10      : C 2   : enter
+11      : C 3   : enter
+12      : C 4   : started
+13      : C 4   : waiting : 1   : 3   
+14      : C 5   : started
+15      : C 5   : waiting : 1   : 3   
+16      : C 6   : started
+17      : C 6   : waiting : 1   : 3   
+18      : A 2   : started
+19      : A 2   : enter
+20      : C 4   : enter
+21      : C 5   : enter
+22      : C 6   : enter
+23      : C 1   : trying to leave
+24      : C 1   : leave
+25      : C 2   : trying to leave
+26      : C 2   : leave
+27      : C 3   : trying to leave
+28      : C 3   : leave
+29      : C 7   : started
+30      : C 7   : enter
+31      : C 8   : started
+32      : C 8   : enter
+33      : A 1   : trying to leave
+34      : A 1   : waiting : 2   : 5   
+35      : C 9   : started
+36      : C 9   : enter
+37      : C 4   : trying to leave
+38      : C 4   : leave
+39      : C 5   : trying to leave
+40      : C 5   : leave
+41      : C 6   : trying to leave
+42      : C 6   : leave
+43      : A 1   : leave
+44      : A 3   : started
+45      : A 3   : enter
+46      : C 10  : started
+47      : C 10  : enter
+48      : C 7   : trying to leave
+49      : C 7   : leave
+50      : A 2   : trying to leave
+51      : A 2   : leave
+52      : C 8   : trying to leave
+53      : C 8   : leave
+54      : C 9   : trying to leave
+55      : C 9   : leave
+56      : C 11  : started
+57      : C 11  : enter
+58      : C 10  : trying to leave
+59      : C 10  : leave
+60      : C 12  : started
+61      : C 12  : enter
+62      : A 4   : started
+63      : A 4   : enter
+64      : C 13  : started
+65      : C 13  : enter
+66      : A 3   : trying to leave
+67      : A 3   : leave
+68      : C 11  : trying to leave
+69      : C 11  : leave
+70      : C 12  : trying to leave
+71      : C 12  : leave
+72      : C 14  : started
+73      : C 14  : enter
+74      : A 5   : started
+75      : A 5   : enter
+76      : C 13  : trying to leave
+77      : C 13  : leave
+78      : A 4   : trying to leave
+79      : A 4   : leave
+80      : C 15  : started
+81      : C 15  : enter
+82      : C 14  : trying to leave
+83      : C 14  : leave
+84      : C 17  : started
+85      : C 17  : enter
+86      : C 16  : started
+87      : C 16  : enter
+88      : C 15  : trying to leave
+89      : C 15  : leave
+90      : C 18  : started
+91      : C 18  : enter
+92      : C 19  : started
+93      : C 19  : waiting : 1   : 3   
+94      : A 5   : trying to leave
+95      : A 5   : waiting : 1   : 3   
+96      : C 17  : trying to leave
+97      : C 17  : leave
+98      : C 16  : trying to leave
+99      : C 16  : leave
+100     : C 20  : started
+101     : C 20  : enter
+102     : C 18  : trying to leave
+103     : C 18  : leave
+104     : C 20  : trying to leave
+105     : C 20  : leave
+106     : A 5   : leave
+107     : C 19  : enter
+108     : C 19  : trying to leave
+109     : C 19  : leave
+110     : C 19  : finished
+111     : C 1   : finished
+112     : C 3   : finished
+113     : C 4   : finished
+114     : A 1   : finished
+115     : C 5   : finished
+116     : C 2   : finished
+117     : C 7   : finished
+118     : A 2   : finished
+119     : C 6   : finished
+120     : C 8   : finished
+121     : C 9   : finished
+122     : C 10  : finished
+123     : A 3   : finished
+124     : C 11  : finished
+125     : C 13  : finished
+126     : C 12  : finished
+127     : A 4   : finished
+128     : C 14  : finished
+129     : C 15  : finished
+130     : C 17  : finished
+131     : C 16  : finished
+132     : C 18  : finished
+133     : C 20  : finished
+134     : A 5   : finished

@@ -1,0 +1,136 @@
+#!/bin/bash
+
+export PROJ_NAME="ifj17"
+
+###
+# expects two parameters
+#
+# $1 message to stderr
+# $2 exit code
+###
+function panic {
+	echo $1 >&2
+	exit $2
+}
+
+###
+# Checks directories of the project
+# - When src/ or test/ is missing script exits with error code 2.
+# - Directory build/ is created if it is not present.
+###
+function check_directories {
+	test -d "$SRC_DIR" || panic "$SRC_DIR: no such directory" 2
+	test -d "$TEST_DIR" || panic "$TEST_DIR: no such directory" 2
+
+	# To obtain absolute adress of src/ and test/
+	# Absolute adress is needed for Makefile to be
+	# able to locate object files.
+	TPWD=$PWD
+	cd "$SRC_DIR" && export SRC_DIR="$PWD"
+	cd "$TPWD"
+	cd "$TEST_DIR" && export TEST_DIR="$PWD"
+	cd "$TPWD"
+
+	test -d "$BUILD" || mkdir "$BUILD"
+	test -d "$BUILD/src" || mkdir "$BUILD/src"
+	test -d "$BUILD/test" || mkdir "$BUILD/test"
+}
+
+###
+# Checks presence of Makefile in directories src/ and test/
+# When Makefile is not present script exits with error code 2
+###
+function check_makefiles {
+	test -f "$SRC_DIR/Makefile" || panic "$SRC_DIR: no Makefile present" 2
+	test -f "$TEST_DIR/Makefile" || panic "$TEST_DIR: no Makefile present" 2
+}
+
+###
+# Returns list of object files in directory passed as first argument.
+# If second argument is provided it is considered to be regex excluding
+# files that match.
+###
+function get_obj_files {
+	test -z $2 && printf "`find $1 | grep "\.o$" | tr '\n' ' '`"
+	test -z $2 || printf "`find $1 | grep "\.o$" |grep -v $2 | tr '\n' ' '`"
+}
+
+###
+# Returns absolute adress of dep.list in directory passed
+# to function as first argument .
+###
+function get_dep_list {
+	printf "`find $1 | grep "dep.list$" | tr '\n' ' '`"
+}
+
+###
+# Builds project
+###
+function build_project {
+	SRC_DEP="$(get_dep_list "$BUILD/src")"
+	SRC_OBJ="$(get_obj_files "$BUILD/src")"
+
+	test -z "$SRC_DEP" || (mv $SRC_DEP "$SRC_DIR")
+	test -z "$SRC_OBJ" || (mv $SRC_OBJ "$SRC_DIR")
+
+	test -f "$BUILD/$PROJ_NAME" && (mv "$BUILD/$PROJ_NAME" "$SRC_DIR/")
+
+	(cd $SRC_DIR && make -j)
+
+	test -f "$SRC_DIR/$PROJ_NAME" || panic "Missing project executable!" 8
+	mv "$SRC_DIR/$PROJ_NAME" "$BUILD/"
+
+	SRC_DEP="$(get_dep_list "$SRC_DIR")"
+	SRC_OBJ="$(get_obj_files "$SRC_DIR")"
+
+	test -z "$SRC_DEP" || (mv $SRC_DEP "$BUILD/src")
+	test -z "$SRC_OBJ" || (mv $SRC_OBJ "$BUILD/src")
+}
+
+###
+# Builds test-suite
+###
+function build_tests {
+	TEST_DEP="$(get_dep_list "$BUILD/test")"
+	TEST_OBJ="$(get_obj_files "$BUILD/test")"
+
+	test -z "$TEST_DEP" || (mv $TEST_DEP "$TEST_DIR")
+	test -z "$TEST_OBJ" || (mv $TEST_OBJ "$TEST_DIR")
+
+	test -f "$BUILD/test-suite" && (mv "$BUILD/test-suite" "$TEST_DIR/")
+
+	export SRC_OBJ="$(get_obj_files "$BUILD/src" "$PROJ_NAME\.o")"
+	(cd $TEST_DIR && make -j)
+
+	test -f "$TEST_DIR/test-suite" || panic "Missing test-suite executable!" 8
+	mv "$TEST_DIR/test-suite" "$BUILD/"
+
+	TEST_DEP="$(get_dep_list "$TEST_DIR")"
+	TEST_OBJ="$(get_obj_files "$TEST_DIR")"
+
+	test -z "$TEST_DEP" || (mv $TEST_DEP "$BUILD/test")
+	test -z "$TEST_OBJ" || (mv $TEST_OBJ "$BUILD/test")
+}
+
+###
+# Main function of the script
+###
+function main {
+	build_project
+	build_tests
+	exit 0
+}
+
+# If it is not defined path to test/ end src/ enviroment
+# scripts assumes that the directories are in current
+# working directory
+test -z "$SRC_DIR" && export SRC_DIR="$PWD/src"
+test -z "$TEST_DIR" && export TEST_DIR="$PWD/test"
+
+export BUILD="$PWD/build"
+export CFLAGS=-DIFJ17_DEBUG
+
+check_directories
+check_makefiles
+
+main

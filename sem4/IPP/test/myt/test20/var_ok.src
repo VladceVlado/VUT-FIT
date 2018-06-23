@@ -1,0 +1,17 @@
+.ippcode18 
+
+# var chyba
+# spec chars: _-$&%*
+
+move GF@qwertyuioipoasdfghjklzxcvbnm LF@_1234567890
+add TF@_-$&%*4879 GF@_-$&%*00 LF@_-$&%*qwer
+sub LF@_ GF@- TF@$
+
+
+
+
+
+
+
+
+

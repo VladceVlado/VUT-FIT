@@ -1,0 +1,23 @@
+14:celkem bodu za projekt
+#-- automaticke hodnoceni -----------------------------
+= make
+:ok:make
+= prepare tests: resources
+= base_* : zakladni testy
+:ok:test_a_base_counter: navratovy kod je 0
+0:fail:test_a_base_counter
+2:ok:test_b_base_child: posloupnost C ok
+2:ok:test_c_base_adult: posloupnost A ok
+6:ok:test_d_base_sync: synchronizace
+6:ok:test_l_sleep_sync: synchronizace
+= test spravneho ukonceni pri chybe
+2:ok:test_o_error_1: osetreni chybneho vstupu (CGT=6000)
+2:ok:test_p_error_2: osetreni selhani systemoveho volani (fork)
+= resources
+2:ok: pocet procesu ok (5, mel by byt 5)
+0:fail: chybny pocet volani wait (waitpid) (4, mel by byt 5)
+2:ok: pripojeni ke sdilene pameti a uvolneni je korektni
+2:ok: pojmenovane semafory se rusi
+#------------------------------------------------------
+26:celkove score (max pro hodnoceni 28)
+14:celkem bodu za projekt

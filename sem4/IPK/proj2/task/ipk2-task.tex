@@ -1,0 +1,192 @@
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{pdfpages}
+\usepackage[obeyspaces]{url}
+\usepackage{framed}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section*{IPK 2017/2018 - Projekt č.2}
+
+\section*{Varianta termínu - Varianta 3: DNS Lookup nástroj (Kučera)}
+\bigskip
+
+
+
+\subsection*{Společná část popisu}
+
+\subsubsection*{\textbf{Zadání}}
+
+Úkolem projektu je:
+
+\begin{enumerate}
+	\item Nastudovat si detaily protokolu DNS, systému DNS obecně a uvést informace relevantní pro řešení projektu v~projektové dokumentaci (až 6 bodů).
+	\item Naprogramovat C/C++ nástroj, který se za pomoci síťové knihovny BSD sockets dotazuje systému DNS a realizuje překlad doménových jmen a IP adres (až 14 bodů).
+\end{enumerate}
+
+\subsubsection*{\textbf{Konvence odevzdaného zip archivu xlogin00.zip}}
+
+\begin{itemize}
+	\item dokumentace.pdf - výstupy zadání [1]
+	\item readme - základní informace, případná omezení projektu
+	\item Makefile
+	\item *.c, *.cpp, *.cc, *.h - zdrojové a hlavičkové soubory výstupů zadání [2]
+\end{itemize}
+
+
+
+\subsection*{Upřesnění zadání}
+
+
+\textbf{Ad [1]}
+
+Dokumentace bude obsahovat titulní stranu, obsah a logicky strukturovaný text, v~rámci kterého se objeví: uvedení do problematiky systému DNS, přehled nastudovaných informací z~literatury (formát DNS dotazu, odpovědi, způsob komprese zpráv, rekurzivní/iterativní způsob dotazování), návrh aplikace, popis významných a zajímavých pasáží implementace (řešení timeoutu), návod pro použití programu, popis případných rozšíření nad rámec zadání a použitá literatura.
+
+Při psaní dokumentace se obecně řiďte:
+
+\begin{itemize}
+	\item Fakultními pokyny pro psaní práce (\url{http://www.fit.vutbr.cz/info/szz/psani_textu.php.cs}).
+	\item Pravidly pro bibliografické citace (\url{http://www.fit.vutbr.cz/info/szz/bib_citace.php.cs}).
+\end{itemize}
+
+
+\textbf{Ad [2]}
+
+Konvence jména aplikace a použití:
+
+\path{./ipk-lookup [-h]} \\
+\path{./ipk-lookup -s server [-T timeout] [-t type] [-i] name}
+
+\begin{itemize}
+	\item h (help) - volitelný parametr, při jeho zadání se vypíše nápověda a program se ukončí.
+	\item s~(server) - povinný parametr, DNS server (IPv4 adresa), na který se budou odesílat dotazy.
+	\item T (timeout) - volitelný parametr, timeout (v~sekundách) pro dotaz, výchozí hodnota 5 sekund.
+	\item t (type) - volitelný parametr, typ dotazovaného záznamu: A~(výchozí), AAAA, NS, PTR, CNAME.
+	\item i (iterative) - volitelný parametr, vynucení iterativního způsobu rezoluce, viz dále.
+	\item name - překládané doménové jméno, v~případě parametru -t PTR program na vstupu naopak očekává IPv4 nebo IPv6 adresu.
+\end{itemize}
+
+Ve výchozím stavu aplikace pokládá pouze rekurzivní DNS dotazy. V~případě vynucení iterativního dotazu (parametr -i) slouží zadaný server (parametr -s), pouze k~nalezení některého z~kořenových DNS serverů, respektive ke zjištění jeho IP adresy. Následně se už aplikace postupně dotazuje pouze takto nalezených (kořenových) serverů, na které byla vždy delegována správa části DNS prostoru jmen, a to až do získání požadované odpovědi, zjištění, že záznam neexistuje, případně vypršení timeoutu.
+
+
+\subsubsection*{Formát výstupu}
+
+Na standardní výstup vypište výsledek překladu, respektive dílčí odpovědi (následování CNAME, použité NS a A~záznamy při iterativní rezoluci). Jednotlivé záznamy vypisujte v~následujícím tvaru: \\
+
+\path{<name> [ ]+ IN [ ]+<type> [ ]+<answer> \n} \\
+
+Blíže viz příklady použití. V~případě chyby vypište na standardní chybový výstup uživatelsky srozumitelnou chybovou zprávu a program ukončete.
+
+
+\subsubsection*{Návratová hodnota}
+
+Program vrací hodnotu 0 v~případě úspěchu, hodnotu 1 v~případě neúspěchu (neexistující záznam, vypršení timeoutu) a hodnotu 2 pro chybně zadané parametry při spuštění.
+
+
+\subsubsection*{Další doporučení/omezení/pokyny}
+
+\begin{itemize}
+	\item Implementovaná konzolová aplikace bude povinně vypracována v~jazyce C/C++, využít však můžete libovolné a v~systému dostupné standardní knihovny.
+	\item V~projektu se očekává vytvoření DNS dotazu, jeho odeslání na server a zpracování odpovědi zcela ve vlastní režii, pouze s~využitím BSD socketů. Z~tohoto důvodu je zakázáno použití funkcí getaddrinfo(), gethostbyname() a podobných, které řeší překlad doménových jmen.
+	\item Uvažujte pouze třídu IN (Internet) a pouze IPv4 a UDP komunikaci s~DNS servery.
+	\item Pro snadné parsování vstupních parametrů doporučuji použít funkci getopt(), pro načtení, výpis IPv4 nebo IPv6 adres potom funkce: \path{inet_ntop()}, \path{inet_pton()}, případně \path{inet_aton()}, \path{inet_ntoa()}.
+	\item Aplikace v~žádném případě nesmí skončit s~chybou SEGMENTATION FAULT ani jiným násilným systémovým ukončením (např. dělení nulou).
+	\item Zdrojový kód vytvořeného programu by měl být řádně okomentovaný. Pokud přejímáte krátké pasáže zdrojového kód z~různých tutoriálů či příkladů z~Internetu (ne mezi však mezi sebou), je povinné správně vyznačit tyto části a uvést jejich původní autory dle licenčních podmínek, kterými se distribuce daných zdrojových kódů řídí. V~případě nedodržení bude na projekt nahlíženo jako na plagiát!
+	\item Inspirujte se a vyzkoušejte si práci s~nástroji nslookup a dig (parametr +trace). Zachyťte si daný provoz pomocí wireshark.
+	\item Jako referenční stroj pro překlad a otestování využijte školní server merlin.fit.vutbr.cz. Výsledky vaší implementace by však měly být co možná nejvíce multiplatformní a přenositelné i mezi různými unix-like operačními systémy.
+	\item Pokud v~projektu nestihnete implementovat všechny požadované vlastnosti, je nutné veškerá omezení jasně uvést v~dokumentaci a v~souboru README - na dokumentovanou chybu se rozhodně nahlíží v~lepším světle než na nedokumentovanou.
+\end{itemize}
+
+
+
+\subsection*{Příklady použití}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 www.fit.vutbr.cz} \\
+	\texttt{www.fit.vutbr.cz. IN A 147.229.9.23} \\
+	\textit{(exit code 0)}
+\end{framed}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 -t AAAA -i www.fit.vutbr.cz} \\
+	\texttt{ . IN NS j.root-servers.net \\
+	j.root-servers.net.	IN	A~192.58.128.30 \\
+	cz.	IN	NS	c.ns.nic.cz. \\
+	c.ns.nic.cz.	IN	A~194.0.14.1 \\
+	vutbr.cz.	IN	NS	pipit.cis.vutbr.cz. \\
+	pipit.cis.vutbr.cz.	IN	A~77.93.219.110 \\
+	fit.vutbr.cz.	IN	NS	guta.fit.vutbr.cz. \\
+	guta.fit.vutbr.cz.	IN	A~147.229.9.11 \\
+	www.fit.vutbr.cz.	IN	AAAA	2001:67c:1220:809::93e5:917 \\ }
+	\textit{(exit code 0)}
+\end{framed}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 www4.fit.vutbr.cz} \\
+	\texttt{www4.fit.vutbr.cz.	IN	CNAME	tereza.fit.vutbr.cz. \\
+	tereza.fit.vutbr.cz.	IN	A	147.229.9.22 \\ }
+	\textit{(exit code 0)}
+\end{framed}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 -t CNAME www4.fit.vutbr.cz} \\
+	\texttt{www4.fit.vutbr.cz.	IN	CNAME	tereza.fit.vutbr.cz \\ }
+	\textit{(exit code 0)}
+\end{framed}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 -t AAAA www4.fit.vutbr.cz} \\
+	\texttt{www4.fit.vutbr.cz. IN CNAME tereza.fit.vutbr.cz \\ }
+	\textit{(exit code 1)}
+\end{framed}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 -t PTR 2001:67c:1220:8b0::93e5:b013} \\
+	\texttt{3.1.0.b.5.e.3.9.0.0.0.0.0.0.0.0.0.b.8.0.0.2.2.1.c.7.6.0.1.0.0.2.ip6.arpa. IN PTR merlin6.fit.vutbr.cz \\ }
+	\textit{(exit code 0)}
+\end{framed}
+
+\begin{framed}
+	\path{~$ ./ipk-lookup -s 8.8.8.8 -t PTR -i 147.229.13.238} \\
+	\texttt{.	IN	NS	m.root-servers.net. \\
+	m.root-servers.net.	IN	A	202.12.27.33 \\
+	in-addr.arpa.	IN	NS	b.in-addr-servers.arpa \\
+	b.in-addr-servers.arpa.	IN	A	199.253.183.183 \\
+	147.in-addr.arpa.	IN	NS	r.arin.net \\
+	net.	IN	NS	j.gtld-servers.net \\
+	j.gtld-servers.net.	IN	A	192.48.79.30 \\
+	arin.net.	IN	NS	ns1.arin.net \\
+	ns1.arin.net.	IN	A	199.212.0.108 \\
+	r.arin.net.	IN	A	199.180.180.63 \\
+	229.147.in-addr.arpa.	IN	NS	ns.ces.net \\
+	ces.net.	IN	NS	nsa.ces.net \\
+	nsa.ces.net.	IN	A	195.113.144.205 \\
+	ns.ces.net.	IN	A	195.113.144.233 \\
+	13.229.147.in-addr.arpa. IN	NS	rhino.cis.vutbr.cz \\
+	rhino.cis.vutbr.cz.	IN	A	147.229.3.10 \\
+	238.13.229.147.in-addr.arpa. IN	PTR	pckucerajan.fit.vutbr.cz \\ }
+	\textit{(exit code 0)}
+\end{framed}
+
+
+
+\subsection*{Literatura}
+
+\begin{itemize}
+	\item P. Mockapetris, RFC 1034: Domain names - concepts and facilities, \url{https://tools.ietf.org/html/rfc1034}
+	\item P. Mockapetris, RFC 1035: Domain names - implementation and specification, \url{https://tools.ietf.org/html/rfc1035}
+	\item S. Thomson, et al., RFC 3596: DNS Extensions to Support IP Version 6, \url{https://tools.ietf.org/html/rfc3596}
+\end{itemize}
+
+
+
+\end{document}

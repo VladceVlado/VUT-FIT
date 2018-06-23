@@ -1,0 +1,15 @@
+0:g_complex: komplexni priklad
+# ./dirgraph -i '\.git' dir <stdin >>stdout 2>>stderr; echo $? >>errcode
+# diff -u stdout.ref stdout
+#   --- stdout.ref
+#   +++ stdout
+#   @@ -15,7 +15,7 @@
+#      data                                       : ############
+#      C source, ASCII text                       : #######
+#      ELF 64-bit LSB relocatable, x86-64, vers...: ######
+#   -  ELF 64-bit LSB executable, x86-64, versi...: ##
+#      makefile script, ASCII text                : ##
+#   -  ASCII text                                 : #
+#   +  ELF 64-bit LSB executable, x86-64, versi...: ##
+#      POSIX tar archive (GNU)                    : #
+#   +  ASCII text                                 : #

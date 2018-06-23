@@ -1,0 +1,74 @@
+% VUT FIT
+% IPP 2017/2018
+% Project: Sada skriptu pro interpretaci nestrukturovaneho imperativniho jazyka IPPcode18
+% Author: Vladimir Dusek, xdusek27 (2BIT)
+% Date: 15/4/2018
+% File: ipk1-doc.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt, a4paper]{article}
+\usepackage{pslatex}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{pdfpages}
+\usepackage{courier}
+\usepackage{titlesec}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+
+	{\Large Implementační dokumentace k~projektu do IPP 2017/2018}
+	\medskip
+
+	{\Large Jméno a příjmení: Vladimír Dušek}
+	\medskip
+
+	{\Large Login: xdusek27}
+
+\end{center}
+
+\subsection*{parse.php}
+	První ze sady skriptů, parse.php je napsaný v~jazyce PHP 5.6 a analyzuje vstupní kód v~jazyce IPPcode18. Provádí lexikální a syntaktické kontroly a generuje výstupní formát tohoto kódu v~XML.
+
+	Skript jsem implementoval bez využití objektově-orientovaného paradigmatu. Snažil jsem se využívat alespoň principy strukturovaného programování a program členit do funkcí.
+
+	Po spuštění skriptu se jako první zavolá funkce \texttt{test\_args} pro ošetření argumentů programu. Pokud nebyl program spuštěn správně, je zavolána funkce \texttt{call\_error}, které se přes parametry upřesní s~jakým návratovým kódem má program ukončit a jakou chybovou zprávu vypsat na standardní chybový výstup. Vyžádal-li si uživatel nápovědu, je zavolána funkce \texttt{call\_help}, která nápovědu vypíše.
+
+	Po ošetření argumentů je volána funkce \texttt{test\_intro}, která zkontroluje formát úvodního řádku. Ten musí obsahovat text ".IPPcode18", kde nezáleží an velikosti písmen. Komentáře a všechny bíle znaky před jsou ignorovány.
+
+	Po těchto kontrolách již následuje čtení kódu ze standardního vstupu po řádcích pomocí funkce \texttt{fgets}. Jsou smazány komentáře (vše do konce řádku za znakem \#) a bílé znaky mezi slovy jsou zredukovány na jednu mezeru. Ta je následně použita jako oddělovač a pro každý řádek získáváme pole slov. První z~těchto slov je operační kód instrukce, následován jejími operandy. Ve switchy tedy rozpoznáme o~jakou instrukci se jedná. Pro dané instrukce jsou poté volány funkce: \texttt{test\_num\_args\_inst} pro zkontrolování počtu operandů, \texttt{test\_var} pro zkontrolování, jestli operand je správně zapsaná proměnná, \texttt{test\_sym} pro symbol a podobně. Po těchto kontrolách je funkcí \texttt{generate\_xml} vygerován XML kód pro danou instrukci, která využívá \texttt{XMLWriter}.
+
+\subsection*{interpret.py}
+	Interpret.py je skript napsaný v~jazyce Python 3.6. Pomocí parametrů je mu předána XML reprezentace kódu v~jazyce IPPcode18, který následně lexikálně, syntakticky i sémenticky zkontroluje a v~případě jeho správnosti jej interpretuje.
+
+	V~tomto skriptu jsem se již snažil využívat principy objektově-orientovaného programování.
+
+	Nejprve je instanciována třída \texttt{Config}, nad kterou je zavolána metoda \texttt{parse\_options}, která zkontroluje správnost argumentů skriptu. V~případě chyby je volána funkce \texttt{error}. Té se podobně jako v~prvním skriptu přes parametry upřesní s~jakým návratovým kódem má program ukončit a jakou chybovou hlášku vypsat.
+
+	Dále jsem implementoval třídu \texttt{ParserXML} ve které se parsuje vstupní soubor v~XML. Je zkontrolována syntaktická správnost souboru a následně je pomocí \texttt{xml.etree.ElementTree} vytvořen strom. Jsou zkontrolovány jednotlivé elementy a soubor je uložen jako seznam instrukcí.
+
+	Instrukce je reprezentována třídou \texttt{Instruction}. Obsahuje atributy pro reprezentaci pořadí instrukce, operačního kódu a seznamu operandů. Dále je definována metoda pro kontrolu počtu operandů.
+
+	Operand instrukce je opět třída (\texttt{Argument}). Obsahuje atribut (\texttt{type} pro typ operandu (var, symb, label, type) a (\texttt{content} pro obsah (identifikátor proměnné, hodnota konstanty). Nad třídou jsou implementovány metody pro kontrolu jestli je operand proměnná, symbol, návěští nebo typ.
+
+	Třída \texttt{Variable} slouží pro vnitřní reprezentaci proměnné. Má funkci pouze jako například struktura z~jazyka C. Obsahuje atributy pro typ (int, string, bool) a hodnotu.
+
+	Poslední a také nejrozsáhlejší třída, je třída \texttt{Interpret}. Obsahuje atributy \texttt{GF}, \texttt{TF}, \texttt{LF} což jsou slovníky a reprezentují rámce. Dále seznam pro instrukce, seznam pro návěští a 3 zásobníky, pro rámce, pro data a pro volání (instrukce CALL a RETURN). Ta je instanciována po naparsování vstupního XML souboru a je ji předán seznam instrukcí. V~metodě \texttt{execute} pak čte jednu instrukci za druhou a volá příslušně metody. Pro každou instrukci je implementována metoda. V~těch se poté provádí většina kontrol a jsou volány další pomocné metody. Například metody pro kontrolování existence rámce, definování proměnné, pro získání nebo uložení hodnoty proměnné nebo získání a uložení jejího typu a podobně.
+
+\subsection*{test.php}
+	Poslední skript je napsán opět v~jazyce PHP 5.6 a slouží pro testování předcházejících dvou skriptů.
+
+	Přes parametry je skriptu zadán adresář s~testama a cesty ke skriptům, které se mají testovat. Dále je možnost hledat testy rekurzivně ve všech podadresářích zadaného adresáře. Každý test obsahuje 4 soubory, případně jsou dogenerovány s~výchozíma hodnotama.
+
+	Po zpracování argumentů jsou nalezeny cesty ke všem .src souborům pomocí funkce \texttt{glob} (případně její rekurzivní variantou) a uloženy do globálního pole \texttt{src\_paths}.
+
+	Dále jsou pro každý test vytvořeny i cesty k~ostatním souborům a je načten očekávaný návratový kód. Tyto informace jsou přes parametry předány funkci \texttt{evaluate\_tests}, která postupně skripty spouští. Jsou li návratové kódy podle očekávání, tak pomocí unixové utility \texttt{diff} zkontroluje i výstup. Nakonec jsem smazány dočasné soubory pro výstupy skriptů.
+
+	Pro provedení všech testů je zavolána funkce \texttt{generate\_html}, která vypíše na standardní výstup výslednou přehledovou stránku v~HTML 5 o~výsledcích jednotlivých testů.
+
+\end{document}

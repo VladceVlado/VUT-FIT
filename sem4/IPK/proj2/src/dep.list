@@ -1,0 +1,4 @@
+main.o: main.cpp lookup.h error.h config.h
+config.o: config.cpp config.h error.h
+error.o: error.cpp error.h
+lookup.o: lookup.cpp lookup.h error.h config.h

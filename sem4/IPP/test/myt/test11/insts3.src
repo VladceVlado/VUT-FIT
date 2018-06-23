@@ -1,0 +1,43 @@
+.ippcode18 #...
+
+#hromada ok instrukci 3
+
+
+LT GF@var1 LF@asdf TF@qwe
+
+GT TF@var2 int@123 LF@bbb
+
+EQ LF@var3 GF@aaa bool@true
+
+LT GF@var4 LF@xdd string@qwe123
+
+LT TF@var5 string@qwe string@123
+
+GT LF@var6 int@1 int@0
+
+LT GF@var7 bool@true bool@false
+
+LT GF@var1 int@1 string@aaaa
+
+EQ GF@var1 string@a123b bool@false
+
+GT GF@var1 int@123 bool@false
+
+stri2int GF@a1 string@sgdfdsadfas int@123
+
+stri2int LF@a2 GF@dddd int@111
+
+stri2int TF@a3 string@sgdfdsadfas LF@varint
+
+stri2int GF@a4 LF@qqqq TF@eeee
+
+stri2int GF@a1 bool@false int@123
+
+stri2int LF@a2 int@000 int@111
+
+stri2int LF@a2 string@xxxxx string@gdgfddfg111
+
+stri2int GF@a4 LF@qqqq bool@true
+
+
+

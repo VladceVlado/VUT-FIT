@@ -1,0 +1,1 @@
+../../src/ipk-lookup -s 8.8.8.8 www.fit.vutbr.cz 2> /dev/null

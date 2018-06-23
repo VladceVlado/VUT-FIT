@@ -1,0 +1,110 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Paralelni GREP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Vytvorte program zalozeny na vlaknech, ktery bude provadet paralelni grep. Vysledna binarka "pgrep" bude mit 1+2i vstupnich parametru (priklady vstupu naleznete v souboru tests.txt):
+
+pgrep MIN_SCORE RE1 SC1 [ RE2 SC2 ] [ RE3 SC3 ] ...
+
+MIN_SCORE: minimalni score
+RE: regularni vyraz
+SC: score ziskane, pokud radka na vstupu splnuje regularni vyraz RE
+
+Minimalni pocet parametru jsou 3, maximalni neni omezen (musi vsak byt liche cislo).
+
+Program pgrep vzdy nacte jednu radku standardniho vstupu a spocita jeji score. Pokud score je alespon MIN_SCORE, tak je radka vypsana na standardni vystup.
+
+Vypocet score:
+1) Pocatecni score pro kazdy radek je 0
+2) Pro kazdy regularni vyraz overime, zda-li radka splnuje reg. vyray REi.
+3) Pokud ano, tak pricteme k aktualnimu score hodnotu SCi (muze byt i zaporna).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Priklad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Mejme nasledujici vstup:
+--------------------------
+Ahoj, tohle je pokus
+jestli to bude fungovat 23
+211 je vysledek
+
+--------------------------
+
+pgrep 3 "Ahoj.*" 1 "[0-9][0-9]* .*" 2 "[^0-9][^0-9]* .*" 3
+
+--------------------------
+Ahoj, tohle je pokus        --- score: 1+3=4
+jestli to bude fungovat 23  --- score: 3
+211 je vysledek             --- score: 2
+                            --- score: 0
+--------------------------
+
+Vypsano tedy bude:
+--------------------------
+Ahoj, tohle je pokus
+jestli to bude fungovat 23
+--------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Vypocet bude probihat nasledovne:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+1) Spusi se "k" vlaken, kazde pro jeden regularni vyraz. Vlakna cekaji, az jim bude predano rizeni hlavnim vlaknem.
+2) Hlavni vlakno nacte jednu radku ze vstupu.
+3) Pokud na vstupu zadna radka nebyla, jsou vsechna vlakna probuzena a korektne ukoncena. Cely program konci.
+4) Rizeni predano vlaknum pro testovani zda-li nactena radka odpovida reg. vyrazu a vlakna __paralelne__ spocitaji score.
+5) Rizeni je predano zpet hlavnimu vlaknu.
+6) Pokud je skore alespon zadane minimum, je radka hlavnim vlaknem vypsana na standardni vystup.
+7) Pokracuje se bodem 2.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Pozadavky na implementaci:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Program musi splnovat nasledujici pozadavky:
+1) Pro kazdy RE na vstupu se na zacatku spusti jedno vlakno a to bezi az do konce
+2) V ramci jednoho vlakna lze provadet dotazy pouze na jeden prideleny RE. 
+3) Pro dotazy na regularni vyrazy pouzijte "#include <regex>" a "std::regex_match(string,regex)" --- viz priklad z democvika na regularni vyrazy.
+3a) Muzete pouzit i jinou knihovnu pro praci s Reg vyrazy.
+4) Pro komunikaci mezi vlakny vyuzijte globalni promenna a pro synchronizaci semafory (pthread mutex, nebo C++ mutex).
+
+Davejte pozor na data race (vstup, score, ...) a deadlock. Neni problem, aby vice vlaken najednou cetlo ze stejne globalni promenne, ale pokud se zapisuje, je treba zajistit atomicitu.
+
+Za ucelem testovani muzete vlozit na vhodna mista do kodu usleep(1). Napr. pred zmenou score, nacteni dalsi radky a podobne. V odevzdanem kodu jiz usleep nebude.
+
+Implementace bude napsana v jazyce C s moznosti pouziti nasledujicich komponent jazyka C++:
+
+- regularni vyrazy z C++11 (#include <regex>)
+- vlakna a zanky z C++11 (#include <thread>, #include <mutex>)
+- pole promenne delky z C++11 (#include <vector>) pro uchovani threadu a zamku.
+- funkce int read_input_line(char *) ze souboru kostra_pgrep.c
+
+Preklad bude provaden bud:
+$ gcc pgrep.c -o pgrep -lpthread
+nebo
+$ g++ pgrep.c -o pgrep -lpthread
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Kostra programu a vzorove reseni
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+V adresari /usr/local/groups/verifikace/IPS-projekt1/ naleznete nasledujici soubory:
+* pgrep - vzorove reseni
+* tests.txt - testy
+* kompilace.txt - jak zkompilovat
+* kostra_pgrep.c - zakladni kostra programu, ze ktere muzete vyjit. Vytvari pole vlaken a pole zanku a nasledne je rusi. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Odevzdani
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Jeden soubor pgrep.c odevzdejte do pondeli 16.10. do 13:55 prostrednictvim WISu k prislusnemu terminu. Na seminari dne 16.10. bude predstaveno vzorove reseni.
+
+Projekt muzete resit ve dvojici s tim, ze do komentare v souboru pgrep.c uvedete jmeno a login spoluautora. Je treba aby oba spoluautori odevzdali reseni do WISu.
+

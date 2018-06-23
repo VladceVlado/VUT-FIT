@@ -1,0 +1,1 @@
+../../src/ipk-lookup -s 192.36.148.17 -t AAAA -i www.fit.vutbr.cz.

@@ -1,0 +1,1 @@
+../../src/ipk-lookup -s 8.8.8.8 -t CNAME www4.fit.vutbr.cz

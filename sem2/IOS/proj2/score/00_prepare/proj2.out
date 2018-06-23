@@ -1,0 +1,15 @@
+1       : A 1   : started
+2       : A 1   : enter
+3       : A 1   : trying to leave
+4       : A 1   : leave
+5       : C 2   : started
+6       : C 2   : enter
+7       : C 2   : trying to leave
+8       : C 2   : leave
+9       : C 1   : started
+10      : C 1   : enter
+11      : C 1   : trying to leave
+12      : C 1   : leave
+13      : C 2   : finished
+14      : C 1   : finished
+15      : A 1   : finished

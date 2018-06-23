@@ -1,0 +1,192 @@
+% VUT FIT
+% IPK 2017/2018
+% Project 1
+% Variant 1: Klient-server pro ziskani informace o uzivatelich
+% Author: Vladimir Dusek, xdusek27 (2BIT)
+% Date: 12/3/2018
+% File: ipk1-doc.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{pdfpages}
+\usepackage[obeyspaces]{url}
+\usepackage{framed}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		% {\Huge\textsc{Vysoké učení technické v~Brně}} \\
+		% \bigskip
+		% {\huge\textsc{Fakulta informačních technologií}} \\
+		\begin{figure}[htb]
+			\centering
+			\includegraphics[width=0.85\hsize]{fitlogo.pdf}
+		\end{figure}
+
+		\vspace{\stretch{0.382}}
+
+		{\LARGE Počítačové komunikace a sítě} \\
+		\bigskip
+		{\Huge Dokumentace k~1.\,projektu} \\
+		\bigskip
+		{\LARGE Varianta 1: Klient-server pro získání informace o~uživatelích}
+		\vspace{\stretch{0.618}}
+
+	\end{center}
+	{\Large \today \hfill Vladimír Dušek, xdusek27}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Popis zadání}
+	Úkolem bylo navrhnout a implementovat klient-server aplikaci v~C/C++ realizující zprostředkování informací o~uživatelích na serveru. Aplikační protokol získává informace o~uživatelích ze souboru \path{/etc/passwd}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Implementace}
+	Jsou implementovány dvě aplikace, jedna pro klienta a druhá pro server. Aplikace jsou napsané v~jazyce C podle nejnovějšího standardu C11. Síťová komunikace využívá TCP protokol a je realizována pomocí BSD socketů. Jsou podporovány pouze IPv4 adresy.
+
+	\subsection{Server}
+	Server je spuštěn s~jedním argumentem a to s~číslem portu na kterém má běžet. Nejprve se ověří korektnost tohoto argumentu, poté se otevře pro čtení soubor \path{/etc/passwd} a inicializují se zdroje pro síťovou komunikaci s~klientem. Server v~nekonečném cyklu čeká na navázání spojení klienta, popř. klientů. Server dokáže obsloužit více klientů zároveň. Nejprve dostane přes socket zprávu ve které klient specifikuje, které informace požaduje. Ty server poté začne číst a postupně je klientovy přes socket odesílat. Server je ukončen zasláním signálu \path{SIGINT}. Na \path{STDOUT} nic netiskne, pouze v~případě chyby tiskne chybové hlášení na \path{STDERR}.
+		\subsubsection{Návratové kódy}
+		\begin{itemize}
+			\item  0 -- Korektní ukončení aplikace (signál \path{SIGINT})
+			\item 10 -- Chybné zadání parametrů aplikace
+			\item 20 -- Chyba při otevírání souboru \path{/etc/passwd}
+			\item 40,\,41,\,43,\,44,\,45,\,46 -- Chyba při volání funkcí pro síťovou komunikaci (\path{socket()}, \path{bind()}, \path{listen()}, \path{accept()}, \path{send()}, \path{recv()})
+			\item 99 -- Chyba alokace paměti
+		\end{itemize}
+
+	\subsection{Klient}
+	Klient vyžaduje 3 argumenty, ip adresu nebo host/domain name serveru, číslo portu na kterém server běží a poslední argument pro spefikaci dat, které bude požadovat. Po ověření korektnosti těchto argumentů klient inicializuje komunikaci se serverem. Připojí se k~němu a přes socket mu zašle zprávu, ve které upřesní které informace si žádá. Klient poté přijímá přes socket zprávy od serveru s~požadovanými informacemi a ty tiskne na \path{STDOUT}. V~případě chyby se ukončí a vytiskne chybové hlášení na \path{STDERR}.
+		\subsubsection{Návratové kódy}
+		\begin{itemize}
+			\item  0 -- Korektní ukončení aplikace
+			\item  1 -- Žádná shoda pro uvedený login
+			\item 10 -- Chybné zadání parametrů aplikace
+			\item 30 -- Chyba při konvertování host/domain name na ip adresu
+			\item 40,\,42,\,45,\,46 -- Chyba při volání funkcí pro síťovou komunikaci (\path{socket()}, \path{connect()}, \path{send()}, \path{recv()})
+			\item 99 -- Chyba alokace paměti
+		\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Spuštění}
+
+	\textbf{Server} \\
+	\path{$ ./ipk-server -p port}
+	\smallskip
+
+	\path{port} -- číslo portu \\
+
+	\textbf{Klient} \\
+	\path{$ ./ipk-client -h host -p port [-n|-f|-l] login}
+	\smallskip
+
+	\path{host} -- host/domain name nebo ip adresa \\
+	\path{port} -- číslo portu \\
+	\path{-n} -- zjištění jména pro zadaný parametr \path{login} \\
+	\path{-f} -- zjištění domovského adresáře pro zadaný parametr \path{login} \\
+	\path{-l} -- vypsání všech loginů, parametr \path{login} zde není povinný, je-li uveden, funguje jako prefix
+
+	\subsection{Příklady spuštění}
+		\begin{framed}
+			\path{bash:~$ ./ipk-server -p 6666} \\
+			\path{bash:~$ ./ipk-client -h localhost -p 6666 -l m} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			man \\
+			mail \\
+			messagebus
+		\end{framed}
+
+		\begin{framed}
+			\path{eva~> ./ipk-server -p 1234} \\
+			\path{bash:~$ ./ipk-client -h eva.fit.vutbr.cz -p 1234 -f xknetl00} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			/homes/eva/xk/xknetl00
+		\end{framed}
+
+		\begin{framed}
+			\path{xdusek27@merlin:~$ ./ipk-server -p 4242} \\
+			\path{bash:~$ ./ipk-client -h merlin.fit.vutbr.cz -p 4242 -n xhosal00} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			Hosala Martin,FIT BIT 2r
+		\end{framed}
+
+		\begin{framed}
+			\path{eva~> ./ipk-server -p 9876} \\
+			\path{xdusek27@merlin:~$ ./ipk-client -h eva.fit.vutbr.cz -p 9876 -l xkuk} \\
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+			-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \\
+			xkukam00 \\
+			xkukan00 \\
+			xkukli03 \\
+			xkukos00 \\
+			xkukuc04
+		\end{framed}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Další informace}
+	Program se sestavuje pomocí utility \path{make} z~následujících zdrojových souborů:
+	\begin{description}
+		\item \path{client.c}
+		\item \path{client.h}
+		\item \path{server.c}
+		\item \path{server.h}
+		\item \path{error.c}
+		\item \path{error.h}
+	\end{description}
+	Celkem se jedná o~825 řádků zdrojového kódu. Velikost výsledných binárních souborů je 18,7\,kB pro \path{ipk-server} a 14,2\,kB pro \path{ipk-client}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\renewcommand{\refname}{Zdroje}
+\addcontentsline{toc}{section}{Zdroje}
+\begin{thebibliography}{9}
+
+\bibitem{bl}
+	Petr Bílek,
+	TCP [online],
+	2014-06-10,
+	\url{https://www.sallyx.org/sally/c/linux/tcp},
+	[cit. 2018-03-12]
+
+\bibitem{bl}
+	K~Hong,
+	SOCKETS - SERVER \& CLIENT - 2018 [online],
+	\url{http://www.bogotobogo.com/cplusplus/sockets_server_client.php#block_vs_non_blocking},
+	[cit. 2018-03-12]
+
+\bibitem{bl}
+	Daniel Scocco,
+	Example of Client-Server Program in C (Using Sockets and TCP) [online],
+	2014-04-22,
+	\url{https://www.programminglogic.com/example-of-client-server-program-in-c-using-sockets-and-tcp/},
+	[cit. 2018-03-12]
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

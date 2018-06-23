@@ -1,0 +1,14 @@
+[Z0.5] [tail] Vypisuje vice radku nez je parametrm.
+[Z0.5] [wordcount] Vypisuje radek navic.
+[Z1]   [htab] Hlavickovy soubor pro htab rozhrani se ma jmenovat htab.h. Neignorujte zadani.
+[Z1]   [htab] Unit testy na htab selhavaji kvuli nekoretne ulozenym hodnotam
+[Z1]   [get_word] nefunguje korektne pro hranicni hodnotu 127 znaku.
+==========================================================
+Hodnoceni =  11 bodu
+==========================================================
+
+==========================================================
+Doporuceni
+==========================================================
+-> Snazte se psat komentare ke vsem funkci vcetne toho, co je vstupem a vystupem.
+

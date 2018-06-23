@@ -1,0 +1,167 @@
+.IFJcode17
+JUMP _MAIN
+
+LABEL Length
+PUSHFRAME
+	CREATEFRAME
+	DEFVAR TF@mujstring
+	POPS TF@mujstring
+	DEFVAR TF@len
+	STRLEN TF@len TF@mujstring
+	PUSHS TF@len
+POPFRAME
+RETURN
+
+LABEL Asc
+PUSHFRAME
+CREATEFRAME
+	DEFVAR TF@ind
+	DEFVAR TF@mojstring
+	POPS TF@ind
+	POPS TF@mojstring
+	DEFVAR TF@jetook
+	PUSHS TF@mojstring	
+	CALL Length 
+	DEFVAR TF@delka	
+	POPS TF@delka
+	LT TF@jetook TF@ind TF@delka
+	JUMPIFEQ INDNENIMIMOINDEXRETEZCEHH TF@jetook bool@true
+	PUSHS int@0
+	POPFRAME
+	RETURN
+	LABEL INDNENIMIMOINDEXRETEZCEHH
+	DEFVAR TF@toret
+	STRI2INT TF@toret TF@mojstring TF@ind
+	PUSHS TF@toret
+POPFRAME
+RETURN
+
+LABEL Chr
+PUSHFRAME
+CREATEFRAME
+	DEFVAR TF@in
+	POPS TF@in
+	DEFVAR TF@vseok	
+	LT TF@vseok TF@in int@256
+	JUMPIFEQ CISLOJEMENSIJAKDVESTEPADESATPET TF@vseok bool@true
+	PUSHS string@42
+	POPFRAME
+	RETURN
+	LABEL CISLOJEMENSIJAKDVESTEPADESATPET
+	DEFVAR TF@ret
+	INT2CHAR TF@ret TF@in
+	PUSHS TF@ret
+POPFRAME
+RETURN
+
+
+LABEL SubStr
+PUSHFRAME
+CREATEFRAME
+	DEFVAR TF@inString
+	DEFVAR TF@startInt
+	DEFVAR TF@charsNum
+	POPS TF@charsNum
+	POPS TF@startInt
+	POPS TF@inString
+	SUB TF@startInt TF@startInt int@1 # diky tomuto davam i < 0
+	# if s == "" or i <= 0: return ""
+	DEFVAR TF@inStringLen
+	PUSHS TF@inString
+	CALL Length
+	POPS TF@inStringLen
+	DEFVAR TF@inStringLenIsZero
+	EQ TF@inStringLenIsZero int@0 TF@inStringLen
+	DEFVAR TF@iLessThenZero
+	LT TF@iLessThenZero TF@startInt int@0
+	DEFVAR TF@all
+	OR TF@all TF@iLessThenZero TF@inStringLenIsZero
+	JUMPIFEQ STARTINTANDINSTRINGISJUSTFINE TF@all bool@false
+		PUSHS string@
+		JUMP KONECTEHLEZATRACENEFUNCESUBSTR
+	LABEL STARTINTANDINSTRINGISJUSTFINE
+	# if n < 0 or n > len(s) - i : return  string[i:]
+	DEFVAR TF@nLessThanZero
+	LT TF@nLessThanZero TF@charsNum int@0
+	DEFVAR TF@lenMinusI
+	DEFVAR TF@iminusOne
+	SUB TF@lenMinusI TF@inStringLen TF@startInt
+	DEFVAR TF@nBiggerThanLenMinusI
+	GT TF@nBiggerThanLenMinusI TF@charsNum TF@lenMinusI
+	DEFVAR TF@bothTwo
+	OR TF@bothTwo TF@nBiggerThanLenMinusI TF@nLessThanZero
+	JUMPIFEQ ALLISSNADOKKAMO TF@bothTwo bool@false
+		DEFVAR TF@returnString
+		MOVE TF@returnString string@
+		DEFVAR TF@tmpChar
+		# while cyklus
+		DEFVAR TF@iIsLessThanStrLen
+		LABEL WHILEONECYKLUSSUBSTR
+			LT TF@iIsLessThanStrLen TF@startInt TF@inStringLen 
+			JUMPIFEQ WHILEONECYKLUSSUBSTRKONEC TF@iIsLessThanStrLen bool@false	
+				GETCHAR TF@tmpChar TF@inString TF@startInt
+				CONCAT TF@returnString TF@returnString TF@tmpChar
+				ADD TF@startInt TF@startInt int@1
+				JUMP WHILEONECYKLUSSUBSTR
+		LABEL WHILEONECYKLUSSUBSTRKONEC
+		PUSHS TF@returnString	
+		JUMP KONECTEHLEZATRACENEFUNCESUBSTR
+	LABEL ALLISSNADOKKAMO
+	# normalni postup
+		DEFVAR TF@returnString
+		MOVE TF@returnString string@
+		DEFVAR TF@tmpChar
+		LABEL WHILESECONDCYKLUSSUBSTR
+			JUMPIFEQ WHILESECONDCYKLUSSUBSTRKONEC TF@charsNum int@0
+			GETCHAR TF@tmpChar TF@inString TF@startInt 
+			CONCAT TF@returnString TF@returnString TF@tmpChar
+			ADD TF@startInt TF@startInt int@1			
+			SUB TF@charsNum TF@charsNum int@1
+			JUMP WHILESECONDCYKLUSSUBSTR		
+		LABEL WHILESECONDCYKLUSSUBSTRKONEC
+		PUSHS TF@returnString
+LABEL KONECTEHLEZATRACENEFUNCESUBSTR
+POPFRAME
+RETURN
+
+LABEL _MAIN
+CREATEFRAME
+WRITE string@test\032len\010
+PUSHS string@ahojtezmrdi
+WRITE string@delka\032retezce\032ahojtezmrdi\032je:
+CALL Length
+DEFVAR TF@ret
+POPS  TF@ret
+WRITE TF@ret
+WRITE string@\010
+
+WRITE string@test\032Asc\010
+PUSHS string@ahojtezmrdi
+PUSHS int@2
+WRITE string@hotnota\032tretiho\032pismena\032v\032ahojtezmrdi\032je:
+CALL Asc
+DEFVAR TF@ret2
+POPS  TF@ret2
+WRITE TF@ret2
+WRITE string@\010
+
+WRITE string@test\032Chr\010
+PUSHS int@111
+WRITE string@char\032hotnota\032111\032je:
+CALL Chr
+DEFVAR TF@ret3
+POPS  TF@ret3
+WRITE TF@ret3
+WRITE string@\010
+
+WRITE string@test\032Substr\010
+PUSHS string@ahojtezmrdi
+PUSHS int@2
+PUSHS int@3
+WRITE string@Substr\032ahojtezmrdi\032[2:3]\032je:
+CALL SubStr
+DEFVAR TF@ret4
+POPS  TF@ret4
+WRITE TF@ret4
+WRITE string@\010
+

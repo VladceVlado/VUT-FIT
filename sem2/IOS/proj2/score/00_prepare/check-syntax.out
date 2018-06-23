@@ -1,0 +1,5 @@
+=== radky, ktere neodpovidaji formatu vystupu
+=== chybejici vystupy
+>> chybejici waiting nemusi nutne znamenat chybu, za urcitych okolnosti nemusi ve vystupu byt <<
+^[1-9][0-9]*:A[1-9][0-9]*:waiting:[0-9][0-9]*:[0-9][0-9]*$
+^[1-9][0-9]*:C[1-9][0-9]*:waiting:[0-9][0-9]*:[0-9][0-9]*$

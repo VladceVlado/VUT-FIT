@@ -1,0 +1,10 @@
+Dokumentace zdrojovych kodu
+
+Vytvorte dokumentaci zdrojovych kodu ke 3. projektu.
+Dokumentaci vytvorte pomoci anotovanych komentaru pro dokumentacni nastroj Doxygen.
+Dokumentaci odevzdejte jako komentovany zdrojovy soubor proj3.h do informacniho systemu. Kostra souboru je dostupna zde: proj3-kostra.h. Pro preklad dokumentace pomoci nastroje doxygen pouzijte konfiguracni soubor Doxyfile.
+Pouzijte minimalne nasledujici klicova slova pro doxygen:
+param a return
+pre a post
+defgroup (pripadne addtogroup)
+

@@ -1,0 +1,65 @@
+14:celkem bodu za projekt
+#-- automaticke hodnoceni -----------------------------
+1:ok: jednoduchy adresar
+1:ok: jednoduche soubory
+1:ok: spusteni bez parametru
+1:ok: soubory s jednou velikosti
+1:ok: soubory s ruznymi velikostmi
+1:ok: normalizovany histogram delek
+1:ok: soubory s jednim typem
+1:ok: soubory s vice typy
+1:ok: normalizovany histogram typu souboru
+0:d_empty1: prazdny adresar
+# ./dirgraph dir <stdin >>stdout 2>>stderr; echo $? >>errcode
+# diff -u stderr.ref stderr
+#   --- stderr.ref
+#   +++ stderr
+#   @@ -0,0 +1 @@
+#   +./dirgraph: line 460: [: -ne: unary operator expected
+1:ok: prazdny soubor
+1:ok: skryte soubory
+1:ok: skryte adresare
+1:ok: filtr -i (BRE)
+1:ok: filtr -i (ERE)
+0:g_complex: komplexni priklad
+# ./dirgraph -i '\.git' dir <stdin >>stdout 2>>stderr; echo $? >>errcode
+# diff -u stdout.ref stdout
+#   --- stdout.ref
+#   +++ stdout
+#   @@ -15,7 +15,7 @@
+#      data                                       : ############
+#      C source, ASCII text                       : #######
+#      ELF 64-bit LSB relocatable, x86-64, vers...: ######
+#   -  ELF 64-bit LSB executable, x86-64, versi...: ##
+#      makefile script, ASCII text                : ##
+#   -  ASCII text                                 : #
+#   +  ELF 64-bit LSB executable, x86-64, versi...: ##
+#      POSIX tar archive (GNU)                    : #
+#   +  ASCII text                                 : #
+0:g_frenzy: castecne zbesile nazvy
+# ./dirgraph dir <stdin >>stdout 2>>stderr; echo $? >>errcode
+# diff -u stdout.ref stdout
+#   --- stdout.ref
+#   +++ stdout
+#   @@ -1,8 +1,8 @@
+#    Root directory: dir
+#   -Directories: 4
+#   -All files: 5
+#   +Directories: 5
+#   +All files: 4
+#    File size histogram:
+#   -  <100 B  : #####
+#   +  <100 B  : ####
+#      <1 KiB  : 
+#      <10 KiB : 
+#      <100 KiB: 
+#   @@ -12,4 +12,4 @@
+#      <1 GiB  : 
+#      >=1 GiB : 
+#    File type histogram:
+#   -  ASCII text                                 : #####
+#   +  ASCII text                                 : ####
+0:ok: docasne soubory
+#------------------------------------------------------
+14:celkove score (max pro hodnoceni 15)
+14:celkem bodu za projekt

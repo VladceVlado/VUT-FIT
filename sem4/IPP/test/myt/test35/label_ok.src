@@ -1,0 +1,28 @@
+.ippcode18 
+
+# label ok
+
+label qwertyuioipoasdfghjklzxcvbnm
+JUMP _1234567890
+jump _-$&%*4879
+lAbEl _-$&%*00
+label _-$&%*qwer
+jump _
+label -
+label $
+label a
+laBeL xxb
+label _123
+LABEL ab*c1*
+label a-b$1
+label _-$&%* # vsechny specialni znaky
+
+
+
+
+
+
+
+
+
+

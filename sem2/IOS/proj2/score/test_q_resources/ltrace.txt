@@ -1,0 +1,219 @@
+22190 __libc_start_main(0x401fe7, 7, 0x7fff02674528, 0x402330 <unfinished ...>
+22190 strtol(0x7fff0267570d, 0x7fff02674390, 10, 0x7fff02674390) = 1
+22190 strtol(0x7fff0267570f, 0x7fff02674390, 10, 0x7fff02674390) = 2
+22190 strtol(0x7fff02675711, 0x7fff02674390, 10, 0x7fff02674390) = 0
+22190 strtoul(0x7fff02675713, 0x7fff02674390, 10, 0x7fff02674390) = 0
+22190 strtoul(0x7fff02675715, 0x7fff02674390, 10, 0x7fff02674390) = 0
+22190 strtoul(0x7fff02675717, 0x7fff02674390, 10, 0x7fff02674390) = 0
+22190 fopen("proj2.out", "w")                    = 0x249f010
+22190 shmget(0, 4, 950, -1)                      = 0x47d8017
+22190 shmget(0, 4, 950, -1)                      = 0x47e0018
+22190 shmget(0, 4, 950, -1)                      = 0x47e8019
+22190 shmget(0, 4, 950, -1)                      = 0x47f001a
+22190 shmget(0, 4, 950, -1)                      = 0x47f801b
+22190 shmget(0, 4, 950, -1)                      = 0x480001c
+22190 shmget(0, 4, 950, -1)                      = 0x480801d
+22190 shmget(0, 1, 950, -1)                      = 0x481001e
+22190 shmat(0x47d8017, 0, 0, -1)                 = 0x7fe7a7ac5000
+22190 shmat(0x47e0018, 0, 0, -1)                 = 0x7fe7a7ac4000
+22190 shmat(0x47e8019, 0, 0, -1)                 = 0x7fe7a7ac3000
+22190 shmat(0x47f001a, 0, 0, -1)                 = 0x7fe7a7ac2000
+22190 shmat(0x47f801b, 0, 0, -1)                 = 0x7fe7a7ac1000
+22190 shmat(0x480001c, 0, 0, -1)                 = 0x7fe7a7ac0000
+22190 shmat(0x480801d, 0, 0, -1)                 = 0x7fe7a7abf000
+22190 shmat(0x481001e, 0, 0, -1)                 = 0x7fe7a7abe000
+22190 sem_open(0x40247a, 192, 438, 1)            = 0x7fe7a7abd000
+22190 sem_open(0x402489, 192, 438, 1)            = 0x7fe7a7abc000
+22190 sem_open(0x402497, 192, 438, 1)            = 0x7fe7a7abb000
+22190 sem_open(0x4024a5, 192, 438, 0)            = 0x7fe7a7aba000
+22190 sem_open(0x4024b5, 192, 438, 0)            = 0x7fe7a7ab9000
+22190 sem_open(0x4024ca, 192, 438, 0)            = 0x7fe7a7ab8000
+22190 sem_open(0x4024df, 192, 438, 0)            = 0x7fe7a7ab7000
+22190 sem_open(0x4024f3, 192, 438, 0)            = 0x7fe7a7ab6000
+22190 setbuf(0x7fe7a7682400, 0)                  = <void>
+22190 setbuf(0x7fe7a76821c0, 0)                  = <void>
+22190 setbuf(0x249f010, 0)                       = <void>
+22190 fork()                                     = 22191
+22190 waitpid(0, 0, 0 <unfinished ...>
+22191 <... fork resumed> )                       = 0
+22191 fork()                                     = 22192
+22191 sem_wait(0x7fe7a7abc000, 0x7fe7a7681760, 0x7fe7a7681760, 0x7fe7a7683aa0) = 0
+22191 usleep(0)                                  = <void>
+22191 fork()                                     = 22193
+22191 wait(0 <unfinished ...>
+22192 <... fork resumed> )                       = 0
+22192 sem_wait(0x7fe7a7abb000, 0x7fe7a7681760, 0, 0x7fe7a7681760) = 0
+22193 <... fork resumed> )                       = 0
+22192 usleep(0 <unfinished ...>
+22193 sem_open(0x4024a5, 0, 0, 0x7fe7a7681760 <unfinished ...>
+22192 <... usleep resumed> )                     = <void>
+22192 fork( <unfinished ...>
+22193 <... sem_open resumed> )                   = 0x7fe7a7aba000
+22193 sem_wait(0x7fe7a7abd000, 0x249f3c0, 0x249f300, -1) = 0
+22192 <... fork resumed> )                       = 22194
+22193 fprintf(0x249f010, "%-8u: A %-4u: started\n", 1, 1 <unfinished ...>
+22192 usleep(0 <unfinished ...>
+22193 <... fprintf resumed> )                    = 26
+22192 <... usleep resumed> )                     = <void>
+22192 fork( <unfinished ...>
+22193 sem_post(0x7fe7a7abd000, 0, 0, -1 <unfinished ...>
+22195 <... fork resumed> )                       = 0
+22195 sem_open(0x4024a5, 0, 0, 0x7fe7a7681760)   = 0x7fe7a7aba000
+22195 sem_wait(0x7fe7a7abd000, 0x249f3c0, 0x249f300, -1 <unfinished ...>
+22194 <... fork resumed> )                       = 0
+22194 sem_open(0x4024a5, 0, 0, 0x7fe7a7681760)   = 0x7fe7a7aba000
+22194 sem_wait(0x7fe7a7abd000, 0x249f3c0, 0x249f300, -1 <unfinished ...>
+22192 <... fork resumed> )                       = 22195
+22193 <... sem_post resumed> )                   = 0
+22193 sem_wait(0x7fe7a7abd000, 1, 1, -1 <unfinished ...>
+22195 <... sem_wait resumed> )                   = 0
+22192 wait(0 <unfinished ...>
+22195 fprintf(0x249f010, "%-8u: C %-4u: started\n", 2, 2) = 26
+22195 sem_post(0x7fe7a7abd000, 0, 0, -1)         = 0
+22195 sem_wait(0x7fe7a7abd000, 1, 1, -1)         = 0
+22195 fprintf(0x249f010, "%-8u: C %-4u: waiting : %-4u: %-"..., 3, 2, 0, 0) = 39
+22195 sem_post(0x7fe7a7abd000, 0, 1, -1)         = 0
+22195 sem_wait(0x7fe7a7ab9000, 1, 1, -1 <unfinished ...>
+22193 <... sem_wait resumed> )                   = 0
+22193 fprintf(0x249f010, "%-8u: A %-4u: enter\n", 4, 1) = 24
+22193 sem_post(0x7fe7a7ab9000, 0, 3, -1 <unfinished ...>
+22195 <... sem_wait resumed> )                   = 0
+22195 sem_wait(0x7fe7a7abd000, 0, 0, 0 <unfinished ...>
+22193 <... sem_post resumed> )                   = 0
+22193 sem_post(0x7fe7a7abd000, 1, 1, 0 <unfinished ...>
+22194 <... sem_wait resumed> )                   = 0
+22194 fprintf(0x249f010, "%-8u: C %-4u: started\n", 5, 1 <unfinished ...>
+22193 <... sem_post resumed> )                   = 0
+22193 sem_wait(0x7fe7a7ab7000, 1, 1, -1 <unfinished ...>
+22194 <... fprintf resumed> )                    = 26
+22194 sem_post(0x7fe7a7abd000, 0, 0, -1 <unfinished ...>
+22195 <... sem_wait resumed> )                   = 0
+22195 fprintf(0x249f010, "%-8u: C %-4u: enter\n", 6, 2) = 24
+22195 sem_post(0x7fe7a7ab7000, 0, 0, -1)         = 0
+22195 sem_post(0x7fe7a7abd000, 1, 1, -1 <unfinished ...>
+22194 <... sem_post resumed> )                   = 0
+22194 sem_wait(0x7fe7a7abd000, 1, 1, -1 <unfinished ...>
+22193 <... sem_wait resumed> )                   = 0
+22195 <... sem_post resumed> )                   = 0
+22193 usleep(0 <unfinished ...>
+22195 usleep(0 <unfinished ...>
+22194 <... sem_wait resumed> )                   = 0
+22194 fprintf(0x249f010, "%-8u: C %-4u: enter\n", 7, 1) = 24
+22194 sem_post(0x7fe7a7abd000, 0, 2, -1)         = 0
+22194 usleep(0)                                  = <void>
+22194 sem_wait(0x7fe7a7abd000, 0, 0, -1)         = 0
+22194 fprintf(0x249f010, "%-8u: C %-4u: trying to leave\n", 8, 1) = 34
+22194 fprintf(0x249f010, "%-8u: C %-4u: leave\n", 9, 1) = 24
+22194 sem_post(0x7fe7a7abd000, 0, 1, 1)          = 0
+22194 sem_wait(0x7fe7a7abd000, 1, 1, 1)          = 0
+22194 sem_post(0x7fe7a7abd000, 1, 2, 1)          = 0
+22194 sem_wait(0x7fe7a7aba000, 1, 2, 1 <unfinished ...>
+22195 <... usleep resumed> )                     = <void>
+22193 <... usleep resumed> )                     = <void>
+22195 sem_wait(0x7fe7a7abd000, 0, 0, -1 <unfinished ...>
+22193 sem_wait(0x7fe7a7abd000, 0, 0, -1 <unfinished ...>
+22195 <... sem_wait resumed> )                   = 0
+22195 fprintf(0x249f010, "%-8u: C %-4u: trying to leave\n", 10, 2) = 34
+22195 fprintf(0x249f010, "%-8u: C %-4u: leave\n", 11, 2) = 24
+22195 sem_post(0x7fe7a7abd000, 0, 1, 0)          = 0
+22193 <... sem_wait resumed> )                   = 0
+22195 sem_wait(0x7fe7a7abd000, 1, 1, -1 <unfinished ...>
+22193 fprintf(0x249f010, "%-8u: A %-4u: trying to leave\n", 12, 1) = 34
+22193 fprintf(0x249f010, "%-8u: A %-4u: leave\n", 13, 1) = 24
+22193 sem_post(0x7fe7a7abd000, 0, 0, -1)         = 0
+22195 <... sem_wait resumed> )                   = 0
+22193 sem_wait(0x7fe7a7abd000, 1, 1, -1 <unfinished ...>
+22195 sem_post(0x7fe7a7abd000, 0, 1, 0 <unfinished ...>
+22193 <... sem_wait resumed> )                   = 0
+22195 <... sem_post resumed> )                   = 0
+22193 sem_post(0x7fe7a7abd000, 0, 0, -11 <unfinished ...>
+22195 sem_post(0x7fe7a7aba000, 1, 1, -1 <unfinished ...>
+22193 <... sem_post resumed> )                   = 0
+22193 sem_wait(0x7fe7a7abd000, 1, 0, -11 <unfinished ...>
+22195 <... sem_post resumed> )                   = 0
+22194 <... sem_wait resumed> )                   = 0
+22195 sem_wait(0x7fe7a7aba000, 1, 1, -1 <unfinished ...>
+22194 sem_post(0x7fe7a7aba000, 0, 0, 0 <unfinished ...>
+22193 <... sem_wait resumed> )                   = 0
+22195 <... sem_wait resumed> )                   = 0
+22194 <... sem_post resumed> )                   = 0
+22195 sem_post(0x7fe7a7aba000, 0, 0, 0 <unfinished ...>
+22194 sem_wait(0x7fe7a7abd000, 1, 1, -1 <unfinished ...>
+22195 <... sem_post resumed> )                   = 0
+22195 sem_wait(0x7fe7a7abd000, 1, 0, 0 <unfinished ...>
+22193 sem_post(0x7fe7a7ab9000, 1, 0, -11)        = 0
+22193 sem_post(0x7fe7a7ab6000, 1, 0, -11)        = 0
+22193 sem_post(0x7fe7a7ab9000, 1, 0, -11)        = 0
+22193 sem_post(0x7fe7a7ab6000, 2, 0, -11)        = 0
+22193 sem_post(0x7fe7a7abd000, 2, 0, -11 <unfinished ...>
+22194 <... sem_wait resumed> )                   = 0
+22194 fprintf(0x249f010, "%-8u: C %-4u: finished\n", 14, 1) = 27
+22194 sem_post(0x7fe7a7abd000, 0, 0, -1 <unfinished ...>
+22195 <... sem_wait resumed> )                   = 0
+22195 fprintf(0x249f010, "%-8u: C %-4u: finished\n", 15, 2) = 27
+22195 sem_post(0x7fe7a7abd000, 0, 0, -1)         = 0
+22195 exit(0 <no return ...>
+22195 +++ exited (status 0) +++
+22194 <... sem_post resumed> )                   = 0
+22194 exit(0 <no return ...>
+22194 +++ exited (status 0) +++
+22193 <... sem_post resumed> )                   = 0
+22193 sem_post(0x7fe7a7aba000, 1, 1, -1)         = 0
+22193 sem_wait(0x7fe7a7aba000, 2, 1, -1)         = 0
+22193 sem_post(0x7fe7a7aba000, 2, 1, -1)         = 0
+22193 sem_wait(0x7fe7a7abd000, 2, 1, -1)         = 0
+22193 fprintf(0x249f010, "%-8u: A %-4u: finished\n", 16, 1) = 27
+22193 sem_post(0x7fe7a7abd000, 0, 0, -1)         = 0
+22193 exit(0 <no return ...>
+22193 +++ exited (status 0) +++
+22192 --- SIGCHLD (Child exited) ---
+22192 <... wait resumed> )                       = 22195
+22192 wait(0)                                    = 22194
+22191 --- SIGCHLD (Child exited) ---
+22192 sem_post(0x7fe7a7abb000, 0, 0, -1 <unfinished ...>
+22191 <... wait resumed> )                       = 22193
+22191 sem_post(0x7fe7a7abc000, 0, 0, -1 <unfinished ...>
+22192 <... sem_post resumed> )                   = 0
+22191 <... sem_post resumed> )                   = 0
+22192 +++ exited (status 0) +++
+22191 --- SIGCHLD (Child exited) ---
+22191 +++ exited (status 0) +++
+22190 --- SIGCHLD (Child exited) ---
+22190 <... waitpid resumed> )                    = 22191
+22190 sem_wait(0x7fe7a7abc000, 0, 0, -1)         = 0
+22190 sem_wait(0x7fe7a7abb000, 0, 0, -1)         = 0
+22190 shmdt(0x7fe7a7ac5000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7ac4000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7ac3000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7ac2000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7ac1000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7ac0000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7abf000, 0, 0, -1)            = 0
+22190 shmdt(0x7fe7a7abe000, 0, 0, -1)            = 0
+22190 shmctl(0x47d8017, 0, 0, -1)                = 0
+22190 shmctl(0x47e0018, 0, 0, -1)                = 0
+22190 shmctl(0x47e8019, 0, 0, -1)                = 0
+22190 shmctl(0x47f001a, 0, 0, -1)                = 0
+22190 shmctl(0x47f801b, 0, 0, -1)                = 0
+22190 shmctl(0x480001c, 0, 0, -1)                = 0
+22190 shmctl(0x480801d, 0, 0, -1)                = 0
+22190 shmctl(0x481001e, 0, 0, -1)                = 0
+22190 sem_close(0x7fe7a7abd000, 0, 0, -1)        = 0
+22190 sem_close(0x7fe7a7abc000, 0xffffffff, 0x7fe7a7681778, 0) = 0
+22190 sem_close(0x7fe7a7abb000, 0xffffffff, 0x7fe7a7681778, 0x249f240) = 0
+22190 sem_close(0x7fe7a7aba000, 0xffffffff, 0x7fe7a7681778, 0x249f2b0) = 0
+22190 sem_close(0x7fe7a7ab9000, 0xffffffff, 0x7fe7a7681778, 0x249f320) = 0
+22190 sem_close(0x7fe7a7ab8000, 0xffffffff, 0x7fe7a7681778, 0x249f390) = 0
+22190 sem_close(0x7fe7a7ab7000, 0xffffffff, 0x7fe7a7681778, 0x249f400) = 0
+22190 sem_close(0x7fe7a7ab6000, 0xffffffff, 0x7fe7a7681778, 0x249f470) = 0
+22190 sem_unlink(0x40247a, 0xffffffff, 0x7fe7a7681778, 0x249f4e0) = 0
+22190 sem_unlink(0x40254e, 0x40247a, 15, -1)     = -1
+22190 sem_unlink(0x402489, 0x40254e, -160, -160) = 0
+22190 sem_unlink(0x402497, 0x402489, 14, -1)     = 0
+22190 sem_unlink(0x4024a5, 0x402497, 14, -1)     = 0
+22190 sem_unlink(0x4024b5, 0x4024a5, 16, -1)     = 0
+22190 sem_unlink(0x4024ca, 0x4024b5, 21, -1)     = 0
+22190 sem_unlink(0x4024df, 0x4024ca, 21, -1)     = 0
+22190 sem_unlink(0x4024f3, 0x4024df, 20, -1)     = 0
+22190 fclose(0x249f010)                          = 0
+22190 +++ exited (status 0) +++

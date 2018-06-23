@@ -1,0 +1,9 @@
+Usage:
+./ipk-lookup [-h]
+./ipk-lookup -s server [-T timeout] [-t type] [-i] name
+    <server> is IPv4 address
+    <timeout> is integer (5 default)
+    <type> e {A (default), AAAA, NS, PTR, CNAME}
+    -i for iterative way of querying (recursive default)
+    <name> is a domain name we ask for
+

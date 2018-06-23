@@ -1,0 +1,60 @@
+.ippcode18 #...
+
+# vsechny instrukce
+
+# prace s ramci, volani funkci
+move GF@var1 string@abcd
+createframe
+pushframe
+popframe
+DeFvar LF@fgsdfdsa
+Call hell
+returN
+
+# prace s datovym zasobnikem
+pUsHs int@987654
+POPs LF@fsdaKH
+
+# Aritmeticke, relacni, booleovske a konverzni instrukce
+add TF@_-$&%*   string@fdsajdsfkl64fHKs GF@afs56fds
+SuB TF@afasda   string@fdsf_-$&%*64fHKs GF@af4sfds
+mUl TF@aha      string@fdsajgdskl64fHKs GF@af35sfds
+IDIV TF@abgsfaa string@fdsfdsajkl64fHKs GF@a_-$&%*ds
+lt GF@a int@1 int@2
+gT LF@b int@3 int@5
+EQ TF@c int@9 int@1
+and TF@aasem LF@to bool@true
+or GF@aaasem bool@false LF@tadyto
+nOt GF@aaasemmm bool@false
+int2char GF@aaa LF@var
+stri2int GF@a1 string@sgdfdsadfas int@123
+
+# Vstupne-vystupni instrukce
+rEaD LF@fds int
+wrITE string@xxxdddggghhe
+
+# Prace s retezci
+concat TF@aa12aa string@xd123 string@fkl64fHKs
+strlen TF@aa12aa string@xd123
+getchar GF@aa12aa string@xd123 string@fkl64fHKs
+sETCHAR LF@ba12aa string@xdafds23 string@fkads64fHKs
+TyPe LF@_weqrg456 int@47523
+
+# Instrukce pro rizeni toku programu
+lAbeL rtetrterge453435
+jump f4534g453gfdgs
+JuMPifEQ hfvdsghh TF@a6 GF@b65gfds
+JuMPifnEQ hhfgsh TF@ac GF@bc
+
+# Ladici instrukce
+DPRINT GF@AAAA
+BreaK
+
+
+
+
+
+
+
+
+

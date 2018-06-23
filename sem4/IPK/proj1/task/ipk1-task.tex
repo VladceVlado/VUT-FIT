@@ -1,0 +1,151 @@
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{pdfpages}
+\usepackage[obeyspaces]{url}
+\usepackage{framed}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section*{IPK 2017/2018 - Projekt č.1}
+
+\section*{Varianta termínu - Varianta 1: Klient-server pro získání informace o~uživatelích (Ryšavý)}
+\bigskip
+
+
+\subsection*{Společná část popisu}
+
+Vypracujte jednoduchou klient-server aplikace dle uvedeného zadání.
+
+\begin{itemize}
+	\item Odevzdejte Váš projekt jako archív s~názvem odpovídající Vašemu loginu. Projekty odevzdané po termínu nebuou hodnoceny.
+	\item Odevzdáváte zdrojové soubory projektu
+	\item Projekt musí obsahovat soubor Makefile pro přeložení pomocí make (gmake) (\url{http://www.linuxsoft.cz/article.php?id_article=722})
+	\item Projekt musí být přeložitelný pro uvedený systém (Linux, Unix)
+	\item Součástí projektu je také dokumentace  ve formátu plain text, Markdown, nebo PDF.
+\end{itemize}
+
+
+\subsection*{Popis varianty}
+
+\subsubsection*{\textbf{Zadání}}
+
+Vašim úkolem je:
+
+\begin{enumerate}
+	\item Seznamte se s~kostrami kódů pro programování klientských a serverových síťových aplikací (přednáška třetí) za použití BSD socketů. Navrhněte vlastní aplikační protokol realizující přenos informací o~uživatelích na straně serveru a relevantní informace k~projektu uveďte v~dokumentaci. (8 bodů)
+	\item Naprogramujte jak klientskou, tak serverovou aplikaci v~C/C++ realizující zprostředkování informace o~uživatelích na serveru. (12 bodů)
+\end{enumerate}
+
+
+\subsubsection*{\textbf{Konvence odevzdaného zip archivu xlogin00.zip}}
+
+\begin{itemize}
+	\item dokumentace.pdf - výstupy zadání [1]
+	\item readme - základní informace, případná omezení projektu
+	\item Makefile
+	\item *.c, *.cpp, *.cc, *.h - zdrojové a hlavičkové soubory výstupů zadání [2]
+\end{itemize}
+
+\textbf{Ad [1]} \\
+Navrhěte vlastní aplikační protokol, kterými poté spolu budou komunikovat klient a server z~bodu [2] tohoto zadání. Tento protokol bude sloužit pro přenos informací o~uživatelích na serveru. Informace o~uživatelích bude server získávat ze souboru /etc/passwd. \\
+
+V~dobré dokumentaci se očekává následující: titulní strana, obsah, logické strukturování textu, výcuc relevantních informací z~nastudované literatury, popis aplikačního protokolu vhodnou formou, popis zajímavějších pasáží implementace, demonstrace činnosti implementovaných aplikací, normovaná bibliografie.
+
+\textbf{Ad [2]} \\
+Spuštění klienta předpokládá provedení pouze jedné operace. Komunikace mezi serverem a klientem bude spolehlivá. Server by měl umět obsloužit více požadavků. \\
+
+
+\subsubsection*{\textbf{Konvence jména klientské aplikace a jejích povinných vstupních parametrů}}
+
+\path{./ipk-client -h host -p port [-n|-f|-l] login}
+
+\begin{itemize}
+	\item host (IP adresa nebo fully-qualified DNS name) identifikace serveru jakožto koncového bodu komunikace klienta;
+	\item port (číslo) cílové číslo portu;
+	\item -n značí, že bude vráceno plné jméno uživatele včetně případných dalších informací pro uvedený login (User ID Info);
+	\item -f značí, že bude vrácena informace o~domácím adresáři uživatele pro uvedený login (Home directory);
+	\item -l značí, že bude vrácen seznam všech uživatelů, tento bude vypsán tak, že každé uživatelské jméno bude na zvláštním řádku; v~tomto případě je login nepovinný. Je-li však uveden bude použit jako prefix pro výběr uživatelů.
+	\item login určuje přihlašovací jméno uživatele pro výše uvedené operace.
+\end{itemize}
+
+\subsubsection*{např}
+
+\begin{framed}
+	\path{./ipk-client -h eva.fit.vutbr.cz -p 55555 -n rysavy} \\
+	Rysavy Ondrej,UIFS,541141118
+\end{framed}
+
+\begin{framed}
+	\path{./ipk-client -h eva.fit.vutbr.cz -p 55555 -f rysavy} \\
+	/homes/kazi/rysavy
+\end{framed}
+
+\begin{framed}
+	\path{./ipk-client -h host -p port -l} \\
+	avahi \\
+	bacova \\
+	barabas \\
+	... \\
+	zezula \\
+	zizkaj
+\end{framed}
+
+\begin{framed}
+	\path{./ipk-client -h host -p port -l xa} \\
+	xabduk00 \\
+	xabdul03 \\
+	... \\
+	xaygun00
+\end{framed}
+
+
+\subsubsection*{\textbf{Konvence jména serverové aplikace a jejích povinných vstupních parametrů}}
+
+\path{./ipk-server -p port}
+
+\begin{itemize}
+	\item port (číslo) číslo portu, na kterém server naslouchá na připojení od klientů.
+\end{itemize}
+
+\subsubsection*{např}
+
+\begin{framed}
+	./ipk-server -p 55555
+\end{framed}
+
+
+\subsubsection*{\textbf{Doporučení}}
+
+\begin{itemize}
+	\item V~případě výskytu chyby (neexistující login, problém v~komunikaci, chybné paramtery), bude ta vypsána na STDERR a na STDOUT nebude tisknuto nic.
+	\item Výsledky vaší implementace by měly být co možná nejvíce multiplatformní mezi OS založenými na unixu, ovšem samotné přeložení projektu a funkčnost vaší aplikace budou testovány na serverech eva.fit.vutbr.cz a merlin.fit.vutbr.cz.
+	\item Všechny implementované programy by měly být použitelné a řádně komentované. Pokud už přejímáte zdrojové kódy z~různých tutoriálů či příkladů z~Internetu (ne mezi sebou pod hrozbou ortelu disciplinární komise), tak je POVINNÉ správně vyznačit tyto sekce a jejich autory dle licenčních podmínek, kterými se distribuce daných zdrojových kódů řídí. V~případě nedodržení bude na projekt nahlíženo jako na plagiát!
+	\item Pro snadné parsování vstupních argumentů se doporučuje použít funkci getopt().
+	\item Ukončení serverové aplikace z~bodu [2] bude vázáno na SIGINT signál (tedy Ctrl+C).
+	\item Projekt bude opravován ručně. Počítejte tedy s~nejzazším možným termínem oprav a reklamací určených garantem předmětu.
+	\item Výsledky vaší implementace by měly být co možná nejvíce multiplatformní mezi OS založenými na unixu (dbejte na to zejména při vytváření Makefile).
+	\item Do souboru Readme uveďte případná omezení funkcionality vašeho projektu - na dokumentovanou chybu se nahlíží v~lepším světle než na nedokumentovanou!
+	\item Snažte se o~jednoduchý přehledný kód. Tento projekt nevyžaduje žádné složitosti.
+\end{itemize}
+
+
+\subsubsection*{\textbf{Literatura}}
+
+\begin{itemize}
+	\item O. Ryšavý, J. Ráb, IPK - BSD schránky - 3. přednáška
+	\item K. Sollins, The TFTP Protocol (revision 2), https://tools.ietf.org/html/rfc1350
+	\item J. Postel, J. Reynolds, FILE TRANSFER PROTOCOL (FTP),https://tools.ietf.org/html/rfc959
+	\item P. Grygárek, Softwarová rozhraní systémů UNIX pro přístup k~síťovým službám, http://www.cs.vsb.cz/grygarek/LAN/sockets.html
+	\item Understanding /etc/passwd, Online: https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/
+\end{itemize}
+
+\end{document}

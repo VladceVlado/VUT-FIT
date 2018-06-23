@@ -1,0 +1,35 @@
+.ippcode18 #...
+
+#hromada ok instrukci 2
+
+
+move GF@abc bool@false
+
+mOvE LF@abd bool@true
+
+int2char GF@aaa LF@var
+
+int2CHAR LF@bbb int@123
+
+int2char GF@hahahah bool@false
+
+int2CHAR TF@ccc string@aaaa123
+
+move GF@abc int@0
+
+move LF@def int@-123
+
+label a
+
+laBeL xxb
+
+label _123
+
+LABEL ab*c1*
+
+label a-b$1
+
+label _-$&%* # vsechny specialni znaky
+
+
+
