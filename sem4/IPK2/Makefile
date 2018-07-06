@@ -11,9 +11,9 @@ TASK = ipk2-task
 
 .PHONY: all src src_clean src_clean-all doc doc_clean doc_clean-all task task_clean task_clean-all
 
-
+# ToDo
 all:
-
+	@echo "ToDo, echo funguje"
 
 # application
 
