@@ -1,8 +1,9 @@
-# Vysoké učení technické v Brně
+# Brno University of Technology
 
-## Fakulta informačních techlogií
+## Faculty of Information Technology
 
-- **sem1** – 1BIT zimní semestr 2016/2017
-- **sem2** – 1BIT letní semestr 2016/2017
-- **sem3** – 2BIT zimní semestr 2017/2018
-- **sem4** – 2BIT letní semestr 2017/2018
+- **sem1** – 1BIT winter semester 2016/2017
+- **sem2** – 1BIT summer semester 2016/2017
+- **sem3** – 2BIT winter semester 2017/2018
+- **sem4** – 2BIT summer semester 2017/2018
+- **sem5** – 3BIT winter semester 2018/2019

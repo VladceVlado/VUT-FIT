@@ -1,4 +1,4 @@
-## Předměty
+## Subjects
 
 - **IDS** – Databázové systémy (P, 5kr)
 - **IPK** – Počítačové komunikace a sítě (P, 4kr)
