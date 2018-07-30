@@ -7,3 +7,6 @@
 - **sem3** – 2BIT winter semester 2017/2018
 - **sem4** – 2BIT summer semester 2017/2018
 - **sem5** – 3BIT winter semester 2018/2019
+
+### Explanatory notes
+- BIT – Information Technology, Bachelor

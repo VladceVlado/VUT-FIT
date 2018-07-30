@@ -1,8 +1,9 @@
 ## Subjects
 
-- **IUS** – Introduction to Software Engineering (C, 5cr)
-- **IZP** – Introduction to Programming Systems (C, 7cr)
+- **IUS** – Introduction to Software Engineering (C, 5 Cr)
+- **IZP** – Introduction to Programming Systems (C, 7 Cr)
 
-# Explanatory notes
+### Explanatory notes
 - C – Compulsory
 - E – Eligible
+- Cr – Credits
