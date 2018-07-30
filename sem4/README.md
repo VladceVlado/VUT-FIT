@@ -1,6 +1,11 @@
 ## Subjects
 
-- **IDS** – Databázové systémy (P, 5kr)
-- **IPK** – Počítačové komunikace a sítě (P, 4kr)
-- **IPP** – Principy programovacích jazyků a OOP (P, 5kr)
-- **ISJ** – Skriptovací jazyky (V, 5kr)
+- **IDS** – Database Systems (C, 5 Cr)
+- **IPK** – Computer Communications and Networks (C, 4 Cr)
+- **IPP** – Principles of Programming Languages and OOP (C, 5 Cr)
+- **ISJ** – Scripting Languages (E, 5 Cr)
+
+### Explanatory notes
+- C – Compulsory
+- E – Eligible
+- Cr – Credits

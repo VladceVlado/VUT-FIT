@@ -1,5 +1,10 @@
 ## Subjects
 
-- **IAL** – Algoritmy (P, 5kr)
-- **IFJ** – Formální jazyky a překladače (P, 5kr)
-- **IPS** – Programovací seminář (V, 2kr)
+- **IAL** – Algorithms (C, 5 Cr)
+- **IFJ** – Formal Languages and Compilers (C, 5 Cr)
+- **IPS** – Programming Seminar (E, 2 Cr)
+
+### Explanatory notes
+- C – Compulsory
+- E – Eligible
+- Cr – Credits

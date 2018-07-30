@@ -1,4 +1,9 @@
 ## Subjects
 
-- **IOS** – Operační systémy (P, 5kr)
-- **IJC** – Jazyk C (V, 5kr)
+- **IOS** – Operating Systems (C, 5 Cr)
+- **IJC** – The C Programming Language (E, 5 Cr)
+
+### Explanatory notes
+- C – Compulsory
+- E – Eligible
+- Cr – Credits
