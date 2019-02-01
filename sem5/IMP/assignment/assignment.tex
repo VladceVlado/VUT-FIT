@@ -1,0 +1,97 @@
+% Author: Vladimir Dusek
+% Date: 10/12/2018
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+    \section*{Zadání projektu do předmětu IMP 2018/2019}
+    \medskip
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Varianta}
+ARM-FITkit3: Aplikace modulu Random Number Generator Accelerator (RNGA)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Společná část popisu}
+
+\begin{itemize}
+    \item Každý student se, prostřednictvím IS FIT, přihlásí na jedno z~vypsaných  témat projektů (viz Projekt / Varianty termínu).
+    \item Přihlašování začíná ve středu 26.9. od 20 hod.
+    \item Není-li u~projektu (explicitně) uvedeno jinak, projekty jsou (implicitně) vypsány k~individuálnímu, tj. samostatnému řešení každou z~přihlášených osob s~doporučeným implementačním jazykem C.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Odevzdání a hodnocení řešení projektů}
+
+\begin{itemize}
+    \item Nutnou podmínkou pro získání bodů za projekt je vypracování projektu v~souladu se zadáním a odevzdání řešení projektu v~jediném ZIP archívu do IS FIT. Má-li projekt více řešitelů (tj. je-li explicitně označen jako skupinový projekt), zvolí si tito mezi sebou jednoho, kterého odevzdáním archívu pověří.
+    \item V~případě skupinových projektů uložte do výše zmíněného ZIP archívu také soubor info.txt, který bude obsahovat jména, příjmení a loginy řešitelů projektu. U~každého řešitele bude uvedeno, jaký byl jeho procentuální podíl na řešení projektu jako celku. U~každého z~řešitelů skupinového projektu budou navíc v~info.txt shrnuty i) informace o~částech projektu, na jejichž řešení pracoval, ii) realizační výstupy vyprodukované řešitelem při řešení projektu a iii) příslušné pracovní aktivity a jejich výstupy ve vztahu k~řešením projektu jako celku. V~případě, že tento soubor odevzdán nebude nebo v~něm budou zmíněné náležitosti u~některých řešitelů chybět, pak body za projekt nebudou těmto řešitelům uděleny.
+    \item Pouhá funkčnost dle zadání, shromáždění materiálů dle zadání a splnění dalších náležitostí zadání je nutnou, ale ne dostačující podmínkou pro získání plného počtu bodů za projekt. Dostačující podmínka se považuje za splněnou je-li projekt vyřešen pečlivě a kvalitně, čímž se rozumí zejména vhodná dekompozice daného problému na podproblémy, efektivita implementace, přehlednost zdrojových textů, dále vhodnost, účelnost a dostatečnost komentářů ve zdrojových textech, přehlednost, logická struktura a ilustrativnost odevzdané dokumentace.
+    \item První řádky každého souboru, který byl vytvořen či modifikován pro účely řešení projektu, musí obsahovat následující informace: jméno, příjmení a login autora změn, stručný popis změn provedených v~souboru včetně odhadu podílu (v~\%) změn vzhledem k~původnímu obsahu souboru (v~případě 100\% autorství explicitně uveďte "originál") a datum provedení poslední změny v~souboru.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Řešení skupinových projektů}
+
+\begin{itemize}
+    \item Pro minimalizaci problémů spojených s~řešením skupinových projektů se doporučuje, aby se řešitelský tým skupinového projektu sešel co nejdříve a nadále se scházel v~pravidelných intervalech.
+    \item Lhůta pro zjištění práceschopnosti týmu je čtvrtek, 18. 10. 2018. Do tohoto termínu (včetně) můžete informovat vedoucího projektu o~neschopnosti práce daného týmu, o~vystoupení z~něj a požádat o~změnu zadání na jiné (oznámíte které) s~tím, že tato změna již bude definitivní. V~tomto případě (tj. při změně zadání) je doporučeno zvolit si zadání individuální.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Dotazy k~projektům}
+
+\begin{itemize}
+    \item Pro pokládání dotazů souvisejících s~projekty využijte fóra Dotazy k~projektům, které bylo k~tomuto účelu zřízeno.
+    \item Dotazy ke konkrétním tématům projektů zodpoví příslušní vedoucí, jejichž bližší identifikaci naleznete v~detailním popisu k~projektu (Vede: ...), zkráceně pak i u~názvu projektu (za názvem projektu je za oddělující čárkou uvedeno zkrácené příjmení vedoucího projektu:
+    \begin{itemize}
+        \item B = M. Bidlo (bidlom@fit.vutbr.cz, L330),
+        \item N = J. Nevoral (inevoral@fit.vutbr.cz, L323),
+        \item S = J. Strnadel, (strnadel@fit.vutbr.cz, L332),
+        \item Š = V. Šimek (simekv@fit.vutbr.cz, L323),
+        \item W = M. Wiglasz (iwiglasz@fit.vutbr.cz, L307).
+    \end{itemize}
+    \item Případné dotazy obecné povahy zasílejte garantovi předmětu. Předmět dotazu musí začínat řetězcem IMP\_proj následovaným mezerou; jinak hrozí, že na něj nebude reagováno.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Popis varianty}
+
+Vede: dr. Strnadel
+\begin{itemize}
+    \item Prostřednictvím vedoucího si zapůjčte 1 ks platformy FITkit 3.
+    \item Seznamte se s~principem tvorby vestavných aplikací v~jazyce C založených na mikrokontroléru Kinetis K60 (s~jádrem ARM Cortex-M4) fy Freescale v~prostředí Kinetis Design Studio (KDS) nebo MCUXpresso.
+    \item V~jazyce C (tak i dále) vytvořte projekt demonstrující možnosti modulu Random Number Generator Accelerator (RNGA) dostupného na čipu Kinetis K60 z~desky platformy FITkit 3.
+    \item UPŘESNĚNÍ:
+    \begin{enumerate}
+        \item Vytvořte aplikaci umožňující generování náhodných čísel pomocí RNGA.
+        \item Uložte dostatečně reprezentativní množinu posloupností čísel generovaných modulem RNGA.
+        \item Na základě získaných posloupností vhodně analyzujte a zdokumentujte vybrané vlastnosti generovaných čísel, např. determinismus, délku cyklu, jednotnost, korelaci.
+        \item Identifikujte slabiny generátoru, navrhněte a implementujte mechanismus s~cílem zmírnit zvolenou slabinu.
+        \item Schopnost mechanismu zmírnit zvolenou slabinu experimentálně prokažte.
+    \end{enumerate}
+    \item Vytvořte přehlednou dokumentaci a prezentaci ke způsobu realizace výše požadovaného projektu, a to včetně popisu registrů RNGA, jejich nastavení a manipulace s~jejich obsahem pro zajištění běhu aplikace.
+    \item Řešení (projekt, bez binárních souborů sestavitelných na základě zdrojových souborů v~projektu, a dokumentaci ve zdrojové i binární, tj. PDF, podobě) odevzdávejte prostřednictvím IS v~jediném ZIP archívu.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
