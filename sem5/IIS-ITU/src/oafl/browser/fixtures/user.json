@@ -1,0 +1,46 @@
+[
+    {
+        "model":"auth.user",
+        "pk":1,
+        "fields":{
+            "password":"pbkdf2_sha256$120000$Vq9z07Td7Uqg$zoAUgKCz1/TgOOAnLQK84jpfZd4cCCB5Rz9K2JWbWLs=",
+            "last_login":"2018-12-03T12:14:05.664Z",
+            "is_superuser":true,
+            "username":"admin",
+            "first_name":"",
+            "last_name":"",
+            "email":"",
+            "is_staff":true,
+            "is_active":true,
+            "date_joined":"2018-11-15T16:48:15.197Z",
+            "groups":[
+
+            ],
+            "user_permissions":[
+
+            ]
+        }
+    },
+    {
+        "model":"auth.user",
+        "pk":2,
+        "fields":{
+            "password":"pbkdf2_sha256$120000$E9DCx41ccApI$bjHh9VFiBxWeYw/xn9Ycec11BLOaPRqqiGy2FQ9Ms8A=",
+            "last_login":"2018-12-03T12:28:02.415Z",
+            "is_superuser":false,
+            "username":"Leader",
+            "first_name":"Josef",
+            "last_name":"Nov\u00e1k",
+            "email":"josef.novak123@gmail.com",
+            "is_staff":false,
+            "is_active":true,
+            "date_joined":"2018-12-03T12:27:13.865Z",
+            "groups":[
+
+            ],
+            "user_permissions":[
+
+            ]
+        }
+    }
+]

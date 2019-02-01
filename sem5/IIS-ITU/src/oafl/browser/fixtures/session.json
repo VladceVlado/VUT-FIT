@@ -1,0 +1,18 @@
+[
+    {
+        "model":"sessions.session",
+        "pk":"877zv74ovtyngg6mwk5nrqgz01mwzect",
+        "fields":{
+            "session_data":"ZWUzZjNiYTcxZTIxOGZlNmIwZjg4MGJjZDRiODY1OTFmNzIzODA2Mjp7InNlbGVjdGVkX3NlYXNvbiI6IjIwMTktMjAyMCJ9",
+            "expire_date":"2018-12-17T12:28:48.937Z"
+        }
+    },
+    {
+        "model":"sessions.session",
+        "pk":"9s77kocyyfunmnay9d8f757yk4vthps9",
+        "fields":{
+            "session_data":"ZGY1MjgzYTQ5ODZjNzUxMmFlY2NhOTM0NjAyNDM0MTNlOWUxYjhhMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiMGI4Njg4OWZjYWU0MGFlYjEyZTcyMDk4YWZlYjJkM2RkOTk3MTRmIn0=",
+            "expire_date":"2018-11-29T16:48:34.228Z"
+        }
+    }
+]

@@ -1,0 +1,152 @@
+body {
+    background: url("/static/images/background.png") 50% 0 fixed;
+}
+
+h1 {
+    font-family: Quicksand, "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    font-size: 34px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 900;
+    line-height: 36px;
+    color: #444444;
+}
+
+h2 {
+    font-family: Quicksand, "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    font-size: 26px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 32px;
+    color: #444444;
+}
+
+h3 {
+    font-family: Quicksand, "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 600;
+    line-height: 28px;
+    color: #444444;
+}
+
+h4 {
+    font-family: Quicksand, "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 600;
+    line-height: 26px;
+    color: #444444;
+}
+
+p {
+    font-family: -apple-system, BlinkMacSystemFont, Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 28px;
+    color: #666666;
+}
+
+/* Begin: Override Bootstrap */
+.container-fluid {
+    max-width: 1450px;
+    background: white;
+    width: 95%;
+}
+
+.navbar-nav {
+    max-height: 50px;
+}
+
+.navbar-text {
+    margin: 13px;
+}
+
+.navbar-right {
+    margin-right: 10px;
+}
+
+.dropdown-toggle {
+    margin: 8px;
+}
+/* End: Override Bootstrap */
+
+.footer {
+    margin-top: 1%;
+    color: #9d9d9d;
+    margin-right: 1%
+}
+
+.tr-clickable {
+    cursor: pointer;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    max-width: 430px;
+    max-height: 300px;
+}
+
+.button-wrap {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.oafl-button {
+    display: inline-block;
+    text-align: left;
+    max-width: 130px;
+}
+
+.image-row {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+/* ToDo: vcenter is not working */
+/* Source: https://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3 */
+.vcenter {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    float: none !important;
+}
+
+.modal-backdrop {
+    opacity: 0.5;
+}
+
+.modal-dialog {
+    margin: 300px auto;
+}
+
+.oafl-navigation {
+    font-size: 18px;
+    font-family: Raleway;
+}
+
+#oafl-logo {
+    float: left;
+    width: 234px;
+    height: 202px;
+}
+
+#oafl-map {
+    height: 400px;
+    width: 100%;
+}
+
+.season-select li:hover {
+    background-color: #eee;
+    color: black;
+    cursor: pointer;
+}
+
+.main-header {
+    margin-top: 15%;
+}

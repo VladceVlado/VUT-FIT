@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block add-header %}
+    <link rel="stylesheet" href="{% static "css/stats.css" %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="center-block">
+    <div>
+        <h3>Statistiky</h3>
+    </div>
+    <div class="table-responsive wrapper">
+        <table class="table table-striped table-bordered">
+        <tr>
+            <th class="col-md-1 text-center column-rank" title="Pořadí">#</th>
+            <th class="col-md-3 text-center column-name" title="Jméno hráče">Hráč</th>
+            <th class="col-md-3 text-center column-name" title="Název týmu">Tým</th>
+            <th class="col-md-1 text-center column-number" title="Počet odehraných zápasů">Zápasy</th>
+            <th class="col-md-1 text-center column-number" title="Počet vstřelených gólů">Góly</th>
+            <th class="col-md-1 text-center column-number" title="Počet asistencí">Asistence</th>
+            <th class="col-md-1 text-center column-number" title="Počet tresných minut">Trestné min</th>
+            <th class="col-md-1 text-center column-number" title="Počet bodů">Body</th>
+        </tr>
+        {% for player in players %}
+            <tr>
+                <td class="text-center">{{ player.rank }}</td>
+                <td class="text-left">{{ player.name }}</td>
+                <td class="text-left">{{ player.team }}</td>
+                <td class="text-center">{{ player.matches }}</td>
+                <td class="text-center">{{ player.goals }}</td>
+                <td class="text-center">{{ player.assists }}</td>
+                <td class="text-center">{{ player.penalty_minutes }}</td>
+                <td class="text-center">{{ player.points }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% if players.has_other_pages %}
+    <ul class="pagination">
+        {% if players.has_previous %}
+            <li><a href="?page={{ players.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in players.paginator.page_range %}
+            {% if players.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if players.has_next %}
+            <li><a href="?page={{ players.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}
+    
+<script>
+    $(document).ready(function () {
+        $(".nav ul li").removeClass("active");
+        $('#stats').addClass('active');
+    });
+</script>
+
+{% endblock %}

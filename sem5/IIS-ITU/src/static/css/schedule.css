@@ -1,0 +1,39 @@
+.wrapper {
+    height: 90%;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.column-rank {
+    width: 4%;
+}
+
+.column-date {
+    width: 10%;
+}
+
+.column-time {
+    width: 6%;
+}
+
+.column-team {
+    width: 40%;
+}
+
+.expnotes-wrapper {
+    display: inline-block;
+}
+
+.expnotes-square {
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.expnotes-text {
+    float: left;
+    margin-left: 10px;
+}

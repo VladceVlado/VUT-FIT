@@ -1,0 +1,26 @@
+[
+    {
+        "model":"browser.Season",
+        "pk":1,
+        "fields":{
+            "begin_date":"2017-10-15",
+            "end_date":"2018-3-24"
+        }
+    },
+    {
+        "model":"browser.Season",
+        "pk":2,
+        "fields":{
+            "begin_date":"2018-10-6",
+            "end_date":"2019-5-1"
+        }
+    },
+    {
+        "model":"browser.Season",
+        "pk":3,
+        "fields":{
+            "begin_date":"2019-10-1",
+            "end_date":"2020-5-1"
+        }
+    }
+]

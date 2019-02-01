@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block add-header %}
+    <link rel="stylesheet" href="{% static "css/team_modify.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="row team-modify">
+        <div class="col-md-12 text-center">
+            <h2>Tým {{ team.name }}</h2>
+            <button type="button" class="btn btn-defaults" data-toggle="modal" data-target="#exampleModal">
+                Přejmenovat
+            </button>
+        </div>
+        <div class="col-md-6 text-center">
+            {% for season in seasons_data %}
+                {% if season.played %}
+                    <h3>
+                        {{ season.title }}
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if  season.registered %}
+                                <h5 class="inline">Hráči:</h5>
+                                {% for player in season.players %}
+                                    <div class="team-modify-player">{{ player }}</div>
+                                {% endfor %}
+                            {% else %}
+                                Tým není zaregistrován
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if season.current %}
+                        <hr>
+                        <h2>Historie</h2>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-6 text-center">
+            <h2>Registrace týmu na sezónu</h2>
+            {% if current_season %}
+
+                <div class="row">
+                <div class="col-md-6">
+                    {% for player in current_season.players %}
+                        <div class="team-modify-player">{{ player }}
+                            {# players can be removed only before the seasons starts #}
+                            <i class="fa fa-times" data-player-id="{{ player.id }}"></i>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <input type="text" id="player_search" name="search" style="margin: 10px;width: 165px;"
+                               onkeyup="filter()">
+                    </div>
+                    <div>
+                        <select id="player_select" size="10" style="margin: 10px; width: 165px;height: 170px;">
+                            {% for player in players_to_add %}
+                                <option class="add-player" data-player-id="{{ player.id }}">{{ player }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <h6>Poklikejte na hráče pro přidání</h6>
+                </div>
+                <div class="col-md-12">
+                {% if current_season.registered %}
+                    Tým je zaregistrován do aktuání sezóny
+                {% else %}
+                    <button class="btn btn-default register-team" data-season-id="{{ current_season.id }}">Registrovat
+                    </button>
+                {% endif %}
+                <br>
+                <br>
+            {% else %}
+                <br>
+                <h4>Žádná sezóna není otevřena pro registraci</h4>
+            {% endif %}
+            </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form action="{% url "team_rename" team.id %}" method="post">
+                        {% include "browser/includes/form.html" with form=team_form %}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+                        <button type="submit" class="btn btn-primary">Přejmenovat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# this form is submitted by js #}
+    <form class="hidden" id="register-season-form" action="{% url "register_team_season" team.id %}" method="post">
+        {% include "browser/includes/form.html" with form=season_team_form %}
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function filter() {
+            var keyword = document.getElementById("player_search").value;
+            let select = document.getElementById("player_select");
+            for (let i = 0; i < select.length; i++) {
+                let txt = select.options[i].text;
+                if (txt.substring(0, keyword.length).toLowerCase() !== keyword.toLowerCase() && keyword.trim() !== "") {
+                    $(select.options[i]).attr('disabled', 'disabled').hide();
+                } else {
+                    $(select.options[i]).removeAttr('disabled').show();
+                }
+            }
+        }
+
+        function add_players(players_arr, remove) {
+            let post_data = {
+                players: players_arr,
+                csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val()
+            };
+
+            if (remove) {
+                post_data["remove"] = true;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url "add_players_to_team" team.id %}",
+                data: post_data,
+                async: false
+            });
+
+            window.location.reload();
+        }
+
+        $(document).ready(function () {
+            $(".add-player").dblclick(function () {
+                let player_id = $(this).attr("data-player-id");
+                add_players([player_id], false);
+            });
+
+            $(".btn.register-team").click(function () {
+                $("select#id_season").val($(this).attr("data-season-id"));
+                $("select#id_team").val({{ team.id }});
+                $("#register-season-form").submit();
+            });
+
+            $(".team-modify-player i").click(function () {
+                let player_id = $(this).attr("data-player-id");
+                add_players([player_id], true);
+            })
+        });
+
+    </script>
+{% endblock %}

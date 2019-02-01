@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OAFL</title>
+
+    {# CSS Files #}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
+    {# JS files #}
+    <script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    {# Override bootstrap #}
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+
+    {# Favicon #}
+    <link rel="shortcut icon" type="image/png" href="{% static "images/favicon.ico" %}">
+
+    {# ToDo: download fonts #}
+    {# Icon font #}
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+          crossorigin="anonymous">
+    {# Font Quicksand #}
+    <link rel="stylesheet"
+          type="text/css"
+          href="//fonts.googleapis.com/css?family=Quicksand">
+    {# Font Raleway #}
+    <link rel="stylesheet"
+          type="text/css"
+          href="//fonts.googleapis.com/css?family=Raleway">
+
+    {% block add-header %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-2">
+                {% with session=request.session.selected_season %}
+                    <a href="{% url 'index' session %}">
+                        <img src="{% static "images/logo.jpg" %}" alt="OAFL logo" id="oafl-logo">
+                    </a>
+                {% endwith %}
+            </div>
+            <div class="col-md-8 text-center">
+                <div class="vcenter">
+                    <h1 class="main-header">Orlická Amatérská Florbalová Liga</h1>
+                </div>
+            </div>
+            <div class="col-md-2 text-right button-wrap">
+                {% if request.user.is_authenticated %}
+                    {# ToDo: #}
+                    <a href="{% url "team_administration" %}" class="btn btn-primary btn-block oafl-button">
+                        <i class="fas fa-user"></i>
+                        {{ request.user }}
+                    </a>
+                    <a href="{% url "logout_user" %}" class="btn btn-primary btn-block oafl-button">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Odhlásit
+                    </a>
+                {% else %}
+                    <a href="{% url "user_login" %}" class="btn btn-primary btn-block oafl-button">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Přihlásit
+                    </a>
+                    <a href="{% url "user_signup" %}" class="btn btn-primary btn-block oafl-button">
+                        <i class="fas fa-user-plus"></i>
+                        Registrovat
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <ul class="nav navbar-nav oafl-navigation">
+                    {% with session=request.session.selected_season %}
+                        <li id="home"><a href="{% url 'index' session %}" title="O lize"><i class="fas fa-home"></i> O nás</a></li>
+                        <li id="schedule"><a href="{% url 'schedule' session %}" title="Rozpis zápasů"><i class="far fa-calendar"></i> Rozpis</a></li>
+                        <li id="results"><a href="{% url 'results' session %}" title="Výsledky odehraných zápasů"><i class="far fa-calendar-check"></i> Výsledky</a></li>
+                        <li id="table"><a href="{% url 'table' session %}" title="Tabulka týmů"><i class="fas fa-table"></i> Tabulka</a></li>
+                        <li id="spider"><a href="{% url 'play-off' session %}" title="Pavouk play-off"><i class="fas fa-angle-double-right"></i> Play-off</a></li>
+                        <li id="stats"><a href="{% url 'stats' session %}" title="Statistiky hráčů"><i class="fas fa-poll"></i> Statistiky</a></li>
+                        <li id="teams"><a href="{% url 'teams' session %}" title="Stránka týmů"><i class="fas fa-user-friends"></i> Týmy</a></li>
+                    {% endwith %}
+                </ul>
+                <div class="dropdown navbar-nav navbar-right">
+                    <span class="navbar-text oafl-navigation">
+                        Sezóna
+                    </span>
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span id="selected">
+                            {% for season in G_seasons %}
+                                {% ifequal season|stringformat:"s" request.session.selected_season %}
+                                    {{ season }}
+                                {% endifequal %}
+                            {% endfor %}
+                        </span><span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu season-select">
+                        {% for season in G_seasons %}
+                            <li class="text-center" data-season="{{ season }}">
+                                {{ season }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <div class="row footer">
+            <p class="text-right">
+                Copyright © 2018 Vladimír Dušek, Tomáš Kukaň
+            </p>
+        </div>
+    </div>
+</body>
+
+<script>
+    // globl variables
+    var G_season_urls = {{ G_season_urls|safe }};
+    $('.dropdown-menu li').click(function() {
+        $('#selected').text($(this).text().concat(' '));
+    });
+
+    $('.season-select li').click(function () {
+        {% if G_season_urls %}
+            window.location.pathname = G_season_urls[$(this).attr("data-season")];
+        {% else %}
+            window.location.reload();
+        {% endif %}
+
+    });
+</script>
+
+{% block scripts %}
+{% endblock scripts %}
+
+</html>

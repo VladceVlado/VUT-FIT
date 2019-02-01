@@ -1,0 +1,34 @@
+.wrapper {
+    height: 90%;
+}
+
+.column-rank {
+    width: 4%;
+}
+
+.column-team {
+    width: 30%;
+}
+
+.column-number-of {
+    width: 8%;
+}
+
+.column-number-of-goals {
+    width: 9%;
+}
+
+.expnotes-wrapper {
+    display: inline-block;
+}
+
+.expnotes-square {
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.expnotes-text {
+    float: left;
+    margin-left: 10px;
+}

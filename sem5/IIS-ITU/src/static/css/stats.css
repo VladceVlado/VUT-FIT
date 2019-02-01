@@ -1,0 +1,15 @@
+.wrapper {
+    height: 90%;
+}
+
+.column-rank {
+    width: 4%;
+}
+
+.column-name {
+    width: 28%;
+}
+
+.column-number {
+    width: 8%;
+}

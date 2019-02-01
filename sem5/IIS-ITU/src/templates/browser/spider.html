@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block add-header %}
+    <link rel="stylesheet" href="{% static "css/spider.css" %}">
+{% endblock %}
+
+{% block content %}
+    {% if not QF %}
+        <h4>Zatím nejsou dostupné žádné zápasy v play-off</h4>
+    {% else %}
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h3>Čtvrtfinále</h3>
+            </div>
+            <div class="col-md-4 text-center">
+                <h3>Semifinále</h3>
+            </div>
+            <div class="col-md-4 text-center">
+                <h3>Finále</h3>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row spider">
+        <div class="col-md-4">
+            {% for result in QF %}
+                {% include "browser/includes/spider_result.html" with result=result%}
+            {% endfor %}
+        </div>
+        <div class="col-md-4 semi-final">
+            {% for result in SF %}
+                {% include "browser/includes/spider_result.html" with result=result%}
+            {% endfor %}
+        </div>
+        <div class="col-md-4 final">
+            {% for result in final %}
+                {% include "browser/includes/spider_result.html" with result=result%}
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".nav ul li").removeClass("active");
+            $('#spider').addClass('active');
+        });
+    </script>
+{% endblock %}

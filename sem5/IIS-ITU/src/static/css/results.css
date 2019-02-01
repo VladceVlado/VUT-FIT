@@ -1,0 +1,36 @@
+.wrapper {
+    height: 90%;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.column-rank {
+    width: 4%;
+}
+
+.column-date {
+    width: 10%;
+}
+
+.column-time {
+    width: 6%;
+}
+
+.column-team {
+    width: 35%;
+}
+
+.column-result {
+    width: 10%;
+}
+
+.detail-row-wrapper {
+    line-height: 25px;
+}
+
+.d-none {
+    display: none;
+}

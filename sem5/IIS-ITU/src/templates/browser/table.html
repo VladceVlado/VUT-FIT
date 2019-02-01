@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block add-header %}
+    <link rel="stylesheet" href="{% static "css/table.css" %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="center-block">
+
+    <div>
+        <h3>Tabulka</h3>
+    </div>
+
+    <div class="table-responsive wrapper">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-1 text-center column-rank" title="Pořadí">#</th>
+                    <th class="col-md-3 text-center column-team" title="Název týmu">Tým</th>
+                    <th class="col-md-1 text-center column-number-of" title="Počet odehraných zápasů">Zápasy</th>
+                    <th class="col-md-1 text-center column-number-of" title="Počet výher">Výhry</th>
+                    <th class="col-md-1 text-center column-number-of" title="Počet remíz">Remízy</th>
+                    <th class="col-md-1 text-center column-number-of" title="Počet proher">Prohry</th>
+                    <th class="col-md-1 text-center column-number-of-goals" title="Počet vstřelených golů">Vstřelené góly</th>
+                    <th class="col-md-1 text-center column-number-of-goals" title="Počet obdržených golů">Obdržené góly</th>
+                    <th class="col-md-1 text-center column-number-of" title="Celkový rozdíl skóre">+/-</th>
+                    <th class="col-md-1 text-center column-number-of" title="Počet bodů">Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in data %}
+                    {% if forloop.counter < 9 %}
+                        <tr class="success">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                            <td class="text-center">{{ forloop.counter }}</td>
+                            <td class="text-left">{{ team.team_name }}</td>
+                            <td class="text-center">{{ team.matches }}</td>
+                            <td class="text-center">{{ team.wins }}</td>
+                            <td class="text-center">{{ team.draws }}</td>
+                            <td class="text-center">{{ team.loses }}</td>
+                            <td class="text-center">{{ team.scored_goals }}</td>
+                            <td class="text-center">{{ team.collect_goals }}</td>
+                            <td class="text-center">{{ team.diff_goals }}</td>
+                            <td class="text-center">{{ team.points }}</td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="expnotes-wrapper">
+        <div class="bg-success expnotes-square">
+        </div>
+        <div class="expnotes-text">
+            <p>Postup do play-off</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".nav ul li").removeClass("active");
+        $('#table').addClass('active');
+    });
+</script>
+
+{% endblock %}

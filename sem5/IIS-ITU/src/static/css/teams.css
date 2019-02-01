@@ -1,0 +1,32 @@
+.team-wrapper {
+    margin-top: 20px;
+    border-width: medium;
+    border-style: double;
+    border-color: black;
+    border-radius: 5px;
+}
+
+.team-wrapper .team-name {
+    background-color: #F0F0F0;
+    margin: 0;
+}
+
+.team-wrapper .team-info {
+    margin: 0;
+    font-size: 17px;
+    padding: 10px 0 10px 0;
+
+}
+
+.team-wrapper .team-players table {
+    margin-bottom: 0;
+}
+
+button.soupiska-button {
+     width: 100%;
+    font-size: 18px;
+}
+
+button.soupiska-button:focus {
+    outline: none;
+}

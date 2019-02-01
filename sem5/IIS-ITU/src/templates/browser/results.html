@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block add-header %}
+    <link rel="stylesheet" href="{% static "css/results.css" %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="center-block">
+
+    <div class="wrapper">
+
+    {% if not data %}
+        <h3>Zatím se neodehrály žádné zápasy</h3>
+    {% endif %}
+
+    {% for rnd in data %}
+        {# Header #}
+        <div>
+            <h3>
+                {% if rnd.type == 'GP' %}
+                    Základní část - {{ rnd.number }}. kolo
+                {% elif rnd.type == 'EF' %}
+                    Osmifinále
+                {% elif rnd.type == 'QF' %}
+                    Čtvrtfinále
+                {% elif rnd.type == 'SF' %}
+                    Semifinále
+                {% elif rnd.type == 'F' %}
+                    Finále
+                {% endif %}
+            </h3>
+        </div>
+        {# Table results #}
+        <div class="table-responsive table-wrapper">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-1 text-center column-rank" title="Číslo zápasu v sezóně">#</th>
+                        <th class="col-md-1 text-center column-date" title="Datum zápasu">Datum</th>
+                        <th class="col-md-1 text-center column-time" title="Čas zápasu">Čas</th>
+                        <th class="col-md-4 text-center column-team" title="Název domácího týmu">Domácí</th>
+                        <th class="col-md-1 text-center column-result" title="Výsledek zápasu">Výsledek</th>
+                        <th class="col-md-4 text-center column-team" title="Název hostitelského týmu">Hosté</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in rnd.matches %}
+                        <tr class="tr-clickable" data-detail-id="{{ match.number }}">
+                            <td class="text-center">{{ match.number }}</td>
+                            <td class="text-center">{{ match.date_time | date:'j. n. Y' }}</td>
+                            <td class="text-center">{{ match.date_time | time:'G:i' }}</td>
+                            <td class="text-center">{{ match.home_team }}</td>
+                            <td class="text-center">{{ match.home_team_goals }} - {{ match.away_team_goals }}</td>
+                            <td class="text-center">{{ match.away_team }}</td>
+                        </tr>
+                        <tr class="d-none" id="{{ match.number }}">
+                            <td colspan="3"></td>
+                            <td colspan="3">
+                                <div class="row detail-row-wrapper">
+                                    <div class="col-md-6 text-left">
+                                        {% for event in match.home_team_events %}
+                                            {{ event.time | time:'i:s' }} &nbsp;
+                                            {% if event.type == 'goal' %}
+                                                <i class="far fa-futbol" title="Gól"></i> &nbsp;
+                                                {{ event.score_player }}
+                                                {% if event.assist_player != None %}
+                                                    &nbsp; ({{ event.assist_player }})
+                                                {% endif %} <br>
+                                            {% elif event.type == 'penalty' %}
+                                                {% if event.length == 2 %}
+                                                    <i class="fas fa-hand-pointer" title="Dvouminutový trest"></i>
+                                                {% elif event.length == 5 %}
+                                                    <i class="fas fa-hand-paper" title="Pětiminutový trest"></i>
+                                                {% endif %} &nbsp;
+                                                {{ event.player }} <br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        {% for event in match.away_team_events %}
+                                            {% if event.type == 'goal' %}
+                                                {% if event.assist_player != None %}
+                                                    ({{ event.assist_player }}) &nbsp;
+                                                {% endif %}
+                                                {{ event.score_player }} &nbsp;
+                                                <i class="far fa-futbol" title="Gól"></i>
+                                            {% elif event.type == 'penalty' %}
+                                                {{ event.player }} &nbsp;
+                                                {% if event.length == 2 %}
+                                                    <i class="fas fa-hand-pointer" title="Dvouminutový trest"></i>
+                                                {% endif %}
+                                                {% if event.length == 5 %}
+                                                    <i class="fas fa-hand-paper" title="Pětiminutový trest"></i>
+                                                {% endif %}
+                                            {% endif %} &nbsp;
+                                            {{ event.time | time:'i:s' }} <br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+    </div>
+
+    {# Page navigation #}
+    {% if data.has_other_pages %}
+        <ul class="pagination">
+            {% if data.has_previous %}
+                <li><a href="?page={{ data.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in data.paginator.page_range %}
+                {% if data.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if data.has_next %}
+                <li><a href="?page={{ data.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".nav ul li").removeClass("active");
+        $('#results').addClass('active');
+    });
+</script>
+
+<script src="{% static "js/tr-clickable.js" %}"></script>
+
+{% endblock %}

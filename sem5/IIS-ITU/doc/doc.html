@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu
+     podle použitého editoru -->
+
+<h1>Informační systém pro florbalovou ligu (vlastní zadání)</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Vladimír Dušek <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xdusek27@stud.fit.vutbr.cz">xdusek27@stud.fit.vutbr.cz</a>
+        <ul>
+            <li> Django Models </li>
+            <li> Django Views a příslušné HTML šablony pro stránky: O nás, Rozpis, Výsledky, Tabulka </li>
+            <li> Vytvoření testovacích dat </li>
+            <li> Administrátorské rozhraní </li>
+        </ul>
+    </dd>
+	<dd>Tomáš Kukaň <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkukan00@stud.fit.vutbr.cz">xkukan00@stud.fit.vutbr.cz</a>
+        <ul>
+            <li> Django Views a příslušné HTML šablony pro stránky: Play-off, Statistiky, Týmy </li>
+            <li> Přepínání sezón </li>
+            <li> Registrace a přihlášení uživatele </li>
+        </ul>
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://89.221.215.52">http://89.221.215.52</a></dd>
+</dl>
+
+<h2>Popis zadání</h2>
+<p>Jedná se o informační systém pro správu florbalové ligy. Sezóna trvá standardně jeden rok.
+Sezóna je rozdělena na dvě části, základní a vyřazovací část (play-off). Uvažujeme, že
+ligu hraje více jak 8 týmů. V základní části se proti sobě utká každý tým 2x (doma, venku).
+Do vyřazovací části postupuje 8 nejlepších týmů. Zápasy se hrají v kolech. Kolem můžeme
+rozumnět jeden hrací víkend, během kterého tým může odehrát i více zápasů. Uživatelům
+bude k dispozici stránka s rozpisem zápasů, kdy, v kolik a kdo proti sobě nastoupí. Dále
+stránka s výsledky, kde budou zaznamenávány odehrané zápasy, jejich výsledky, střelci gólů
+a trestaní hráči. Trest může být udělen dvou nebo pětiminutový. Dále bude k dispozici stránka
+s tabulkou a průběžným pořadím. Zde bude uvedeno jak si týmy vedou, kolik odehráli zápasů,
+kolikrát prohráli, vyhráli, remizovali, kolik vstřelili a obdrželi gólů a jejich bodový zisk.
+Další bude stránka pro vyřazovací část, kde bude stránka s pavoukem pro play-off. Dále stránka se statistikama
+hráčů, zde budou informace o kanadském bodování, odehraných zápasů a obdržených tresných minut hráčů.
+Poslední bude stránka týmů, kde bude přehled týmů kteří hrajou danou sezónu a soupisky hráčů.
+Veškeré tyto informace bude možné zobrazit ať už pro aktuální sezónu, tak sezóny uplynulé. Hráč může po ukončení
+sezóny měnit tým. Hráči a týmy mohou samozřejmě hrát různý počet sezón. Uživatel se může zaregistrovat.
+Registrovaný uživatel má práva pro vytvoření týmu, sepsání soupisky hráčů a informací o nich. Následně
+může zaregistrovat svůj tým pro nadcházející sezónu. Administrátor může vytvořit novou sezónu, vkládat
+zápasy, zadávat výsledky zápasů, střelce gólů a trestané hráče. </p>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Existující zástupci všech rolí (po inicializaci testovacími daty)</p>
+<table>
+    <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+    <tr><td>admin</td><td>admin</td><td>Správce soutěže (Administrátor)</td></tr>
+    <tr><td>Leader</td><td>123456789</td><td>Kapitán týmu Čermáci (Registrovaný uživatel)</td></tr>
+    <tr><td></td><td></td><td>Hráč, fanoušek (Běžný uživatel)</td></tr>
+</table>
+<p>Administrátor je správce soutěže. Může tedy spravovat organizační věci. To znamená,
+vytvářet nové sezóny, kola, zápasy, zadávat výsledky zápasů, tresty a podobně. Zároveň
+má právo cokoliv smazat. <b>Administrátorského rozhraní je dostupné na
+<code>/admin</code>.</b></p>
+
+<p>Přihlášený uživatel pak může vytvářet týmy,
+vytvářet hráče, registrovat hráče do týmu a registrovat tým do sezóny. <b>Rozhraní
+přihlášeného uživatele je dostupné tlačítky v pravém horním rohu v hlavičce. Případně
+na URL <code>registrace-tymu/</code></b>.</p>
+
+<p>Nepřihlášený uživatel může pouze konzumovat obsah informačního systému. Sledovat
+rozpis ligy, výsledky, tabulku, ... Může se zaregistrovat a stát se tak registrovaným
+uživatelem.</p>
+
+<h2>Implementace</h2>
+<p>
+    Pro implementaci jsme zvolili Python web framework Django s databázi PostgreSQL. Bylo třeba
+    nainstalovat Python balíčky django a psycopg2 a linuxové balíčky postgresql-server a
+    postgresql-contrib. Django je poměrně vysokoúrovňový framework, dotazy do databáze lze
+    psát přímo v Pythonu, které si Django spracuje do SQL. Tabulky databáze jsou
+    definovány pomocí Modelů (Models), opět není nutné žádné SQL. Ve Views jsou pak
+    prováděny dotazy do databáze a serializace dat. Django má také vlastní HTML šablonovací
+    systém pro dynamickou tvorbu stránek. Jako frontendové technologie jsme zvolili HTML, CSS
+    s frameworkem Bootstrap a Javascript knihovnu JQuery.
+</p>
+
+<h2>Instalace</h2>
+
+<h3>Instalace potřebného software (OS Fedora)</h3>
+<ul>
+    <li>Interpret pythonu ve verzi 3.6, případně novější
+        <ul>
+            <code># dnf install python3</code>
+        </ul>
+    </li>
+    <li>Databáze Postgresql balíčky
+        <ul>
+            <code># dnf install postgresql-server</code><br>
+            <code># dnf install postgresql-contrib</code>
+        </ul>
+    </li>
+    <li>Python framework Django ve verzi 2.1, případně novější
+        <ul>
+            <code># pip install django</code>
+        </ul>
+    </li>
+    <li>Python balíček psycobp2
+        <ul>
+            <code># pip install psycopg2</code>
+        </ul>
+    </li>
+    <li>Python balíček gunicorn
+        <ul>
+            <code># pip install gunicorn</code>
+        </ul>
+    </li>
+</ul>
+
+<h3>Konfigurace</h3>
+<ul>
+    <li>Spuštění databázového serveru Postgresql
+        <ul>
+            <code># systemctl start postgresql</code>
+        </ul>
+    </li>
+    <li>Inicializace databáze
+        <ul>
+            <code># postgresql-setup --initdb --unit postgresql</code>
+        </ul>
+    </li>
+    <li>Spravování databáze přes psql
+        <ul>
+            <code>$ psql -d postgres -U postgres</code>
+        </ul>
+    </li>
+</ul>
+
+<h3>Spravování informačního systému</h3>
+<ul>
+    <li>Vygenerování migrací
+        <ul>
+            <code>$ python manage.py makemigrations</code>
+        </ul>
+    </li>
+    <li>Spuštění migrací
+        <ul>
+            <code>$ python manage.py migrate</code>
+        </ul>
+    </li>
+    <li>Naplnění databáze testovacími daty
+        <ul>
+            <code>$ python manage.py fill_db</code>
+        </ul>
+    </li>
+    <li>Vyčištění databáze
+        <ul>
+            <code>$ python manage.py clean_db</code>
+        </ul>
+    </li>
+    <li>Spuštění serveru
+        <ul>
+            <code>$ python manage.py runserver</code>
+        </ul>
+    </li>
+</ul>
+
+<h3>Spuštení serveru</h3>
+<ul>
+    <li>Konfigurace nginx dle přiloženého configuračního souboru
+        <ul>
+            <code>nginx/nginx.conf</code>
+        </ul>
+    </li>
+    <li>Spuštění nginx deamona
+        <ul>
+            <code>$ systemctl start nginx.service</code>
+        </ul>
+    </li>
+    <li>Spuštění přiloženého deploy skriptu
+        <ul>
+            <code>nginx/deploy.sh</code>
+        </ul>
+    </li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>
+    Registrovaný uživatel nemůže smazat sebou vytvořený tým, nebo sebou
+    vytvořené hráče. Tato možnost by měla být k dispozici před zahájením sezóny,
+    do které je tým registrován. Toto jsme již nestihli implementovat z časových
+    důvodů.
+</p>
+<p>
+    Při správě IS administrátorem, někde chybí validace vložených dat. Například při vkládání
+    výsledků zápasu, lze určit střelcem gólů i hráče, který daný zápas vůbec nehrál. Stejně tak
+    tým, který gól vstřelil, lze označit tým, který daný zápas vůbec nehrál. Stejná situace při
+    zadávání trestů hráčům. Času vstřelených gólů a udělených trestů, jestli nejsou mimo hrací dobu.
+</p>
+
+</body>
+</html>

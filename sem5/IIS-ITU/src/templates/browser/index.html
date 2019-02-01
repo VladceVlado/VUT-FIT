@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="center-block">
+
+    <h3>Kdo jsme</h3>
+    <p>
+        Jsme amatérská florbalová soutěž, která funguje již od roku 2010. Organizují a hrají ji především
+        florbalový nadšenci, nikoliv profesionální sportovci. Liga se hraje od podzimu do jara, přes léto
+        si dáváme pauzu. Hrajeme v nové víceúčelové hale v obci Dolní Dobrouč. Ta se nachází v podhoří
+        Orlických hor na východě Pardubického kraje. V hale jsou dvě šatny a tribuna pro fanoušky. Kolem haly
+        se nachází parkoviště, je tedy možné zaparkovat auto.
+    </p>
+
+    <div class="row image-row">
+        <div class="col-md-4">
+            <img src="{% static "images/hala_venek.jpg" %}" alt="Víceúčelová hala Dolní Dobrouč 1"
+                 class="responsive-image">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "images/hala_vnitrek.jpg" %}" alt="Víceúčelová hala Dolní Dobrouč 2"
+                class="responsive-image">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "images/hala_satny.jpg" %}" alt="Víceúčelová hala Dolní Dobrouč 3"
+                class="responsive-image">
+        </div>
+    </div>
+
+    <h3>Jak se příhlásit</h3>
+    <p>
+        Pokud chcete ligu hrát a máte tým můžete využít našeho webového rozhraní k registraci. Zaregistrujete se,
+        zaplatíte registrační poplatek pro sezónu, ten činí 10000 KČ za tým. Po uhrazení si budete moci vytvořit
+        tým, napsat soupisku hráčů (až 17 lidí) a přihlásit tým do nadcházející seźony. Pochopitelně není možné
+        přihlásit tým do již rozběhnuté sezóny. Startovné jde z drtivé části na zaplacení haly, zbytek se dává
+        rozhodčím. Soupiska hráčů je závažná a až na výjimky ji není možné během sezóny měnit. Při porušení
+        tohoto pravidla, jsou zápasy, kde bude toto porušení prokázáno, diskvalifikovány v neprospěch provinilého
+        týmu. Při opakovaném porušení, hrozí vyloučení z ligy bez možnosti vrácení startovného.
+    </p>
+
+    <div class="row image-row">
+        <div class="col-md-4">
+            <img src="{% static "images/hra_1.jpg" %}" alt="Hra 1"
+                 class="responsive-image">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "images/hra_2.jpg" %}" alt="Hra 2"
+                class="responsive-image">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "images/hra_3.jpg" %}" alt="Hra 3"
+                class="responsive-image">
+        </div>
+    </div>
+
+    <h3>Pravidla</h3>
+    <p>Hrajeme, až na změny uvedené níže, podle oficiálních pravidel florbalu od IFF -
+        <a href="https://floorball.sport/">
+            International Florbal Federation
+        </a>
+        . Originál je možné najít zde -
+        <a href="http://www.floorball.org/Liitetiedostot/Regulations/2018/Rules%20of%20the%20Game%20Edition%202018.pdf">
+            International Floorball Federation, Rules and Competition Committee
+        </a>
+        . Výklad a překlad pravidel do Češtiny tady -
+        <a href="https://media.ceskyflorbal.cz/media/dms/89/89b8d384-63c7-48a1-9d57-6317e6231dab.pdf">
+            Český florbal, Pravidla florbalu (Edice 2018)
+        </a>
+        . Změna je v hrací době, kdy hrajeme pouze na dvě třetiny hrubého času. Tedy 2x 20 minut. Časomíra
+        se zastavuje pouze při vstřeleném gólu, vyloučení, nebo mimořádných událostech, například zranění.
+        Liga je také smíšená, v týmu mohou být tedy i ženy. Hráči musí být starší 15ti let, horní hranice
+        není. V týmu mohou být maximálně tři registrování hráči pod českou florbalovou asociací, jsme liga
+        amatérská.
+    </p>
+
+    <div class="row image-row">
+        <div class="col-md-4">
+            <img src="{% static "images/hra_4.jpg" %}" alt="Hra 4"
+                 class="responsive-image">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "images/hra_5.jpg" %}" alt="Hra 5"
+                class="responsive-image">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "images/hra_6.jpg" %}" alt="Hra 6"
+                class="responsive-image">
+        </div>
+    </div>
+
+    <h3>Herní systém</h3>
+    <p>
+        Sezóna je rozdělena na dvě části, základní a vyřazovací. V základní části se utká každý tým s každým
+        2x. Jednou jako domácí, jednou jako host. Hrací kola jsou obvykle o víkendech, v průměru jednou za 14 dní
+        a obvykle se hraje celý den, od rána do večera. Do vyřazovací fáze pak postupuje prvních 8 týmů z tabulky.
+        Ve čtvrtfinále se spolu utká první s osmým, druhý se sedmým a podobně. Hraje se na dva vítězné zápasy.
+        Vítězové se spolu utkají v semifinále stejným systémem a nakonec vítězové semifinálových duelů ve finále
+        o první misto. Zápas o třetí místo není. Zbývající pořadí určuje pořadí ze základním části. Zároveň je
+        oceněn nejlepší střelec, hráč s nejvíce asistencemi, nejproduktivnější hráč a nejlepší gólman sezóny.
+        Do těchto statistik se počítají zápasy ze základní i vyřazovací části.
+    </p>
+
+    <h3>Víceúčelová hala Dolní Dobrouč</h3>
+    <div class="mt-1 mb-2 image-row" id="oafl-map"></div>
+    <br>
+
+</div>
+
+<script src="{% static 'js/map.js' %}">
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjy50t8IKx1u6Pwo2I6vdtX26W7RgBZPI&callback=initMap">
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".nav ul li").removeClass("active");
+        $('#home').addClass('active');
+    });
+</script>
+
+{% endblock %}
