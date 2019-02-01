@@ -1,0 +1,134 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=2cm,top=2.5cm,text={17cm,24cm}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {./images/} }
+
+%========================= TITLE PAGE SETUP ===================================
+
+\title{\includegraphics[width=4.1cm,keepaspectratio,trim={1.2cm 1.2cm 1.2cm 1.2cm},clip]{vut-logo} \\
+\vspace{4cm}
+\textit{Simulační studie} \\
+\textbf{Provoz chaty Triglavski dom na Krederici} \\
+\vspace{0.5cm}
+\textsc{IMS 2018/19 - FIT VUT, BRNO}}
+
+\author{Dušek Vladimír (\textbf{xdusek27}), Andrej Naňo - \textbf{xnanoa00}}
+\date{\today}
+
+% big font for sections
+\usepackage{sectsty}
+\sectionfont{\LARGE}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+% \usepackage{hyperref} % color
+% \usepackage{dirtree}
+% \usepackage{fontawesome}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{amsmath}
+
+%========================= SOURCE CODE STYLING ================================
+
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape,
+  captionpos=b
+}
+
+% == C language syntax hl ==
+\lstdefinestyle{npl}{language=c,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  escapeinside={(*@}{@*)},
+  commentstyle=\color{greencomments},
+  keywordstyle=\color{bluekeywords},
+  stringstyle=\color{redstrings},
+  basicstyle=\ttfamily,
+  captionpos=b,
+  numbers=left,
+  frame=single,
+  morekeywords={UINT8, UINT16, UINT32, INT8, INT16, INT32, Post, Properties, Protocol, AsciiString, String, StringTerm, BLOB, FormatString, this},
+}
+
+% == C++ language syntax hl ==
+\lstdefinestyle{c++}{language=c,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  escapeinside={(*@}{@*)},
+  commentstyle=\color{greencomments},
+  keywordstyle=\color{bluekeywords},
+  stringstyle=\color{redstrings},
+  basicstyle=\ttfamily,
+  captionpos=b,
+  numbers=left,
+  frame=single,
+  morekeywords={UINT8, UINT16, UINT32, INT8, INT16, INT32, Post, Properties, Protocol, AsciiString, String, StringTerm, BLOB, FormatString, this},
+}
+
+% \begin{comment} ... \end{comment{}
+\usepackage{verbatim}
+
+\setlength{\parskip}{0pt}
+
+\makeatletter
+\renewcommand{\paragraph}{
+  \@startsection{paragraph}{4}
+    {\z@}{1.25ex \@plus 1ex \@minus .2ex}{-1em}
+      {\normalfont\normalsize\bfseries}
+      }
+      \makeatother
+
+\usepackage{parskip}
+\usepackage{lipsum}
+
+
+%============================== TITLE PAGE ====================================
+
+\begin{document}
+
+\newpage
+\maketitle
+\newpage
+
+%=========================== TABLE OF CONTENT =================================
+
+\renewcommand{\contentsname}{Obsah}
+\tableofcontents
+
+%=============================== CONTENT ======================================
+
+\include{sections/01-introduction}      % Uvod do problematiky, proc danou studii provadime
+\include{sections/02-analysis}          % Rozbor tematu, shrnuti faktu
+\include{sections/03-conception}        % Koncepce modelu, abstraktni model
+\include{sections/04-architecture}      % Architektura simulacniho modelu
+\include{sections/05-essence}           % Podstata simulacnich experimentu, co chceme zjistit
+\include{sections/06-results}           % Shrnuti experimentu, zavery, vysledky
+
+\end{document}

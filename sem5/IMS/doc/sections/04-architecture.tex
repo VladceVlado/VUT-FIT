@@ -1,0 +1,54 @@
+\section{Architektura simulačního modelu}\label{chap:mapping}
+
+\subsection{Mapování konceptiálního modelu na simulační}
+
+V tabulce~\ref{tab:map_con_sim} je zobrazeno mapování jednotlivých entit konceptuálního modelu na třídy simulačního modelu.
+
+\begin{center}
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            Entita v konceptuálním modelu & Třída v simulačním modelu \\
+            \hline
+            \hline
+            Transakce změny sezóny & SeasonChange \\
+            \hline
+            Transakce návštěvníka & Visitor \\
+            \hline
+            Transakce energie větrné turbíny & WT\_Energy \\
+            \hline
+            Transakce chyby větrné turbíny & WT\_Failure \\
+            \hline
+            Transakce energie solárního panelu & SP\_Energy \\
+            \hline
+            Transakce chyba solárního panelu & SP\_Failure \\
+            \hline
+            Přesun energie z akumulátoru do chaty & EnergyFlow \\
+            \hline
+            Transakce fungování chaty & Hut \\
+            \hline
+            Generátor návštěvníků v hlavní sezóně & PeakSeasonVisitorGenerator \\
+            \hline
+            Generátor návštěvníků mimo hlavní sezónu & LowSeasonVisitorGenerator \\
+            \hline
+            Generátor energie z větrné turbíny & WindTurbineGenerator \\
+            \hline
+            Generátor poruchy větrné turbíny & WindTurbineFailureGenerator \\
+            \hline
+            Generátor energie ze solárního panelu & SolarPanelsGenerator \\
+            \hline
+            Generátor poruchy solárního panelu & SolarPanelsFailureGenerator \\
+            \hline
+            Generátor využívání energie chatou & EnergyUsageGenerator \\
+            \hline
+            Přesunutí energie do akumulátoru & FlowGenerator \\
+            \hline
+            \hline
+        \end{tabular}
+        \caption{Mapování konceptuálního modelu na simulační}
+        \label{tab:map_con_sim}
+    \end{table}
+\end{center}
+
+
