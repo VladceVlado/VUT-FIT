@@ -1,4 +1,4 @@
-# IMS PROJEKT
+# IMS
 
 > [**Full Zadanie**](http://perchta.fit.vutbr.cz:8000/vyuka-ims/24)<br>
 > — Problematiky modelujte vhodným způsobem jako diskrétní systém
@@ -11,18 +11,6 @@
 
 > [**Sketch board**](https://sketchboard.me/FBlrWMlsZFmn#/)<br>
 > — Náčrty, Petriho síť
-
-
-## TODO list
-
-- [x] Sbírat informace (spotřeba chaty, výkon větrné turbíny, povětrnostní podmínky, rizika nehody, ...)
-- [x] Makefile
-- [x] Navrh abstraktneho modelu (**Petriho siet**) \[[Petri Net Editor](https://github.com/sarahtattersall/PIPE)\]
-- [x] Navrh simulacneho modelu (**SIMLIB/c++**)
-- [x] Implementacia zariadeni, udalosti, procesov, statistik,...
-- [ ] Simulovanie -> Experimenty + Uprava
-- [ ] Analyza a interpretacia vysledkov
-- [ ] Vytvorenie dokumentacie
 
 ---
 

@@ -1,7 +1,11 @@
 <!-- Author: Vladimir Dusek -->
 <!-- Date: 10/12/2018 -->
 
+<!----------------------------------------------------------------------------->
+
 # Microprocessors and Embedded Systems (IMP)
+
+<!----------------------------------------------------------------------------->
 
 ## Reference
 
@@ -11,15 +15,7 @@
 > [**Documentation**](doc/doc.pdf)<br>
 > — Documentation of the project solution (Czech)
 
-## ToDo
-
-- [x] Borrow Fitkit3
-- [x] Install Kinetis Design Studio
-- [x] Test Fitkit3 functionality
-- [x] Study relevant stuff
-- [x] Write app
-- [x] Test it
-- [x] Write docs
+<!----------------------------------------------------------------------------->
 
 ## Study materials
 
