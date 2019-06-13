@@ -1,0 +1,402 @@
+/**********************************************************************************************************************/
+/* GENERAL STUFF */
+
+html {
+    background-image: url("img/img-jumbotron-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+* {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 650px;
+}
+
+/**********************************************************************************************************************/
+/* SECTION HEADER */
+
+#main > header {
+    padding: 50px 0;
+    color: white;
+}
+
+.content {
+    font-size: 18px;
+    max-width: 1140px;
+    float: none;
+    margin: auto;
+    padding: 0 15px;
+}
+
+#main > header > .content:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.logo {
+    float: left;
+    width: 30%;
+}
+
+.main-menu > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 70%;
+    text-align: right;
+}
+
+.main-menu > ul > li {
+    display: inline-block;
+}
+
+.page-scroll {
+    color: white;
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.main-menu > ul > li > a:hover {
+    transition-duration: 0.3s;
+    color: #fd367e;
+    cursor: pointer;
+}
+
+.main-title {
+    min-height: 100vh;
+    padding: 50px 0;
+    text-align: center;
+    color: white;
+}
+
+.event-date {
+    text-transform: uppercase;
+    font-size: 24px;
+}
+
+.main-title h1 {
+    margin: 50px 10%;
+    font-size: 64px;
+}
+
+.main-title .lead {
+    margin: 50px 0;
+    font-size: 24px;
+    line-height: 40px;
+    color: darkgrey;
+}
+
+.btn {
+    padding: 16px 32px;
+    cursor: pointer;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 24px;
+    border: 3px solid white;
+    transition-duration: 0.3s;
+}
+
+.main-title .content .btn:hover {
+    transition-duration: 0.3s;
+    border-color: #fd367e;
+    color: #fd367e;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+/* MEDIUM */
+@media screen and (max-width: 1050px) {
+    .main-title .lead, .contact {
+        width: 100%;
+    }
+
+
+}
+
+/**********************************************************************************************************************/
+/* SECTION INTRO */
+
+#section-intro {
+    padding: 50px 0;
+    background-color: white;
+}
+
+.about-event .content:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#section-intro .lead {
+    padding: 0;
+    line-height: 32px;
+    width: 70%;
+    float: left;
+}
+
+#section-intro .lead p {
+    margin: 16px 0;
+}
+
+.contact {
+    margin: 16px 0;
+    padding-left: 40px;
+    font-size: 16px;
+    line-height: 26px;
+    width: 25%;
+    float: left;
+}
+
+.contact address {
+    font-style: normal;
+    color: grey;
+}
+
+.contact address strong {
+    color: black;
+}
+
+/* NARROW */
+@media screen and (max-width: 910px) {
+    .main-menu > ul {
+        width: 100%;
+    }
+}
+
+/**********************************************************************************************************************/
+/* SECTION SPEAKER */
+
+#section-speaker {
+    padding: 50px 0;
+    background-color: rgb(230, 230, 230);
+}
+
+#section-speaker .content {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 36px;
+    text-transform: uppercase;
+    color: rgb(0, 0, 75);
+    text-align: center;
+}
+
+.section-content {
+    text-align: center;
+}
+
+.thumbnail {
+    display: inline-block;
+    padding: 20px 10px;
+    margin: 0;
+}
+
+.thumbnail figcaption {
+    line-height: 32px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.thumbnail figcaption h3 {
+    color: rgb(0, 0, 75);
+}
+
+.thumbnail figcaption h3 small {
+    display: block;
+    color: rgb(100, 100, 100);
+}
+
+.thumbnail img {
+    width: 260px;
+    height: auto;
+}
+
+/**********************************************************************************************************************/
+/* SECTION AGENDA */
+
+#section-agenda {
+    padding: 50px 0;
+    background-color: white;
+}
+
+#section-agenda .content {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.agenda-part {
+    width: 350px;
+    float: left;
+    text-align: left;
+}
+
+#section-agenda .content:after {
+    content:"";
+    display:table;
+    clear:both
+}
+
+.session {
+    display: table;
+    padding: 20px 0;
+    margin: 40px 0;
+    color: rgb(0, 0, 75);
+    border-left: 1px solid lightgrey;
+}
+
+.session h3 {
+    padding: 20px;
+    margin: 20px 0 0 0;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 40px;
+}
+
+.session h4 {
+    padding: 10px 20px;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 22px;
+}
+
+.session span {
+    font-size: 16px;
+    display: block;
+}
+
+.session time {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+/**********************************************************************************************************************/
+/* SECTION PRICING */
+
+#section-pricing {
+    padding: 50px 0;
+    background-color: rgb(230, 230, 230);
+}
+
+#section-pricing .content {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    padding: 50px 0;
+}
+
+.section-title p {
+    color: rgb(125, 125, 125);
+    font-size: 22px;
+    text-transform: none;
+    margin: 20px 0 0 0;
+}
+
+#section-pricing .section-title h2 {
+    margin: 0 0 20px 0;
+}
+
+.pricing-table-default {
+    width: 350px;
+    display: inline-block;
+    text-align: center;
+    background: white;
+    margin: 20px 10px;
+}
+
+.pricing-head h3 {
+    background-color: midnightblue;
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.price {
+    display: block;
+    color: rgb(50, 50, 50);
+    width: auto;
+    font-size: 72px;
+    font-weight: bold;
+    margin: 30px 0;
+}
+
+.price sup {
+    font-size: 32px;
+}
+
+.pricing-detail ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pricing-detail li {
+    line-height: 60px;
+    font-size: 20px;
+}
+
+.pricing-table-default .btn {
+    background-color: #fd367e;
+    border: 3px solid #fd367e;
+    margin: 0 0 40px 0;
+}
+
+.pricing-table-default .btn:hover {
+    background-color: white;
+    transition-duration: 0.3s;
+    color: #fd367e;
+}
+
+/**********************************************************************************************************************/
+/* SECTION PARTNERS */
+
+#section-partner {
+    padding: 50px 0;
+    background-color: white;
+}
+
+#section-partner .content {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.partner {
+    display: inline-block;
+}
+
+/**********************************************************************************************************************/
+/* FOOTER */
+
+#footer {
+    padding: 50px 0;
+    background-color: white;
+}
+
+.copyright-section .content {
+    font-size: 18px;
+    color: rgb(125, 125, 125);
+    text-align: center;
+}
+
+.copyright-section .content a {
+    text-decoration: none;
+    color: rgb(255, 70, 126);
+}

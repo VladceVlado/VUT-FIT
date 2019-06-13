@@ -10,4 +10,3 @@
 - C – Compulsory
 - E – Eligible
 - Cr – Credits
-
