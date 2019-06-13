@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <title>U Škrtivé Krajty</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="content">
+            <div class="head light-background">
+                <a href="http://www.stud.fit.vutbr.cz/~xdusek27/index.html">
+                    <img src="img/snake.png" alt="Snake Logo">
+                    <h1>Restaurace u Škrtivé krajty</h1>
+                </a>
+            </div>
+
+            <nav class="head-menu dark-background no-print">
+                <ul>
+                    <li><a class="menu-item" href="index.html">Domů</a></li>
+                    <li><a class="menu-item" href="menu.html">Menu</a></li>
+                    <li><a class="menu-item" href="gallery.html">Galerie</a></li>
+                    <li class="main-menu-active"><a class="menu-item" href="reservation.html">Rezervace</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section>
+        <div class="content light-background">
+            <div class="section-content">
+                <h2>Rezervace</h2>
+                <div class="form">
+                    <form>
+                        <div class="form-row">
+                            <label for="fullname">Jméno a přijmení</label>
+                            <input type="text" id="fullname" name="fullname" placeholder="Jméno Přijmení">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email" placeholder="email@domena.cz">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="phone">Telefonní číslo</label>
+                            <input type="text" id="phone" name="phone" placeholder="+420 777 888 999">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="date">Datum</label>
+                            <br>
+                            <input type="date" id="date" name="date">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="time">Čas</label>
+                            <br>
+                            <input type="time" id="time" name="time">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="number_people">Kolik osob</label>
+                            <br>
+                            <input type="number" id="number_people" name="number_people" placeholder="">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="note">Poznámka</label>
+                            <textarea id="note" name="note" placeholder="" style="height:200px"></textarea>
+                        </div>
+
+                        <input type="submit" value="Odeslat">
+                  </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="content">
+            <div class="foot dark-background">
+                <div class="open-hours">
+                    <h3>Otevírací doba</h3>
+                    <table>
+                        <tr>
+                            <td>Pondělí</td><td>11:00 &ndash; 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Úterý</td><td>11:00 &ndash; 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Středa</td><td>11:00 &ndash; 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Čtvrtek</td><td>11:00 &ndash; 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Pátek</td><td>11:00 &ndash; 24:00</td>
+                        </tr>
+                        <tr>
+                            <td>Sobota</td><td>11:00 &ndash; 24:00</td>
+                        </tr>
+                        <tr>
+                            <td>Neděle</td><td>11:00 &ndash; 22:00</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="contact">
+                    <h3>Kontakt</h3>
+                    <address>
+                        <strong>Restaurace U Škrtivé krajty</strong><br>
+                        Božetěchova 1/2<br>
+                        Brno-Královo Pole, 612 00<br>
+                        <abbr title="Phone">P:</abbr> +420 777 888 999
+                        <a href="mailto:info@uskrtivekrajty.cz">info@uskrtivekrajty.cz</a>
+                    </address>
+                </div>
+
+                <div class="foot-menu">
+                    <h3>Mapa webu</h3>
+                    <ul>
+                        <li><a href="index.html">Domů</a>
+                            <ul>
+                                <li><a href="about.html">O nás</a></li>
+                                <li><a href="news.html">Aktuality</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="menu.html">Menu</a>
+                            <ul>
+                                <li><a href="food_menu.html">Jídelní lístek</a></li>
+                                <li><a href="drink_menu.html">Nápojový lístek</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="gallery.html">Galerie</a></li>
+                        <li><a href="reservation.html">Rezervace</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright light-background">
+                <p>Copyright &copy; 2018 Vladimír Dušek</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
