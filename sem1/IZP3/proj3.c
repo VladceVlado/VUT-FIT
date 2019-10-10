@@ -94,9 +94,9 @@ void init_cluster(struct cluster_t *c, int cap)
 */
 void clear_cluster(struct cluster_t *c)
 {
-	free(c->obj);
-	c->size = 0;
-	c->capacity = 0;
+    free(c->obj);
+    c->size = 0;
+    c->capacity = 0;
 }
 
 /*
@@ -135,13 +135,13 @@ struct cluster_t *resize_cluster(struct cluster_t *c, int new_cap)
 void append_cluster(struct cluster_t *c, struct obj_t obj)
 {
     if (c->size == c->capacity)   // kdyz je velikost shluku rovna kapacite, je potreba kapacitu navysit
-	{
-		if (resize_cluster(c, c->capacity + CLUSTER_CHUNK) == NULL)
-			fprintf(stderr, "Chyba! Neuspesna zmena kapacity clusteru.\n");
-	}
+    {
+        if (resize_cluster(c, c->capacity + CLUSTER_CHUNK) == NULL)
+            fprintf(stderr, "Chyba! Neuspesna zmena kapacity clusteru.\n");
+    }
 
-	c->obj[c->size] = obj;   // pridani objektu na konec pole objektu
-	c->size++;   // byl pridan objekt -> zvetsila se velikost
+    c->obj[c->size] = obj;   // pridani objektu na konec pole objektu
+    c->size++;   // byl pridan objekt -> zvetsila se velikost
 }
 
 /*
@@ -160,14 +160,14 @@ void merge_clusters(struct cluster_t *c1, struct cluster_t *c2)
     assert(c2 != NULL);
 
     for (int i = 0; i < c2->size; i++)   // vsechny objekty ze shluku c2
-	{
-		if (c1->size == c1->capacity)   // kdyz je velikost shluku rovna kapacite, je potreba kapacitu navysit
-			resize_cluster(c1, c1->capacity + CLUSTER_CHUNK);
+    {
+        if (c1->size == c1->capacity)   // kdyz je velikost shluku rovna kapacite, je potreba kapacitu navysit
+            resize_cluster(c1, c1->capacity + CLUSTER_CHUNK);
 
-		append_cluster(c1, c2->obj[i]);   // pridat do shluku c1 objekt s indexem [i] z c2
-	}
+        append_cluster(c1, c2->obj[i]);   // pridat do shluku c1 objekt s indexem [i] z c2
+    }
 
-	sort_cluster(c1);   // seradit objekty ve shluku c1
+    sort_cluster(c1);   // seradit objekty ve shluku c1
 }
 
 /****************************** Prace s polem shluku ******************************/
@@ -196,7 +196,7 @@ float obj_distance(struct obj_t *o1, struct obj_t *o2)
     assert(o1 != NULL);
     assert(o2 != NULL);
 
-	/*   |distance| = ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))^1/2   */
+    /*   |distance| = ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))^1/2   */
     float obj_distance = sqrtf((o1->x - o2->x) * (o1->x - o2->x) + (o1->y - o2->y) * (o1->y - o2->y));
 
     return obj_distance;
@@ -214,20 +214,20 @@ float cluster_distance(struct cluster_t *c1, struct cluster_t *c2)
     assert(c2 != NULL);
     assert(c2->size > 0);
 
-	float dist_fin = 0;   // cluster distance final
-	float dist_act = 0;   // cluster distance actual
+    float dist_fin = 0;   // cluster distance final
+    float dist_act = 0;   // cluster distance actual
 
-	for (int i = 0; i < c1->size; i++)   // porovnat vsechny objekty z prvniho shluku se vsemi objekty z druheho shluku
-	{
-		for (int j = 0; j < c2->size; j++)
-		{
-			dist_act = obj_distance(&c1->obj[i], &c2->obj[j]);   // vzdalenost dvou aktualnich objektu
-			/* kdyz je vzdalenost dvou aktualnich objektu vetsi nez hodnota v promene vzdalenost shluku, ulozi ji jako novou vzdalenost shluku */
-			dist_fin = (dist_act > dist_fin) ? dist_act : dist_fin;
-		}
-	}
+    for (int i = 0; i < c1->size; i++)   // porovnat vsechny objekty z prvniho shluku se vsemi objekty z druheho shluku
+    {
+        for (int j = 0; j < c2->size; j++)
+        {
+            dist_act = obj_distance(&c1->obj[i], &c2->obj[j]);   // vzdalenost dvou aktualnich objektu
+            /* kdyz je vzdalenost dvou aktualnich objektu vetsi nez hodnota v promene vzdalenost shluku, ulozi ji jako novou vzdalenost shluku */
+            dist_fin = (dist_act > dist_fin) ? dist_act : dist_fin;
+        }
+    }
 
-	return dist_fin;
+    return dist_fin;
 }
 
 /*
@@ -240,26 +240,26 @@ void find_neighbours(struct cluster_t *carr, int narr, int *c1, int *c2)
 {
     assert(narr > 0);
 
-	float dist_fin = INFINITY;   // cluster distance final
-	float dist_act = 0;   // cluster distance actual
+    float dist_fin = INFINITY;   // cluster distance final
+    float dist_act = 0;   // cluster distance actual
 
     for (int i = 0; i < narr; i++)   // porovna kazdy shluk s kazdym shlukem
-	{
-		for (int j = 0; j < narr; j++)
-		{
-			if (i != j)   // krome toho sameho
-			{
-				dist_act = cluster_distance(&carr[i], &carr[j]);   // vypocita vzdalenost aktualnich shluku
+    {
+        for (int j = 0; j < narr; j++)
+        {
+            if (i != j)   // krome toho sameho
+            {
+                dist_act = cluster_distance(&carr[i], &carr[j]);   // vypocita vzdalenost aktualnich shluku
 
-				if (dist_act < dist_fin)   // kdyz je mensi nez zatim nejmensi nalezena ulozi ji a zapamatuje indexy
-				{
-					dist_fin = dist_act;
-					*c1 = i;
-					*c2 = j;
-				}
-			}
-		}
-	}
+                if (dist_act < dist_fin)   // kdyz je mensi nez zatim nejmensi nalezena ulozi ji a zapamatuje indexy
+                {
+                    dist_fin = dist_act;
+                    *c1 = i;
+                    *c2 = j;
+                }
+            }
+        }
+    }
 }
 
 /*
@@ -271,9 +271,9 @@ static int obj_sort_compar(const void *a, const void *b)
     const struct obj_t *o1 = a;
     const struct obj_t *o2 = b;
     if (o1->id < o2->id)
-		return -1;
+        return -1;
     if (o1->id > o2->id)
-		return 1;
+        return 1;
     return 0;
 }
 
@@ -302,10 +302,10 @@ void print_cluster(struct cluster_t *c)
 
 void free_all(struct cluster_t *clusters, int n)
 {
-	for (int i = 0; i < n; i++)
-       	clear_cluster(&clusters[i]);   // uvolni pamet po objektech v kazdem finalnim shluku
+    for (int i = 0; i < n; i++)
+        clear_cluster(&clusters[i]);   // uvolni pamet po objektech v kazdem finalnim shluku
 
-	free(clusters);   // uvolni pamet po poli shlucich
+    free(clusters);   // uvolni pamet po poli shlucich
 }
 
 /*
@@ -317,76 +317,76 @@ void free_all(struct cluster_t *clusters, int n)
 */
 int load_clusters(char *filename, struct cluster_t **arr)
 {
-	assert(arr != NULL);
+    assert(arr != NULL);
 
-	FILE *fr;
-	int n_cls_def; // pocet nactenych objektu = pocet pocatecnich clusteru
+    FILE *fr;
+    int n_cls_def; // pocet nactenych objektu = pocet pocatecnich clusteru
 
-	if ((fr = fopen(filename, "r")) == NULL)   // soubor se nepodari otevrit -> chybove hlaseni
-	{
-		fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo otevrit.\n", filename);
-		return -1;
-	}
+    if ((fr = fopen(filename, "r")) == NULL)   // soubor se nepodari otevrit -> chybove hlaseni
+    {
+        fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo otevrit.\n", filename);
+        return -1;
+    }
 
-	if (fscanf(fr, "count=%d", &n_cls_def) != 1)   // spatne nacteni poctu objektu -> chybove hlaseni
-	{
-		fprintf(stderr, "Chyba! Vstupni soubor %s neni ve spravnem formatu.\n", filename);
-		if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-			fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-		return -1;
-	}
+    if (fscanf(fr, "count=%d", &n_cls_def) != 1)   // spatne nacteni poctu objektu -> chybove hlaseni
+    {
+        fprintf(stderr, "Chyba! Vstupni soubor %s neni ve spravnem formatu.\n", filename);
+        if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
+            fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+        return -1;
+    }
 
-	int id;
-	float x, y;
-	int load_lines = 0;
-	char c;
+    int id;
+    float x, y;
+    int load_lines = 0;
+    char c;
 
-	/* alokace pameti pro pole clusteru, v tuto chvili v kazdym clusteru bude 1 objekt */
-	*arr = (struct cluster_t *) malloc(n_cls_def * sizeof(struct cluster_t));
+    /* alokace pameti pro pole clusteru, v tuto chvili v kazdym clusteru bude 1 objekt */
+    *arr = (struct cluster_t *) malloc(n_cls_def * sizeof(struct cluster_t));
 
-	if (*arr == NULL)   // alokace pameti se nezdari -> chybove hlaseni
-	{
-		fprintf(stderr, "Chyba! Nepodarilo se alokovat pamet pro pole clusteru.\n");
-		if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-			fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-		free_all(*arr, load_lines);   // uvolneni pameti
-		return -1;
-	}
+    if (*arr == NULL)   // alokace pameti se nezdari -> chybove hlaseni
+    {
+        fprintf(stderr, "Chyba! Nepodarilo se alokovat pamet pro pole clusteru.\n");
+        if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
+            fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+        free_all(*arr, load_lines);   // uvolneni pameti
+        return -1;
+    }
 
-	for (int i = 0; i < n_cls_def; i++)
-	{
-		/* alokace pameti pro objecty v clusteru*/
-		init_cluster(&(*arr)[i], 1);
-		(*arr)[i].size = 1;   // nastaveni pocatecni velikosti shluku (v kazdem shluku 1 objekt)
-		load_lines++;   // promena kvuli kontrole jedinecnosti ID
+    for (int i = 0; i < n_cls_def; i++)
+    {
+        /* alokace pameti pro objecty v clusteru*/
+        init_cluster(&(*arr)[i], 1);
+        (*arr)[i].size = 1;   // nastaveni pocatecni velikosti shluku (v kazdem shluku 1 objekt)
+        load_lines++;   // promena kvuli kontrole jedinecnosti ID
 
-		if ((*arr)[i].obj == NULL)   // alokace pameti se nezdari -> chybove hlaseni
-		{
-			fprintf(stderr, "Chyba! Nepodarilo se alokovat pamet pro object.");
-			if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-				fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-			free_all(*arr, load_lines);   // uvolneni pameti
-			return -1;
-		}
-
-		c = getc(fr);
-		if (c != '\n' && i != n_cls_def - 1)   // neplatny format vstupniho souboru -> chybove hlaseni
+        if ((*arr)[i].obj == NULL)   // alokace pameti se nezdari -> chybove hlaseni
         {
-            fprintf(stderr, "Chyba! Vstupni soubor je ve spatnem formatu.");
+            fprintf(stderr, "Chyba! Nepodarilo se alokovat pamet pro object.");
             if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-					fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-			free_all(*arr, load_lines);   // uvolneni pameti
+                fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+            free_all(*arr, load_lines);   // uvolneni pameti
             return -1;
         }
 
-		if (fscanf(fr ,"%d %f %f", &id, &x, &y) == 3)
-		{
-			if (x < 0 || y < 0 || x > 1000 || y > 1000 || x - (int)x != 0 || y - (int)y != 0)   // souradnice mimo povolenou mez -> chybove hlaseni
+        c = getc(fr);
+        if (c != '\n' && i != n_cls_def - 1)   // neplatny format vstupniho souboru -> chybove hlaseni
+        {
+            fprintf(stderr, "Chyba! Vstupni soubor je ve spatnem formatu.");
+            if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
+                    fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+            free_all(*arr, load_lines);   // uvolneni pameti
+            return -1;
+        }
+
+        if (fscanf(fr ,"%d %f %f", &id, &x, &y) == 3)
+        {
+            if (x < 0 || y < 0 || x > 1000 || y > 1000 || x - (int)x != 0 || y - (int)y != 0)   // souradnice mimo povolenou mez -> chybove hlaseni
             {
                 fprintf(stderr, "Chyba! Neplatne souradnice objektu.");
-      			if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-					fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-				free_all(*arr, load_lines);   // uvolneni pameti
+                if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
+                    fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+                free_all(*arr, load_lines);   // uvolneni pameti
                 return -1;
             }
 
@@ -396,35 +396,35 @@ int load_clusters(char *filename, struct cluster_t **arr)
                 {
                     fprintf(stderr, "Chyba! Vyskytuji se objekty se stejnym ID.");
                     if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-						fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-					free_all(*arr, load_lines);   // uvolneni pameti
+                        fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+                    free_all(*arr, load_lines);   // uvolneni pameti
                     return -1;
                 }
             }
 
-         	(*arr)[i].obj->id = id;   // prirazeni ID objektu
-			(*arr)[i].obj->x = x;   // prirazeni X souradnice objektu
-			(*arr)[i].obj->y = y;   // prirazeni Y souradnice objektu
+            (*arr)[i].obj->id = id;   // prirazeni ID objektu
+            (*arr)[i].obj->x = x;   // prirazeni X souradnice objektu
+            (*arr)[i].obj->y = y;   // prirazeni Y souradnice objektu
 
-		}
-		else   // vstupni soubor v chybnem formatu -> chybove hlaseni
-		{
-			fprintf(stderr, "Chyba! Vstupni soubor %s neni ve spravnem formatu.\n", filename);
-			if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-				fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-			free_all(*arr, load_lines);   // uvolneni pameti
-			return -1;
-		}
-	}
+        }
+        else   // vstupni soubor v chybnem formatu -> chybove hlaseni
+        {
+            fprintf(stderr, "Chyba! Vstupni soubor %s neni ve spravnem formatu.\n", filename);
+            if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
+                fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+            free_all(*arr, load_lines);   // uvolneni pameti
+            return -1;
+        }
+    }
 
-	if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
-	{
-		fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
-		free_all(*arr, load_lines);   // uvolneni pameti
-		return -1;
-	}
+    if (fclose(fr) == EOF)   // soubor se nepodari zavrit -> chybove hlaseni
+    {
+        fprintf(stderr, "Chyba! Vstupni soubor %s se nepodarilo zavrit.\n", filename);
+        free_all(*arr, load_lines);   // uvolneni pameti
+        return -1;
+    }
 
-	return load_lines;   // vraci pocet nactenych shluku (v kazdem jeden objekt)
+    return load_lines;   // vraci pocet nactenych shluku (v kazdem jeden objekt)
 }
 
 /*
@@ -450,20 +450,20 @@ void print_clusters(struct cluster_t *carr, int narr)
 */
 int main(int argc, char *argv[])
 {
-	struct cluster_t *clusters;   // pole shluku
-	int n_cls_final;   // argument N, pocet vyslednych shluku
-	char filename[101];   // pole pro nazev vstupniho souboru
-	int n_cls;   // pocet shluku na zacatku, v kazdem shluku se nachazi 1 objekt
+    struct cluster_t *clusters;   // pole shluku
+    int n_cls_final;   // argument N, pocet vyslednych shluku
+    char filename[101];   // pole pro nazev vstupniho souboru
+    int n_cls;   // pocet shluku na zacatku, v kazdem shluku se nachazi 1 objekt
 
     if (argc > 1 && argc < 4)   // pocet argumentu je v poradku
     {
-    	if (strlen(argv[1]) > 100)   // nazev souboru se nevejde do pole -> chybove hlaseni
-		{
-			fprintf(stderr, "Chyba! Vstupni soubor ma prilis dlouhy nazev.\n");
-			return 1;
-    	}
-    	else
-			strcpy(filename, argv[1]);   // ulozim nazev souboru do pole
+        if (strlen(argv[1]) > 100)   // nazev souboru se nevejde do pole -> chybove hlaseni
+        {
+            fprintf(stderr, "Chyba! Vstupni soubor ma prilis dlouhy nazev.\n");
+            return 1;
+        }
+        else
+            strcpy(filename, argv[1]);   // ulozim nazev souboru do pole
 
         if (argc == 2)   // kdyz neni zadan argument N, priradi se mu hodnota 1
             n_cls_final = 1;
@@ -475,20 +475,20 @@ int main(int argc, char *argv[])
             n_cls_final = (int) strtol(p_n_cls_final, &p_error, 10);
 
             if (*p_error != '\0' || n_cls_final <= 0)   // pretypovani neprobehne spravne -> chybove hlaseni
-			{
-				fprintf(stderr, "Chyba! Nespravne zadani argumentu N. Argument N je druhy argument programu a jedna se o prirozene cislo.\n");
-				return 1;
-			}
+            {
+                fprintf(stderr, "Chyba! Nespravne zadani argumentu N. Argument N je druhy argument programu a jedna se o prirozene cislo.\n");
+                return 1;
+            }
         }
     }
     else   // neplatny pocet argumentu -> chybove hlaseni
-	{
-		fprintf(stderr, "Chyba! Nespravne spusteni programu. Program spoustejte v nasledujici podobe ./proj3 SOUBOR [N]\n");
-		return 1;
-	}
+    {
+        fprintf(stderr, "Chyba! Nespravne spusteni programu. Program spoustejte v nasledujici podobe ./proj3 SOUBOR [N]\n");
+        return 1;
+    }
 
     if ((n_cls = load_clusters(filename, &clusters)) < 0)   // chyba pri nacitani objektu ze vstupniho souboru -> chybove hlaseni
-		return 1;
+        return 1;
 
     if (n_cls_final > n_cls)   // pocet cilovych shluku je vetsi nez pocet pocatecnich shluku -> chybove hlaseni
     {
@@ -497,18 +497,18 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-	int cls1, cls2;
+    int cls1, cls2;
 
-	while (n_cls != n_cls_final)
-	{
-		find_neighbours(clusters, n_cls, &cls1, &cls2);
-		merge_clusters(&clusters[cls1], &clusters[cls2]);
-		n_cls = remove_cluster(clusters, n_cls, cls2);
-	}
+    while (n_cls != n_cls_final)
+    {
+        find_neighbours(clusters, n_cls, &cls1, &cls2);
+        merge_clusters(&clusters[cls1], &clusters[cls2]);
+        n_cls = remove_cluster(clusters, n_cls, cls2);
+    }
 
-	print_clusters(clusters, n_cls);   // vytisknuti vyslednych clusteru
+    print_clusters(clusters, n_cls);   // vytisknuti vyslednych clusteru
 
-	free_all(clusters, n_cls);   // uvolneni pameti
+    free_all(clusters, n_cls);   // uvolneni pameti
 
-	return 0;
+    return 0;
 }
