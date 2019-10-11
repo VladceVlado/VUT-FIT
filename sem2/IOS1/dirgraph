@@ -23,32 +23,32 @@ FILE_ERE=''
 
 # Osetreni argumentu pomoci getopts, viz prednaska
 while getopts "i:n" opt
-do	
-	case "${opt}" in
-		i)	if $argI # -i zadano vicekrat
-			then
-            	echo "Chyba! Neocekavane spusteni, prepinac -i \
+do  
+    case "${opt}" in
+        i)  if $argI # -i zadano vicekrat
+            then
+                echo "Chyba! Neocekavane spusteni, prepinac -i \
 byl zadan vicekrat" >& 2
-				exit 3
-        	fi
-			FILE_ERE="${OPTARG}"
-			argI=true
-			;;
+                exit 3
+            fi
+            FILE_ERE="${OPTARG}"
+            argI=true
+            ;;
 
-		n)	if $argN # -n zadano vicekrat
-			then
-            	echo "Chyba! Neocekavane spusteni, prepinac -n \
+        n)  if $argN # -n zadano vicekrat
+            then
+                echo "Chyba! Neocekavane spusteni, prepinac -n \
 byl zadan vicekrat" >& 2
-				exit 2
-        	fi
-			argN=true
-			;;
+                exit 2
+            fi
+            argN=true
+            ;;
 
-		\?) echo "Chyba! Neocekavane spusteni, spoustejte \
+        \?) echo "Chyba! Neocekavane spusteni, spoustejte \
 nasledovne: ./dirgraph [-i FILE_ERE] [-n] [DIR]" >& 2
-		   exit 1
-		   ;; 
-	esac
+           exit 1
+           ;; 
+    esac
 done
 
 OPTIND=$((OPTIND-1))
@@ -72,19 +72,19 @@ fi
 
 if $argN # zadan prepinac -n
 then 
-	if [ -t 1 ] # skript je spusten v terminalu
-	then 
-		MAX_CHARS=`tput cols`
-		MAX_CHARS=$((MAX_CHARS-1))
-	else # skript neni spusten v terminalu
-		MAX_CHARS=79
-	fi
+    if [ -t 1 ] # skript je spusten v terminalu
+    then 
+        MAX_CHARS=`tput cols`
+        MAX_CHARS=$((MAX_CHARS-1))
+    else # skript neni spusten v terminalu
+        MAX_CHARS=79
+    fi
 fi
 
 if [ "$PATH" = '' ] # neplatna cesta
 then
     echo "Chyba! Neplatna cesta" >& 2
-	exit 5
+    exit 5
 fi
 
 ########################################################################
@@ -95,30 +95,30 @@ fileCount=0
 
 while read i
 do
-	#if [ ! -r "${i}" ] # permission denied?
-	#then
-	#	echo "Chyba! Permission denied" >& 2
+    #if [ ! -r "${i}" ] # permission denied?
+    #then
+    #   echo "Chyba! Permission denied" >& 2
     #    exit 5
-	#fi
+    #fi
 
-	if [ ! -z "${FILE_ERE}" ] # zadan -i "..."
-	then
-		TMP_I=`echo "${i}" | tr '/' '\n' | grep -E "$FILE_ERE"`
-		if [ ! -z "${TMP_I}" ] # shoda -> dalsi iterace
-		then
-			continue
-		fi
-	fi
+    if [ ! -z "${FILE_ERE}" ] # zadan -i "..."
+    then
+        TMP_I=`echo "${i}" | tr '/' '\n' | grep -E "$FILE_ERE"`
+        if [ ! -z "${TMP_I}" ] # shoda -> dalsi iterace
+        then
+            continue
+        fi
+    fi
 
-	if [ -d "${i}" ] # je dir? -> dirCount++
-	then
-		dirCount=$((dirCount+1))
-	fi
-	
-	if [ -f "${i}" ] # je file? -> fileCount++
-	then
-		fileCount=$((fileCount+1))
-	fi
+    if [ -d "${i}" ] # je dir? -> dirCount++
+    then
+        dirCount=$((dirCount+1))
+    fi
+    
+    if [ -f "${i}" ] # je file? -> fileCount++
+    then
+        fileCount=$((fileCount+1))
+    fi
 done <<< "$(find . )"
 
 ########################################################################
@@ -136,25 +136,25 @@ cat9=0 # > 1073741824 B
 
 while read i
 do
-	if [ -d "${i}" ]
-	then
-		continue
-	fi
+    if [ -d "${i}" ]
+    then
+        continue
+    fi
 
-	if [ ! -z "${FILE_ERE}" ] # zadan -i "..."
-	then
-		TMP_I=`echo "${i}" | tr '/' '\n' | grep -E "$FILE_ERE"`
-		if [ ! -z "${TMP_I}" ] # shoda -> dalsi iterace
-		then
-			continue
-		fi
-	fi
+    if [ ! -z "${FILE_ERE}" ] # zadan -i "..."
+    then
+        TMP_I=`echo "${i}" | tr '/' '\n' | grep -E "$FILE_ERE"`
+        if [ ! -z "${TMP_I}" ] # shoda -> dalsi iterace
+        then
+            continue
+        fi
+    fi
 
-	#size=`stat -c"%s" "$i"` 
-	size=`wc -c < "$i"` 
-	
-	if [ $size -lt 100 ]
-	then
+    #size=`stat -c"%s" "$i"` 
+    size=`wc -c < "$i"` 
+    
+    if [ $size -lt 100 ]
+    then
         cat1=$((cat1+1))
         
     elif [ $size -lt 1024 ]
@@ -195,28 +195,28 @@ done <<< "$(find . )"
 
 while read i
 do
-	if [ -d "${i}" ] # adresar -> dalsi iterace
-	then
-		continue
-	fi
+    if [ -d "${i}" ] # adresar -> dalsi iterace
+    then
+        continue
+    fi
 
-	if [ ! -z "${FILE_ERE}" ] # zadan -i "..."
-	then
-		TMP_I=`echo "${i}" | tr '/' '\n' | grep -E "$FILE_ERE"`
-		if [ ! -z "${TMP_I}" ] # shoda -> dalsi iterace
-		then
-			continue
-		fi
-	fi
+    if [ ! -z "${FILE_ERE}" ] # zadan -i "..."
+    then
+        TMP_I=`echo "${i}" | tr '/' '\n' | grep -E "$FILE_ERE"`
+        if [ ! -z "${TMP_I}" ] # shoda -> dalsi iterace
+        then
+            continue
+        fi
+    fi
 
-	i=`file -b "${i}"`
+    i=`file -b "${i}"`
   # i=`file "${i}" | grep -oE '[^:]*$'`
     
     if [ "${#i}" -gt 40 ] ; then # delsi nez 40 -> riznout a ...
-		i=`printf "%-40s..." "${i:0:40}"`
-	fi
+        i=`printf "%-40s..." "${i:0:40}"`
+    fi
 
-	FILES="${FILES}
+    FILES="${FILES}
 ${i}"
 done <<< "$(find . )"
 
@@ -229,11 +229,11 @@ FILES=`echo "${FILES}" | sort | tail -n +2 | uniq -c | sort -nr \
 
 function print_hash ()
 {
-	for (( i=0; i<$1; i++ )) 
-	do
-		echo -n "#"
-	done
-	echo
+    for (( i=0; i<$1; i++ )) 
+    do
+        echo -n "#"
+    done
+    echo
 }
 
 ########################################################################
@@ -241,35 +241,35 @@ function print_hash ()
 
 function most_hashes ()
 {
-	LONGEST=${1}
+    LONGEST=${1}
 
-	if [ $LONGEST -lt ${2} ] ; then
-		LONGEST=${2}
-	fi
-	if [ $LONGEST -lt ${3} ] ; then
-		LONGEST=${3}
-	fi
-	if [ $LONGEST -lt ${4} ] ; then
-		LONGEST=${4}
-	fi
-	if [ $LONGEST -lt ${5} ] ; then
-		LONGEST=${5}
-	fi
-	if [ $LONGEST -lt ${6} ] ; then
-		LONGEST=${6}
-	fi
-	if [ $LONGEST -lt ${7} ] ; then
-		LONGEST=${7}
-	fi
-	if [ $LONGEST -lt ${8} ] ; then
-		LONGEST=${8}
-	fi
-	if [ $LONGEST -lt ${9} ] ; then
-		LONGEST=${9}
-	fi
-	if [ $LONGEST -lt ${10} ] ; then
-		LONGEST=${10}
-	fi
+    if [ $LONGEST -lt ${2} ] ; then
+        LONGEST=${2}
+    fi
+    if [ $LONGEST -lt ${3} ] ; then
+        LONGEST=${3}
+    fi
+    if [ $LONGEST -lt ${4} ] ; then
+        LONGEST=${4}
+    fi
+    if [ $LONGEST -lt ${5} ] ; then
+        LONGEST=${5}
+    fi
+    if [ $LONGEST -lt ${6} ] ; then
+        LONGEST=${6}
+    fi
+    if [ $LONGEST -lt ${7} ] ; then
+        LONGEST=${7}
+    fi
+    if [ $LONGEST -lt ${8} ] ; then
+        LONGEST=${8}
+    fi
+    if [ $LONGEST -lt ${9} ] ; then
+        LONGEST=${9}
+    fi
+    if [ $LONGEST -lt ${10} ] ; then
+        LONGEST=${10}
+    fi
 }
 
 ########################################################################
@@ -277,70 +277,70 @@ function most_hashes ()
 
 function FSHIST ()
 {
-	if $argN # normalizace
-	then
-		# MAX_CHARS - maximalni mozny pocet znaku na radek
-		# MAX_HASH - maximalni pocet mrizi
-		# LONGEST - nejvice mrizi
-		MAX_HASH=$((MAX_CHARS - 2 - 8 - 1 - 1))
-		most_hashes $cat1 $cat2 $cat3 $cat4 $cat5 $cat6 $cat7 $cat8 $cat9 0
+    if $argN # normalizace
+    then
+        # MAX_CHARS - maximalni mozny pocet znaku na radek
+        # MAX_HASH - maximalni pocet mrizi
+        # LONGEST - nejvice mrizi
+        MAX_HASH=$((MAX_CHARS - 2 - 8 - 1 - 1))
+        most_hashes $cat1 $cat2 $cat3 $cat4 $cat5 $cat6 $cat7 $cat8 $cat9 0
 
-		if [ $MAX_HASH -lt $LONGEST ]
-		then
-			#CONST=$(awk "BEGIN {printf \"%.5f\", ${MAX_HASH} / ${LONGEST}}")
+        if [ $MAX_HASH -lt $LONGEST ]
+        then
+            #CONST=$(awk "BEGIN {printf \"%.5f\", ${MAX_HASH} / ${LONGEST}}")
 
-			#cat1=$(awk "BEGIN {printf \"%.5f\", ${cat1} * ${CONST}}")
-			#cat2=$(awk "BEGIN {printf \"%.5f\", ${cat2} * ${CONST}}")
-			#cat3=$(awk "BEGIN {printf \"%.5f\", ${cat3} * ${CONST}}")
-			#cat4=$(awk "BEGIN {printf \"%.5f\", ${cat4} * ${CONST}}")
-			#cat5=$(awk "BEGIN {printf \"%.5f\", ${cat5} * ${CONST}}")
-			#cat6=$(awk "BEGIN {printf \"%.5f\", ${cat6} * ${CONST}}")
-			#cat7=$(awk "BEGIN {printf \"%.5f\", ${cat7} * ${CONST}}")
-			#cat8=$(awk "BEGIN {printf \"%.5f\", ${cat8} * ${CONST}}")
-			#cat9=$(awk "BEGIN {printf \"%.5f\", ${cat9} * ${CONST}}")
+            #cat1=$(awk "BEGIN {printf \"%.5f\", ${cat1} * ${CONST}}")
+            #cat2=$(awk "BEGIN {printf \"%.5f\", ${cat2} * ${CONST}}")
+            #cat3=$(awk "BEGIN {printf \"%.5f\", ${cat3} * ${CONST}}")
+            #cat4=$(awk "BEGIN {printf \"%.5f\", ${cat4} * ${CONST}}")
+            #cat5=$(awk "BEGIN {printf \"%.5f\", ${cat5} * ${CONST}}")
+            #cat6=$(awk "BEGIN {printf \"%.5f\", ${cat6} * ${CONST}}")
+            #cat7=$(awk "BEGIN {printf \"%.5f\", ${cat7} * ${CONST}}")
+            #cat8=$(awk "BEGIN {printf \"%.5f\", ${cat8} * ${CONST}}")
+            #cat9=$(awk "BEGIN {printf \"%.5f\", ${cat9} * ${CONST}}")
 
-			#cat1=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat1}`
-			#cat2=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat2}`
-			#cat3=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat3}`
-			#cat4=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat4}`
-			#cat5=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat5}`
-			#cat6=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat6}`
-			#cat7=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat7}`
-			#cat8=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat8}`
-			#cat9=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat9}`
+            #cat1=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat1}`
+            #cat2=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat2}`
+            #cat3=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat3}`
+            #cat4=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat4}`
+            #cat5=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat5}`
+            #cat6=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat6}`
+            #cat7=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat7}`
+            #cat8=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat8}`
+            #cat9=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${cat9}`
 
-			cat1=$((cat1 * MAX_HASH / LONGEST))
-			cat2=$((cat2 * MAX_HASH / LONGEST))
-			cat3=$((cat3 * MAX_HASH / LONGEST))
-			cat4=$((cat4 * MAX_HASH / LONGEST))
-			cat5=$((cat5 * MAX_HASH / LONGEST))
-			cat6=$((cat6 * MAX_HASH / LONGEST))
-			cat7=$((cat7 * MAX_HASH / LONGEST))
-			cat8=$((cat8 * MAX_HASH / LONGEST))
-			cat9=$((cat9 * MAX_HASH / LONGEST))
-			cat10=$((cat10 * MAX_HASH / LONGEST))
-		fi
-	fi	
+            cat1=$((cat1 * MAX_HASH / LONGEST))
+            cat2=$((cat2 * MAX_HASH / LONGEST))
+            cat3=$((cat3 * MAX_HASH / LONGEST))
+            cat4=$((cat4 * MAX_HASH / LONGEST))
+            cat5=$((cat5 * MAX_HASH / LONGEST))
+            cat6=$((cat6 * MAX_HASH / LONGEST))
+            cat7=$((cat7 * MAX_HASH / LONGEST))
+            cat8=$((cat8 * MAX_HASH / LONGEST))
+            cat9=$((cat9 * MAX_HASH / LONGEST))
+            cat10=$((cat10 * MAX_HASH / LONGEST))
+        fi
+    fi  
 
-	# finalni vypis histogramu podle velikosti
-	echo -n "  <100 B  : "
-	print_hash $cat1
-	echo -n "  <1 KiB  : "
-	print_hash $cat2
-	echo -n "  <10 KiB : "
-	print_hash $cat3
-	echo -n "  <100 KiB: "
-	print_hash $cat4
-	echo -n "  <1 MiB  : "
-	print_hash $cat5
-	echo -n "  <10 MiB : "
-	print_hash $cat6
-	echo -n "  <100 MiB: "
-	print_hash $cat7
-	echo -n "  <1 GiB  : "
-	print_hash $cat8
-	echo -n "  >=1 GiB : "
-	print_hash $cat9
+    # finalni vypis histogramu podle velikosti
+    echo -n "  <100 B  : "
+    print_hash $cat1
+    echo -n "  <1 KiB  : "
+    print_hash $cat2
+    echo -n "  <10 KiB : "
+    print_hash $cat3
+    echo -n "  <100 KiB: "
+    print_hash $cat4
+    echo -n "  <1 MiB  : "
+    print_hash $cat5
+    echo -n "  <10 MiB : "
+    print_hash $cat6
+    echo -n "  <100 MiB: "
+    print_hash $cat7
+    echo -n "  <1 GiB  : "
+    print_hash $cat8
+    echo -n "  >=1 GiB : "
+    print_hash $cat9
 }
 
 ########################################################################
@@ -348,156 +348,156 @@ function FSHIST ()
 
 function FTHIST ()
 {
-	typcat1=0 
-	typcat2=0 
-	typcat3=0 
-	typcat4=0 
-	typcat5=0 
-	typcat6=0 
-	typcat7=0 
-	typcat8=0 
-	typcat9=0
-	typcat10=0 
-	COUNTER=1
-	
-	printf '%s\n' "$FILES" | ( while IFS= read -r line
-	do
-		# priradi radky do promenych
-		if [ $COUNTER -eq 1 ] ; then 
-    		typcat1="${line}"
-    	elif [ $COUNTER -eq 2 ] ; then
-    		typcat2="${line}"
-    	elif [ $COUNTER -eq 3 ] ; then
-    		typcat3="${line}"
-    	elif [ $COUNTER -eq 4 ] ; then
-    		typcat4="${line}"
-    	elif [ $COUNTER -eq 5 ] ; then
-    		typcat5="${line}"
-    	elif [ $COUNTER -eq 6 ] ; then
-    		typcat6="${line}"
-    	elif [ $COUNTER -eq 7 ] ; then
-    		typcat7="${line}"
-    	elif [ $COUNTER -eq 8 ] ; then
-    		typcat8="${line}"
-    	elif [ $COUNTER -eq 9 ] ; then
-    		typcat9="${line}"
-    	elif [ $COUNTER -eq 10 ] ; then
-    		typcat10="${line}"
-		fi
-		COUNTER=$((COUNTER+1))
-	done 
+    typcat1=0 
+    typcat2=0 
+    typcat3=0 
+    typcat4=0 
+    typcat5=0 
+    typcat6=0 
+    typcat7=0 
+    typcat8=0 
+    typcat9=0
+    typcat10=0 
+    COUNTER=1
+    
+    printf '%s\n' "$FILES" | ( while IFS= read -r line
+    do
+        # priradi radky do promenych
+        if [ $COUNTER -eq 1 ] ; then 
+            typcat1="${line}"
+        elif [ $COUNTER -eq 2 ] ; then
+            typcat2="${line}"
+        elif [ $COUNTER -eq 3 ] ; then
+            typcat3="${line}"
+        elif [ $COUNTER -eq 4 ] ; then
+            typcat4="${line}"
+        elif [ $COUNTER -eq 5 ] ; then
+            typcat5="${line}"
+        elif [ $COUNTER -eq 6 ] ; then
+            typcat6="${line}"
+        elif [ $COUNTER -eq 7 ] ; then
+            typcat7="${line}"
+        elif [ $COUNTER -eq 8 ] ; then
+            typcat8="${line}"
+        elif [ $COUNTER -eq 9 ] ; then
+            typcat9="${line}"
+        elif [ $COUNTER -eq 10 ] ; then
+            typcat10="${line}"
+        fi
+        COUNTER=$((COUNTER+1))
+    done 
 
-	# z radku ulozi cisla a stringy zvlast do promenych
-	N1=`printf '%s\n' "$typcat1" | cut -d ' ' -f 1`
-	typcat1=`printf '%s\n' "$typcat1" | cut -d ' ' -f 2-`
-	N2=`printf '%s\n' "$typcat2" | cut -d ' ' -f 1`
-	typcat2=`printf '%s\n' "$typcat2" | cut -d ' ' -f 2-`
-	N3=`printf '%s\n' "$typcat3" | cut -d ' ' -f 1`
-	typcat3=`printf '%s\n' "$typcat3" | cut -d ' ' -f 2-`
-	N4=`printf '%s\n' "$typcat4" | cut -d ' ' -f 1`
-	typcat4=`printf '%s\n' "$typcat4" | cut -d ' ' -f 2-`
-	N5=`printf '%s\n' "$typcat5" | cut -d ' ' -f 1`
-	typcat5=`printf '%s\n' "$typcat5" | cut -d ' ' -f 2-`
-	N6=`printf '%s\n' "$typcat6" | cut -d ' ' -f 1`
-	typcat6=`printf '%s\n' "$typcat6" | cut -d ' ' -f 2-`
-	N7=`printf '%s\n' "$typcat7" | cut -d ' ' -f 1`
-	typcat7=`printf '%s\n' "$typcat7" | cut -d ' ' -f 2-`
-	N8=`printf '%s\n' "$typcat8" | cut -d ' ' -f 1`
-	typcat8=`printf '%s\n' "$typcat8" | cut -d ' ' -f 2-`
-	N9=`printf '%s\n' "$typcat9" | cut -d ' ' -f 1`
-	typcat9=`printf '%s\n' "$typcat9" | cut -d ' ' -f 2-`
-	N10=`printf '%s\n' "$typcat10" | cut -d ' ' -f 1`
-	typcat10=`printf '%s\n' "$typcat10" | cut -d ' ' -f 2-`
+    # z radku ulozi cisla a stringy zvlast do promenych
+    N1=`printf '%s\n' "$typcat1" | cut -d ' ' -f 1`
+    typcat1=`printf '%s\n' "$typcat1" | cut -d ' ' -f 2-`
+    N2=`printf '%s\n' "$typcat2" | cut -d ' ' -f 1`
+    typcat2=`printf '%s\n' "$typcat2" | cut -d ' ' -f 2-`
+    N3=`printf '%s\n' "$typcat3" | cut -d ' ' -f 1`
+    typcat3=`printf '%s\n' "$typcat3" | cut -d ' ' -f 2-`
+    N4=`printf '%s\n' "$typcat4" | cut -d ' ' -f 1`
+    typcat4=`printf '%s\n' "$typcat4" | cut -d ' ' -f 2-`
+    N5=`printf '%s\n' "$typcat5" | cut -d ' ' -f 1`
+    typcat5=`printf '%s\n' "$typcat5" | cut -d ' ' -f 2-`
+    N6=`printf '%s\n' "$typcat6" | cut -d ' ' -f 1`
+    typcat6=`printf '%s\n' "$typcat6" | cut -d ' ' -f 2-`
+    N7=`printf '%s\n' "$typcat7" | cut -d ' ' -f 1`
+    typcat7=`printf '%s\n' "$typcat7" | cut -d ' ' -f 2-`
+    N8=`printf '%s\n' "$typcat8" | cut -d ' ' -f 1`
+    typcat8=`printf '%s\n' "$typcat8" | cut -d ' ' -f 2-`
+    N9=`printf '%s\n' "$typcat9" | cut -d ' ' -f 1`
+    typcat9=`printf '%s\n' "$typcat9" | cut -d ' ' -f 2-`
+    N10=`printf '%s\n' "$typcat10" | cut -d ' ' -f 1`
+    typcat10=`printf '%s\n' "$typcat10" | cut -d ' ' -f 2-`
 
-	if $argN # normalizace
-	then
-		# MAX_CHARS - maximalni mozny pocet znaku na radek
-		# MAX_HASH - maximalni pocet mrizi
-		# LONGEST - nejvice mrizi
-		MAX_HASH=$((MAX_CHARS - 2 - 40 - 3 - 1 - 1))
-		most_hashes $N1 $N2 $N3 $N4 $N5 $N6 $N7 $N8 $N9 $N10
+    if $argN # normalizace
+    then
+        # MAX_CHARS - maximalni mozny pocet znaku na radek
+        # MAX_HASH - maximalni pocet mrizi
+        # LONGEST - nejvice mrizi
+        MAX_HASH=$((MAX_CHARS - 2 - 40 - 3 - 1 - 1))
+        most_hashes $N1 $N2 $N3 $N4 $N5 $N6 $N7 $N8 $N9 $N10
 
-		if [ $MAX_HASH -lt $LONGEST ]
-		then
-			#CONST=$(awk "BEGIN {printf \"%.5f\", ${MAX_HASH} / ${LONGEST}}")
+        if [ $MAX_HASH -lt $LONGEST ]
+        then
+            #CONST=$(awk "BEGIN {printf \"%.5f\", ${MAX_HASH} / ${LONGEST}}")
 
-			#N1=$(awk "BEGIN {printf \"%.5f\", ${N1} * ${CONST}}")
-			#N2=$(awk "BEGIN {printf \"%.5f\", ${N2} * ${CONST}}")
-			#N3=$(awk "BEGIN {printf \"%.5f\", ${N3} * ${CONST}}")
-			#N4=$(awk "BEGIN {printf \"%.5f\", ${N4} * ${CONST}}")
-			#N5=$(awk "BEGIN {printf \"%.5f\", ${N5} * ${CONST}}")
-			#N6=$(awk "BEGIN {printf \"%.5f\", ${N6} * ${CONST}}")
-			#N7=$(awk "BEGIN {printf \"%.5f\", ${N7} * ${CONST}}")
-			#N8=$(awk "BEGIN {printf \"%.5f\", ${N8} * ${CONST}}")
-			#N9=$(awk "BEGIN {printf \"%.5f\", ${N9} * ${CONST}}")
-			#N10=$(awk "BEGIN {printf \"%.5f\", ${N10} * ${CONST}}")
+            #N1=$(awk "BEGIN {printf \"%.5f\", ${N1} * ${CONST}}")
+            #N2=$(awk "BEGIN {printf \"%.5f\", ${N2} * ${CONST}}")
+            #N3=$(awk "BEGIN {printf \"%.5f\", ${N3} * ${CONST}}")
+            #N4=$(awk "BEGIN {printf \"%.5f\", ${N4} * ${CONST}}")
+            #N5=$(awk "BEGIN {printf \"%.5f\", ${N5} * ${CONST}}")
+            #N6=$(awk "BEGIN {printf \"%.5f\", ${N6} * ${CONST}}")
+            #N7=$(awk "BEGIN {printf \"%.5f\", ${N7} * ${CONST}}")
+            #N8=$(awk "BEGIN {printf \"%.5f\", ${N8} * ${CONST}}")
+            #N9=$(awk "BEGIN {printf \"%.5f\", ${N9} * ${CONST}}")
+            #N10=$(awk "BEGIN {printf \"%.5f\", ${N10} * ${CONST}}")
 
-			#N1=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N1}`
-			#N2=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N2}`
-			#N3=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N3}`
-			#N4=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N4}`
-			#N5=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N5}`
-			#N6=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N6}`
-			#N7=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N7}`
-			#N8=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N8}`
-			#N9=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N9}`
-			#N10=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N10}`
+            #N1=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N1}`
+            #N2=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N2}`
+            #N3=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N3}`
+            #N4=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N4}`
+            #N5=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N5}`
+            #N6=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N6}`
+            #N7=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N7}`
+            #N8=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N8}`
+            #N9=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N9}`
+            #N10=`LC_ALL=C /usr/bin/printf "%.*f\n" 0 ${N10}`
 
-			N1=$((N1 * MAX_HASH / LONGEST))
-			N2=$((N2 * MAX_HASH / LONGEST))
-			N3=$((N3 * MAX_HASH / LONGEST))
-			N4=$((N4 * MAX_HASH / LONGEST))
-			N5=$((N5 * MAX_HASH / LONGEST))
-			N6=$((N6 * MAX_HASH / LONGEST))
-			N7=$((N7 * MAX_HASH / LONGEST))
-			N8=$((N8 * MAX_HASH / LONGEST))
-			N9=$((N9 * MAX_HASH / LONGEST))
-			N10=$((N10 * MAX_HASH / LONGEST))
-		fi
-	fi
+            N1=$((N1 * MAX_HASH / LONGEST))
+            N2=$((N2 * MAX_HASH / LONGEST))
+            N3=$((N3 * MAX_HASH / LONGEST))
+            N4=$((N4 * MAX_HASH / LONGEST))
+            N5=$((N5 * MAX_HASH / LONGEST))
+            N6=$((N6 * MAX_HASH / LONGEST))
+            N7=$((N7 * MAX_HASH / LONGEST))
+            N8=$((N8 * MAX_HASH / LONGEST))
+            N9=$((N9 * MAX_HASH / LONGEST))
+            N10=$((N10 * MAX_HASH / LONGEST))
+        fi
+    fi
 
-	# Zaverecny vypis histogramu podle typu
-	if [ $N1 -ne 0 ] ; then 
-		printf "  %-43s: " "${typcat1}"
-		print_hash $N1
-	fi
-	if [ $N2 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat2}"
-		print_hash $N2
-	fi
-	if [ $N3 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat3}"
-		print_hash $N3
-	fi
-	if [ $N4 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat4}"
-		print_hash $N4
-	fi
-	if [ $N5 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat5}"
-		print_hash $N5
-	fi
-	if [ $N6 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat6}"
-		print_hash $N6
-	fi
-	if [ $N7 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat7}"
-		print_hash $N7
-	fi
-	if [ $N8 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat8}"
-		print_hash $N8
-	fi
-	if [ $N9 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat9}"
-		print_hash $N9
-	fi
-	if [ $N10 -ne 0 ] ; then
-		printf "  %-43s: " "${typcat10}"
-		print_hash $N10
-	fi
-	)
+    # Zaverecny vypis histogramu podle typu
+    if [ $N1 -ne 0 ] ; then 
+        printf "  %-43s: " "${typcat1}"
+        print_hash $N1
+    fi
+    if [ $N2 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat2}"
+        print_hash $N2
+    fi
+    if [ $N3 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat3}"
+        print_hash $N3
+    fi
+    if [ $N4 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat4}"
+        print_hash $N4
+    fi
+    if [ $N5 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat5}"
+        print_hash $N5
+    fi
+    if [ $N6 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat6}"
+        print_hash $N6
+    fi
+    if [ $N7 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat7}"
+        print_hash $N7
+    fi
+    if [ $N8 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat8}"
+        print_hash $N8
+    fi
+    if [ $N9 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat9}"
+        print_hash $N9
+    fi
+    if [ $N10 -ne 0 ] ; then
+        printf "  %-43s: " "${typcat10}"
+        print_hash $N10
+    fi
+    )
 }
 
 ########################################################################
@@ -507,8 +507,8 @@ echo "Root directory: $DIR"
 echo "Directories: $dirCount"
 echo "All files: $fileCount"
 echo "File size histogram:"
-	FSHIST
+    FSHIST
 echo "File type histogram:"
-	FTHIST 
+    FTHIST 
 
 exit 0

@@ -33,12 +33,12 @@
 /* Struktura pro ulozeni argumentu programu */
 typedef struct
 {
-	unsigned int A;
-	unsigned int C;
-	unsigned int AGT;
-	unsigned int CGT;
-	unsigned int AWT;
-	unsigned int CWT;
+    unsigned int A;
+    unsigned int C;
+    unsigned int AGT;
+    unsigned int CGT;
+    unsigned int AWT;
+    unsigned int CWT;
 } config_t;
 
 /**************************************************/

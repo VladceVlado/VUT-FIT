@@ -37,7 +37,7 @@ struct obj_t {
  * @brief Structure cluster
  */
 struct cluster_t {
-	/** Number of objects in the cluster */   
+    /** Number of objects in the cluster */   
     int size;   
     /** Number of maximum objects that can be in the cluster */
     int capacity; 
