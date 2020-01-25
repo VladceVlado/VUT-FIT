@@ -1,0 +1,11 @@
+.idea/ 
+cmake-build-debug/ 
+build/
+Step*/Makefile
+Step*/*.o
+Step*/ANN
+Step*/papi_cntr.h
+*/myOutput.h5
+*/bigDataset.h5
+*/bigRefOutput.h5
+xdusek27.zip

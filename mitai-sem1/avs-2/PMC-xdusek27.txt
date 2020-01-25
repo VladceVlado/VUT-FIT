@@ -1,0 +1,83 @@
+Architektury Výpočetních Systémů (AVS 2019)
+Projekt č. 2 (PMC)
+Login: xdusek27
+
+Úloha 1: Paralelizace původního řešení
+===============================================================================
+
+1) Kterou ze smyček (viz zadání) je vhodnější paralelizovat a co způsobuje
+   neefektivitu paralelizaci té druhé?
+  - Vhodnější je paralelizovat vnější cyklus, tedy ten v metodě marchCubes.
+    - Při paralelizaci se vždy snažíme paralilozovat vnější smyčku, oproti tomu
+      vnitřní se snažíme vektorizovat.
+  - Paralelizace smyčky v metodě evaluateFieldAt je neefektivní jednak z důvodu,
+  že je vnořená a také neobsahuje nijak náročné výpočty.
+    - Řešení režie spojené s paralelizací tak běh programu dokonce zpomalí
+      oproti sekvenční verzi.
+
+2) Jaké plánování (rozdělení práce mezi vlákna) jste zvolili a proč?
+   Jaký vliv má velikost "chunk" při dynamickém plánování (8, 16, 32, 64)?
+  - Ani typ plánování ani velikost chunku neměla žádný měřitelný vliv
+    na výkon.
+  - Jelikož je rovnoměrná zátěž při iteracích zvolil jsem static scheduler.
+
+3) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+  - Pomocí dovětku reduction(+:totalTriangles)
+    - Hodnoty iterací jednotlivých vláken jsou akumulovány zvlášť a až po
+      skončení paralelně vykonávaného cyklu jsou všechny akumulované hodnoty
+      jednotlivých vláken sečteny a uloženy do proměnné totalTriangles.
+
+Úloha 2: Paralelní průchod stromem
+===============================================================================
+
+1) Stručně popište použití OpenMP tasků ve vašem řešení.
+- V metodě marchCubes začíná paralelní sekce voláním metody decomposeCube.
+  - Dovětkem single je specifikováno, že metoda decomposeCube je zavolána
+    pouze jednou (jedním vláknem), jinak by každé vlákno začalo s vlastní
+    dekompozicí krychle.
+- V metode decomposeCube je pro každé její rekurzivní volaní vytvořen task
+  s dovětkem shared pro pomocné pole pro akumulaci celkového počtu
+  trojúhelníku (viz 2)).
+- Jelikož si vlákna rozebírají tasky v libovolném pořadí, je třeba zajistit
+  aby "rodičovský" task počkal na všechny své potomky až zapíší do pomocného
+  pole pro ukládání mezivýsledků. Rodičovský task poté hodnoty v poli posčítá
+  a vrátí. Toto čekání je realizováno pomocí pragmy taskwait.
+
+2) Jakým způsobem jste realizovali sesbírání celkového počtu trojúhelníků?
+- Pro paralelizaci pomocí tasků není nic jako dovětek reduction pro standardní
+  paralelní sekce. Proto je nutné toto ošetřit "ručně".
+- Ve výchozím stavu je vše před taskem private. Je třeba vytvořit pomocné
+  sdílené pole pomocí dovětku shared. Tam jednotlivé tasky ukládají
+  hodnoty z rekurzivního volání decomposeCube (počet trojúhelníku pro
+  podkrychli, kterou řeší).
+- Rodičovský task počká na dokončení všech potomků a poté hodnoty z pomocného
+  pole posčítá a vrátí.
+
+3) Jaký vliv má na vaše řešení tzv. "cut-off"? Je vhodné vytvářet nový
+   task pro každou krychli na nejnižší úrovni?
+- Stanovuje hranici kdy vyhodnotit oblast. Vytvářet task pro krychli na nejnižší
+  úrovni už je zbytečné, avšak zavolání metody buildCube přímo nepřineslo žádné další
+  zrychlení.
+
+4) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+- Všechny vygenerované trojúhelníky se ukládájí do vektoru mTriangles,
+  k tomuto vektoru přistupují všechna vlákna.
+- V metodě emitTriangle je nutné označit kritickou sekci přístupu k vektoru
+  pragmou critical.
+
+Úloha 3: Grafy škálování obou řešení
+===============================================================================
+
+1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
+- Samotná vhodná paralelizace smyček pomocí OpenMP výrazně zrychlila výpočet.
+  Implementace stromovým průchodem je poté ve všech případech ještě efektivnější
+  než OpenMP Loop.
+
+2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti
+   mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
+- Při počtu vláken 16 a velikosti vstupu na vlákno 10.
+
+3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování
+   vzhledem ke vstupu?
+- Ano je. Konkrétně pro 1 a 2 vlákna je rozdíl značný, pro 4 a 8 je patrný méně, ale
+  pro 16 je opět značně efektivnější stromový průchod.

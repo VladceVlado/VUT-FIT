@@ -1,0 +1,166 @@
+Architektura výpočetních systému (AVS 2019)
+Projekt č. 1 (ANN)
+Login: xdusek27
+
+U každého kroku proveďte měření vypočtu pro dataset dostupný na https://www.fit.vutbr.cz/~ibordovsky/avs/datasets/bigDataset.h5
+Správnost výpočtu můžete porovnat pomocí python 3 skriptu "Scripts/compareOutputs.py" s referenčním řešením.
+Pro bigDataset je dostupný na https://www.fit.vutbr.cz/~ibordovsky/avs/datasets/bigRefOutput.h5
+
+
+Krok 0: základní implementace
+=============================
+Celkový čas [s]: 193.295
+Výkon skalárních operací [MFLOPS]: 37.0538
+Výkon vektorových operací [MFLOPS]: 1143.02
+L1 miss [%]: 86.3
+L2 miss [%]: 100
+L3 miss [%]: 0.00732
+
+Které PAPI_EVENTS jste použili pro získání počtu výpadků v paměti?
+- HW countery pro L1: PAPI_L1_DCM, PAPI_LD_INS, PAPI_SR_INS
+- HW countery pro L2: PAPI_L2_DCM, PAPI_L2_DCA
+- HW countery pro L3: PAPI_L3_TCM, PAPI_L3_TCA
+
+
+Krok 1: vektorizace funkcí
+===================================
+Celkový čas [s]: 89.9357
+Výkon skalárních operací [MFLOPS]: 0.126312
+Výkon vektorových operací [MFLOPS]: 2396.56
+L1 miss [%]: 27.5
+L2 miss [%]: 99.7
+L3 miss [%]: 0.023
+
+Jaké pragmy bylo potřeba přidat?
+- #pragma omp simd
+- #pragma omp declare simd
+
+Které dovětky k pragmám jste použili a jaký měly vliv na kompilátorem generované funkce?
+
+- Použil jsem dovětky:
+    - linear(neuronId) - neuronId má lineární vztah k iteracím cyklu
+    - simdlen(8) - Počet konkurentních elementů. Vzhledem k tomu, že pracujeme s floaty (4B) 
+      a architekturou AVX (32B), je 8 optimální počet, neuvažujeme-li možnost tzv. n-pumpingu, 
+      který umožňuje vytvořit delší vektor poskládáním jednotlivých registrů za sebe.
+    - notinbranch - SIMD verze funkce nebude nikdy volána zevnitř podmínky SIMD cyklu
+    - uniform(inputSize, neuronCount, input, weight) - inputSize, neuronCount, input, 
+      weight jsou invariantní počas celého běhu cyklu
+- Dovětky umožnili generovat efektivnější SIMD verzi funkce
+
+
+Krok 2: přístupy do paměti
+=============================
+a) S dovětky
+Sepište všechny použité dovětky:
+- simdlen(8), notinbranch, uniform(inputSize, input), 
+  linear(weight:512) / linear(weight:784) / linear(weight)
+
+Celkový čas [s]: 40.2308
+Výkon skalárních operací [MFLOPS]: 0.378542
+Výkon vektorových operací [MFLOPS]: 5331.08
+L1 miss [%]: 5.78
+L2 miss [%]: 16.7
+L3 miss [%]: 0.0347
+
+
+b) Bez dovětků
+Některé dovětky maji negativní dopad na výkon, přestože kompilátor tvrdí opak. Které?
+- linear(weight:512), linear(weight:784)
+
+Celkový čas [s]: 21.8035
+Výkon skalárních operací [MFLOPS]: 177.021
+Výkon vektorových operací [MFLOPS]: 14888.9
+L1 miss [%]: 15.8
+L2 miss [%]: 51.9
+L3 miss [%]: 0.0565
+
+Proč mají dovětky negativní efekt na výkon?
+
+- Při zadání dvou a více konkrétních hodnot u dovětku linear si překladač vybere vždy pouze
+  jednu variantu pro celý běh programu. V případě, že je dovětek linear bez explicitně určené 
+  hodnoty, překladač sám rozpozná, že je jeho hodnota závislá od proměnné inputSize, která 
+  je zároveň uniform. Na základě těchto informací a toho jaká vrstva se právě vyhodnocuje, 
+  překladač sám vygeneruje tu nejvhodnější variantu pro aktuální běh výpočtu s krokem závislým 
+  na proměnné inputSize. 
+
+
+Krok 3.1: přesun #pragma omp simd
+===================================
+Celkový čas [s]: 21.6816
+Výkon skalárních operací [MFLOPS]: 179.249
+Výkon vektorových operací [MFLOPS]: 14989.8
+L1 miss [%]: 15.7
+L2 miss [%]: 53.7
+L3 miss [%]: 0.0749
+
+Jaký dovětek je potřeba přidat?
+- reduction(+:x)
+
+
+Krok 3.2: vykonání po vrstvách místo po obrázcích
+===================================
+Celkový čas [s]: 22.3952
+Výkon skalárních operací [MFLOPS]: 318.907
+Výkon vektorových operací [MFLOPS]: 14641.5
+L1 miss [%]: 14.8
+L2 miss [%]: 53.1
+L3 miss [%]: 0.202
+
+Popište, jaký dopad na výkon mají výpadky v cache.
+- Samozřejmě negativní. Výpadek v cache (cache miss) znamená, že data, která procesor 
+  potřebuje v cache nejsou. Je třeba je načíst z pomalejší hlavní paměti a k tomu přičíst 
+  potřebnou režii. Výpočet tak může trvat déle, kvůli častějšího čekání na data.
+
+Pozn.:
+- Optimalizační report dále vybízí k použití dovětku aligned pro parametry input a weight
+  funkce evalNeuron. Jelikož je zarovnání paměti předmětem kroku 4, ve kroku 3 jsem tento
+  dovětek nepoužil. Na následujících řádcích uvádím pro zajímavost hodnoty naměřené 
+  s použitím tohoto dovětku.
+
+Celkový čas [s]: 20.3324
+Výkon skalárních operací [MFLOPS]: 24.4432
+Výkon vektorových operací [MFLOPS]: 16306.6
+L1 miss [%]: 24.4
+L2 miss [%]: 58.4
+L3 miss [%]: 0.154
+
+
+Krok 4: režie funkcí, zarovnání paměti
+===================================
+Celkový čas [s]: 20.3813
+Výkon skalárních operací [MFLOPS]: 24.0937
+Výkon vektorových operací [MFLOPS]: 16359.1
+L1 miss [%]: 16.5
+L2 miss [%]: 58
+L3 miss [%]: 0.152
+
+Proč není zrychlení již výrazné? Na jaké typy problémů cílí tyto optimalizace?
+
+- Volání funkce může mít dopad na výkon jestliže je doba vykonávání funkce kratší, 
+  než doba spojená s režíí jejího volání. Inlinování funkce tak dává smysl pouze tehdy,
+  je-li její vykonání nenáročné. Pro funkce, které jsou komplikované a vykonávají
+  složité výpočty je čas spojený s režií zanedbatelný. V našem případě tato optimalizace
+  přinesla pouze velmi malé zrychlení.
+
+- Zarovnání alokace paměti donutí překladač alokovat paměť pro data v daných násobcích,
+  zbytek je doplněn nulami. Zarovnává se na takové hodnoty, se kterými se procesoru 
+  dobře pracuje. To zvýší efektivitu načítání a ukládání dat. Tato optimalizace měla
+  značný dopad na výkon. 
+
+Pozn.:
+- K dalšímu zrychlení došlo po úplném odstranění "#pragma omp simd reduction(+:x)". 
+  Překladač již nevidí žádné překážky ve vektorizaci vnitřní smyčky a udělá to sám, 
+  dokonce efektivněji. Hodnoty, které jsem naměřil bez zmíněné pragmy:
+
+Celkový čas [s]: 18.3858
+Výkon skalárních operací [MFLOPS]: 27.1845
+Výkon vektorových operací [MFLOPS]: 14413
+L1 miss [%]: 20.7
+L2 miss [%]: 59.1
+L3 miss [%]: 0.153
+
+Proč tomu tak je?
+- Z optimalizačních reportů vyplynulo, že pragma sice sníží cenu cyklu, ale zvýší 
+  se režie s jeho provedením spojená (overhead time). To má pravděpodobně za následek 
+  zvýšení výkonu po smazání pragmy.
+
