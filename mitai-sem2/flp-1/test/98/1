@@ -1,0 +1,14 @@
+A,B,C,B2,B3,B4,C2,C3,C4
+a,b,c
+A
+C->#
+A->aB
+B->bB2
+B2->bB3
+B3->bC
+B->bB4
+B4->#
+C->cC2
+C2->cC3
+C3->cC4
+C4->#

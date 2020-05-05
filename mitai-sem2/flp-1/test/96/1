@@ -1,0 +1,15 @@
+A,B,C,A2,A3,A4,A5,A6,A7,A8,A9
+a,z
+A
+B->#
+C->#
+A->aA2
+A2->aA3
+A3->aA4
+A4->aA5
+A5->aB
+A->zA6
+A6->zA7
+A7->zA8
+A8->zA9
+A9->zC

@@ -1,0 +1,13 @@
+A,B,A2,A3,A4,A5,A6,A7,B2
+a,b
+A
+A->aA2
+A2->aA3
+A3->aA4
+A4->aB
+A->aA5
+A5->aA6
+A6->aA7
+A7->#
+B->bB2
+B2->#

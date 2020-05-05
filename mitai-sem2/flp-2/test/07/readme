@@ -1,0 +1,3 @@
+Nondeterministic head overflows to the left side.
+Some of the rules lead to the left overflow but some of them lead to the F.
+We don't want the left overflow to terminate the program.
