@@ -1,0 +1,32 @@
+# be in directory resnet50_vggface2_pretrained
+Download pretrained model weights from: http://www.robots.ox.ac.uk/~vgg/data/vgg_face2/models/pytorch/resnet50_ft_pytorch.tar.gz
+and place the resnet50_ft_dims_2048.pth file into the current directory.
+
+# if willing to use virtualenv python do:
+	python3 -m venv venv
+	# activate venv, on windows: 
+	venv\Scripts\activate
+# make sure requirements are satisfied
+python -m pip install -r requirements.txt
+# don't omit the -i flag, we need interactive session in python console
+run: python -i surresnet50_vggface2_pretrained.py
+
+# Train fresh model
+model= get_new_model(r"..\exp\resnet50_ft_dims_2048.pth")
+load_train_dataset("../target_train", "../non_target_train")
+load_test_dataset("../target_dev", "../non_target_dev")
+train(model)
+Ctrl-C after cca. 10 epochs when the loss gets to around 0.001
+save_model(model, "test_weights.pth")
+
+
+# Evaluating a model on eval dataset
+model=load_model(r"..\exp\resnet50_ft_dims_2048.pth", "test_weights.pth")
+load_eval_dataset("..\eval_img")
+result = evaluate_dataset(model)
+# result dict contains filename keys and results are values (tuples) (direct model output (2 real numbers to be softmaxed), softmaxed outputs, predicted label)
+marked_positive = [k for k in result if result[k][2] == 1]
+for p in marked_positive:
+...   print(p)
+dump_result_dict(result_dict, "surresnet50_vggface2_pretrained_results.txt") # dump to the format the assignment results were handed in
+
