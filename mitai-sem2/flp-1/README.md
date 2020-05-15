@@ -26,12 +26,12 @@ $ make
 
 Run
 ```
-$ make run opt={-i|-1|-2} [file=filename] 
+$ make run opt={-i|-1|-2} [file=filename]
 ```
 
 Test
 ```
-$ make test 
+$ make test
 ```
 
 Clean
@@ -41,16 +41,31 @@ $ make clean
 
 Zip
 ```
-$ make zip 
+$ make zip
 ```
 
 <!----------------------------------------------------------------------------->
 
 ### Requirements
 
-Install Glasgow Haskell Compiler - ghc
+Glasgow Haskell Compiler -- [haskell.org/ghc/](https://www.haskell.org/ghc/)
 ```
 $ sudo apt install ghc
+```
+
+hlint -- [github.com/ndmitchell/hlint](https://github.com/ndmitchell/hlint)
+```
+$ sudo apt install hlint
+```
+
+stylish-haskell -- [github.com/jaspervdj/stylish-haskell](https://github.com/jaspervdj/stylish-haskell)
+```
+$ sudo apt install stylish-haskell
+```
+
+hindent -- [github.com/chrisdone/hindent](https://github.com/chrisdone/hindent)
+```
+$ sudo apt install hindent
 ```
 
 Install Cabal (Haskell package manager)
