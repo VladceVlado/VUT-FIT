@@ -1,0 +1,55 @@
+﻿Půlsemestrálka 2013/2014 (20.11.), celkem 15 bodů, čas: 45 minut 
+1. (2 b) FDMA, popište výhody (aspoň 2) a nevýhody (aspoň 1). 
+2. (3 b) Digitální modulace – nakreslit schéma a popsat ho. 
+3. (3 b) CDMA – byl tam obrázek, doplnit výstup integrátoru a komparátoru. (viz 2. přednáška, slide 36)
+4. (3 b) Hammingův kód: je dán vektor c (zpráva) a parita (ve formě matice). Vytvořte generující matici G a zprávu zakódujte.
+5. (3 b) Hammingův kód: je dána přijatá zpráva a parita (ve formě matice). Vytvořte kontrolní matici H a vyplňte syndrom chyby s a chybový vektor e.
+6. (1 b) Popište rozdíly mezi řídicím a hovorovým kanálem v trunkových sítích.
+
+2012 - 1. skupina
+1. Z akych 3 casti sa sklada IMSI?
+2. Charakterizujte(popiste) simplexny a dusimplexny provoz
+3. Co je to QAM? Nakreslite 64-QAM pomocou fazovej roviny
+4. Mame 16-QAM. Aka bude bitova rychlost pri 100bd?
+5. Co je to LFSR a kde sa v BMS uplatnuje? Vykonajte 8 krok pri LFSR, kde poc. stav registru je 1010 a tap. je x4+x3+1. Zapiste vygenerovanu postupnost a stav registru po 8 krokoch.
+
+2012 - 2.skupina
+1. typy handoverov, popisat a napisat kto ich inicializuje
+2. semiduplex a duplex
+3. Co je QAM, nakreslit 16 QAM pomocou fazovej roviny
+4. 64 QAM, aka je bitova rychlost pri 100bd?
+5. LFSR, kde sa pouziva v BMS, poc stav registra tusim 0110 a x4+x2+1, 8 krokov...
+
+2011
+Pro inspiraci, dnešní A(možná není přesně. :D):
+Popsat QAM? Měli jsme 64-QAM, disketu 1,44 MB, rychlost 8000 badu/sm otazka znela,jak rychle se přenese disketa? Mne vyšlo 240s.
+Popsat vztah baudy/s a b/s,Buňky,modulace
+IMSI,IMEI,TMSI,MSISDN - co to je a v cem najdeme - TA,SIM,VLR,HLR
+Anteny: sektorova, smerova, izotropna, vzdalenosti 100m, ktera bude nejlepsi mit kvalitu signalu, seradit
+Problem skrytych terminalu popsat
+
+2014/2015
+První ranní běh, skupina B
+1) elevace, vysvetlit nakreslit - 3body
+2) digitalni modulace, vysvetlit nakreslit - 4body
+3) TETRA (to sem nevedel) - 2body
+4) soft handover, vysvetlit - 3body
+5) skryty terminal, vysvetlit - 3body
+
+2014/2015
+První ranní běh, skupina A
+1) inklinace, vysvetlit, nakreslit - 3body
+2) analogová demodulace, vysvetlit, nakreslit - 4body
+3) rozprostřené spektrum, aspoň 2 metody, vyhody - 2body
+4) hard handover, vysvetlit - 3body
+5) skryty terminal, nakreslit, vysvetlit - 3body
+
+2016/2017
+
+1) [2b] Vysvětlit pojmy: Diverzita antén, Dusimplexní přenos, TDMA, PSK
+2) [1b] Popsat princip explicitních rezervačních algoritmů DAMA
+3) [3b] Dekódování CDMA - doplnit tabulku
+4) [2b] Popsat navázání hovoru v trunkových sítích
+5) [2b] Co je typické pro geostacionární satelity, napsat komunikační systém, který je využívá
+6) [3b] Dekódovat zprávu v Hammingově kódu (7,4) [matice P byla zadána]
+7) [2b] GPS - jake jsou vstupy, co je potřeba, kolik satelitu je třeba pro fix, co je P-kód

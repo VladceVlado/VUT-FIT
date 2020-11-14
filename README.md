@@ -13,6 +13,7 @@
 ### Master's degree
 - **mitai-sem1** – 1MITAI NNET Winter Semester, Ac. Year 2019/2020
 - **mitai-sem2** – 1MITAI NNET Summer Semester, Ac. Year 2019/2020
+- **mitai-sem3** – 2MITAI NNET Winter Semester, Ac. Year 2020/2021
 
 #### Explanatory notes
 - BIT – Information Technology (name of the bachelor's study programme)
