@@ -1,0 +1,1 @@
+./bms -e <<< "český znaky"
