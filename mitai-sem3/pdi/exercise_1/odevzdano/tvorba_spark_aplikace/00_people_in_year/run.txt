@@ -1,0 +1,25 @@
+[demo@nixos:~/pdi_cv1/lab-spark-peopleinyear]$ hdfs dfs -rm -r -f 00_out ; ./gradlew build ; spark-submit build/libs/peopleinyear-spark-1.0-SNAPSHOT.jar cetnost-jmena-dnar-2016/cetnost-jmena-dnar.csv 00_out
+> Task :compileJava NO-SOURCE
+> Task :compileScala UP-TO-DATE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :startScripts UP-TO-DATE
+> Task :distTar UP-TO-DATE
+> Task :distZip UP-TO-DATE
+> Task :fatJar UP-TO-DATE
+> Task :assemble UP-TO-DATE
+> Task :compileTestJava NO-SOURCE
+> Task :compileTestScala NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build UP-TO-DATE
+
+BUILD SUCCESSFUL in 1s
+6 actionable tasks: 6 up-to-date
+20/11/25 23:46:49 WARN Utils: Your hostname, nixos resolves to a loopback address: 127.0.0.2; using 10.0.2.15 instead (on interface enp0s3)
+20/11/25 23:46:49 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+20/11/25 23:46:49 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+20/11/25 23:47:01 WARN Utils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.debug.maxToStringFields' in SparkEnv.conf.

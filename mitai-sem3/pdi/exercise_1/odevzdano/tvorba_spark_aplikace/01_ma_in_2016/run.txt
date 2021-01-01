@@ -1,0 +1,36 @@
+[demo@nixos:~/pdi_cv1/lab-spark-peopleinyear]$ hdfs dfs -rm -r -f 01_out ; ./gradlew build ; spark-submit build/libs/peopleinyear-spark-1.0-SNAPSHOT.jar cetnost-jmena-dnar-2016/cetnost-jmena-dnar.csv 01_out
+WARNING: HADOOP_PREFIX has been replaced by HADOOP_HOME. Using value of HADOOP_PREFIX.
+WARNING: log4j.properties is not found. HADOOP_CONF_DIR may be incomplete.
+Deleted 01_out
+> Task :compileJava NO-SOURCE
+> Task :compileScala
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :jar
+> Task :startScripts
+> Task :distTar
+> Task :distZip
+> Task :fatJar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :compileTestScala NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+BUILD SUCCESSFUL in 1m 19s
+6 actionable tasks: 6 executed
+20/11/26 16:49:22 WARN Utils: Your hostname, nixos resolves to a loopback address: 127.0.0.2; using 10.0.2.15 instead (on interface enp0s3)
+20/11/26 16:49:22 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+20/11/26 16:49:23 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+20/11/26 16:49:36 WARN Utils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.debug.maxToStringFields' in SparkEnv.conf.
+20/11/26 16:49:38 WARN DataStreamer: Caught exception
+java.lang.InterruptedException
+        at java.lang.Object.wait(Native Method)
+        at java.lang.Thread.join(Thread.java:1252)
+        at java.lang.Thread.join(Thread.java:1326)
+        at org.apache.hadoop.hdfs.DataStreamer.closeResponder(DataStreamer.java:986)
+        at org.apache.hadoop.hdfs.DataStreamer.endBlock(DataStreamer.java:640)
+        at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:810)
