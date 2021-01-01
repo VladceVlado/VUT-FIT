@@ -1,0 +1,14 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Úvod}
+\label{sec_uvod}
+
+Bitcoin je nestátní, decentralizovaný, digitální finanční systém založený na kryptografii. Ze své podstaty funguje bez jakékoliv centrální autority. Narozdíl od státních \textit{fiat} měn\footnote{Státní peníze vznikající z~příkazu. Z~lanského \textit{fiat} = budiž. Nejčastěji používán jako termín pro papírové peníze, nekryté drahými kovy~\cite{bib_odluka_penez}.}, které jsou řízeny centrálními bankami. Bitcoinová síť je čistě \textit{peer-to-peer}, kde si mezi sebou uživatelé vyměňují hodnotu bez potřeby jakéhokoliv prostředníka~\cite{bib_white_paper}. Je navržen tak, aby nikdo, ani autor, jiní jednotlivci, skupiny či státy, nemohl měnu ovlivňovat, padělat, konfiskovat, devalvovat, cenzurovat nebo ovlivňovat růst peněžní zásoby (ta je pevně definovaná a všem dopředu známá). V~protokolu neexistuje žádný centrální ani nijak privilegovaný bod, všichni uživatelé operují jako uzly na stejné úrovni.
+
+Bitcoin byl představen 31. října 2008, kdy člověk nebo skupina lidí pod pseudonymem Satoshi Nakamoto zaslal e-mail kryptografickému mailing listu s~odkazem na \textit{white paper}~\cite{bib_mailing_list}. Bitcoinová síť pak byla spuštěna 9. ledna roku 2009, kdy byl vytěžen první blok~\cite{bib_first_block}. Ke konci roku 2020 se  tržní kapitalizace Bitcoinu pohybuje kolem $500$ miliard amerických dolarů~\cite{bib_market_cap}. Výpočetní výkon (\textit{hash rate}) celé sítě činí zhruba $130 \times 10^{18}$\,H/s (\textit{hashes per second})~\cite{bib_hash_rate}.
+
+Článek \textit{Majority is not Enough: Bitcoin Mining is Vulnerable}~\cite{bib_paper} ukazuje, že v~bitcoinovém protokolu nejsou ekonomické incentivy těžařů nastaveny korektně. Představuje strategii tzv. sobeckého těžení (z~anglického \textit{Selfish Mining Strategy}), která vede k~většímu zisku, než by mělo těžaři náležet na základě jeho výpočetní síly pokud by se choval tak, jak protokol předpokládá.
+
+V~kapitole~\ref{sec_bitcoin} jsou vysvětleny základy fungování Bitcoinu jakožto decentralizovaného finančního systému. Ty jsou nutné k~pochopení strategie sobeckého těžení a následnému sestavení modelu. Ten je formalizován v~kapitole~\ref{sec_model} a analyzován v~kapitole~\ref{sec_analyza}. Výsledky analýzy jsou vyhodnoceny v~kapitole~\ref{sec_vysledky} a na závěr jsou stručně okomentovány.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
