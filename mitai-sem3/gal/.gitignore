@@ -1,0 +1,44 @@
+# IDE
+**/.vscode/
+
+# C++
+**/*.o
+src/gal
+
+# Linters
+.ccls-cache/
+.flake8
+.isort.cfg
+.prettierrc
+
+## Latex
+**/*.aux
+**/*.lof
+**/*.log
+**/*.lot
+**/*.fls
+**/*.out
+**/*.toc
+**/*.fmt
+**/*.fot
+**/*.cb
+**/*.cb2
+**/*.lb
+**/*.dvi
+**/*.xdv
+**/*-converted-to.*
+**/*.bbl
+**/*.blg
+**/*.ptc
+**/*.nav
+**/*.snm
+**/*.te~
+**/*.fdb_latexmk
+**/*.synctex.gz
+**/__latexindent_temp.tex
+**/*.vrb
+
+# Data
+data_graphs/
+data_times/
+plots/
