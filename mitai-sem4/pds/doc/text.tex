@@ -1,0 +1,172 @@
+% VUT FIT MITAI
+% PDS 2021/2022
+% Project: Identification of Mobile Traffic using TLS Fingerprinting
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[english,czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage[bottom]{footmisc}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{hhline}
+
+\newtheorem{theorem}{Theorem}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+    \hskip -\arraycolsep
+    \let\@ifnextchar\new@ifnextchar
+    \array{#1}}
+\makeatother
+
+\MakeOuterQuote{"}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks,unicode]{hyperref}
+
+% Page dimensions
+\geometry
+{
+    top = 3cm,
+    bottom = 3cm,
+    left = 3cm,
+    right = 3cm
+    % text = {17cm, 24cm}
+}
+
+% Path for figures
+\graphicspath{{figures/}}
+
+% Colors for listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinelanguage{myLang} {
+    % list of keywords
+    morekeywords={
+        import,
+        if,
+        while,
+        for,
+        then,
+        else,
+        do
+    },
+    sensitive=false, % keywords are not case-sensitive
+    morecomment=[l]{//}, % l is for line comment
+    morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+    morestring=[b]" % defines that strings are enclosed in double quotes
+}
+
+% Style for listings
+\lstdefinestyle{mystyle}{
+    language={myLang},
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=t,
+    keepspaces=true,
+    % numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+
+        % {\Huge\textsc{Vysoké učení technické v~Brně}} \\
+        % \bigskip
+        % {\huge\textsc{Fakulta informačních technologií}} \\
+
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=0.85\hsize]{fitlogo.pdf}
+        \end{figure}
+
+        \vspace{\stretch{0.382}}
+
+        {\Huge Identifikace mobilního síťového provozu} \\
+        \bigskip
+        {\Huge pomocí TLS otisků} \\
+        \bigskip
+        \bigskip
+        {\LARGE Přenos dat, počítačové sítě a protokoly (PDS)   }
+
+        \vspace{\stretch{0.618}}
+    \end{center}
+
+    {\Large \today \hfill Vladimír Dušek, xdusek27}
+
+\end{titlepage}
+
+% \begin{center}
+%     {\Huge Game Theory (THE)} \\ [1.25em]
+%     {\huge Brno University of Technology} \\ [1.25em]
+%     {\huge Strategie sobeckého těžení v~Bitcoinu} \\ [1.6em]
+%     {\Large \textit{Dušek Vladimír - xdusek27@stud.fit.vutbr.cz}} \\ [0.7em]
+%     {\Large \textit{\today}}
+%  \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{text-02}
+\newpage
+
+\input{text-03}
+\newpage
+
+\input{text-04}
+\newpage
+
+\input{text-05}
+\newpage
+
+\input{text-06}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{1}
+
+    \bibitem{bib_matousek} Petr Matoušek, Ivana Burgetová, Ondřej Ryšavý, Malombe Victor: \textit{On Reliability of JA3 Hashes for Fingerprinting Mobile Applications}, 7. 2. 2021. Dostupné online na \url{https://rdcu.be/ci7mV}.
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

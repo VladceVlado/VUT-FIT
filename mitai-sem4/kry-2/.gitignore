@@ -1,0 +1,15 @@
+# IDE
+**/.idea
+**/.vscode
+
+# Python
+**/__pycache__
+**/*.pyc
+
+# Linters
+.prettierrc
+.isort.cfg
+.flake8
+
+# Zip
+xdusek27.zip

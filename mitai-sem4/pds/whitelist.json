@@ -1,0 +1,12 @@
+{
+  "revolut": ["revolut"],
+  "twitter": ["twitter", "twimg"],
+  "phoenix": ["phoenix", "acinq"],
+  "netflix": ["netflix", "nflxext"],
+  "forza": ["forza"],
+  "youtube": ["youtube", "ytimg", "redirector.googlevideo"],
+  "yr": ["yr"],
+  "forest": ["forest", "seekrtech"],
+  "github": ["github"],
+  "settleup": ["settleup", "settle - up"]
+}

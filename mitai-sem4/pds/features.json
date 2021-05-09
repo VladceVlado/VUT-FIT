@@ -1,0 +1,267 @@
+{
+  "forest": [
+    {
+      "client_ja3": "ab65111aefda83a219fa6661a6192313",
+      "server_ja3": "09ba33b7737869e401b4859fdb426d46",
+      "sni": "c88fef96.forestapp.cc"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "1432ad26a6667210f8fac8513a4bbb07",
+      "sni": "newsroom.seekrtech.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "l10n-s3.seekrtech.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "1432ad26a6667210f8fac8513a4bbb07",
+      "sni": "newsroom.seekrtech.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "9758f7a0e1460a60e317ae2131b733a5",
+      "sni": "seekrtech-newsroom.s3.ap-southeast-1.amazonaws.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "forest-s3.seekrtech.com"
+    },
+    {
+      "client_ja3": "5a3c7ba5f12da99356f573776a5ae5a4",
+      "server_ja3": "e7dcb4f42f27076204966d994b3077f6",
+      "sni": "forest-s3.seekrtech.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "e293f1ec8126c26edef897c78c6fb7bb",
+      "sni": "c88fef96.forestapp.cc"
+    },
+    {
+      "client_ja3": "1a42ca1b74fe5c30065327920197c75b",
+      "server_ja3": "9758f7a0e1460a60e317ae2131b733a5",
+      "sni": "seekrtech-newsroom.s3.ap-southeast-1.amazonaws.com"
+    },
+    {
+      "client_ja3": "ab65111aefda83a219fa6661a6192313",
+      "server_ja3": "e7dcb4f42f27076204966d994b3077f6",
+      "sni": "forest-s3.seekrtech.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "09ba33b7737869e401b4859fdb426d46",
+      "sni": "c88fef96.forestapp.cc"
+    },
+    {
+      "client_ja3": "ab65111aefda83a219fa6661a6192313",
+      "server_ja3": "e293f1ec8126c26edef897c78c6fb7bb",
+      "sni": "c88fef96.forestapp.cc"
+    },
+    {
+      "client_ja3": "1a42ca1b74fe5c30065327920197c75b",
+      "server_ja3": "1432ad26a6667210f8fac8513a4bbb07",
+      "sni": "newsroom.seekrtech.com"
+    }
+  ],
+  "forza": [
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "daily-news.forzafootball.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "api.forzafootball.net"
+    }
+  ],
+  "github": [
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "docs.github.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "github.com"
+    },
+    {
+      "client_ja3": "c593cf7fbad9fb23fdebd3411ac97d31",
+      "server_ja3": "d1cd4c059ca6e2117ef2191cc3452dad",
+      "sni": "avatars.githubusercontent.com"
+    },
+    {
+      "client_ja3": "c593cf7fbad9fb23fdebd3411ac97d31",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "api.github.com"
+    },
+    {
+      "client_ja3": "c593cf7fbad9fb23fdebd3411ac97d31",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "github.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "avatars.githubusercontent.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "github.githubassets.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "api.github.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "f38a44351370546efffb9f655757fea4",
+      "sni": "collector.githubapp.com"
+    }
+  ],
+  "netflix": [
+    {
+      "client_ja3": "f1e6de5f77effd4f351116d77038ec8f",
+      "server_ja3": "f38a44351370546efffb9f655757fea4",
+      "sni": "android-appboot.netflix.com"
+    },
+    {
+      "client_ja3": "f1e6de5f77effd4f351116d77038ec8f",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "android.prod.cloud.netflix.com"
+    },
+    {
+      "client_ja3": "f1e6de5f77effd4f351116d77038ec8f",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "assets.nflxext.com"
+    }
+  ],
+  "phoenix": [
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "phoenix.acinq.co"
+    },
+    {
+      "client_ja3": "2595ab65e691eb1d942c6094ff92c933",
+      "server_ja3": "b5c7a4c92e1f26c18a37bc9c1acd64b5",
+      "sni": "acinq.co"
+    },
+    {
+      "client_ja3": "cb533a60549e1e6021bd620b77ffce72",
+      "server_ja3": "9758f7a0e1460a60e317ae2131b733a5",
+      "sni": "electrum.acinq.co"
+    }
+  ],
+  "revolut": [
+    {
+      "client_ja3": "c3b0ac024ae4e49353a36183fbb3fcc4",
+      "server_ja3": "8c755c0b9766b9d1c39071b69eae9226",
+      "sni": "aqueduct.revolutlabs.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "api.revolut.com"
+    },
+    {
+      "client_ja3": "c3b0ac024ae4e49353a36183fbb3fcc4",
+      "server_ja3": "50e9b8ebf8b9b997ff42fb5264811b21",
+      "sni": "aqueduct.revolutlabs.com"
+    }
+  ],
+  "settleup": [
+    {
+      "client_ja3": "5e29bb9bab8bc37b29ad4d15cc14930d",
+      "server_ja3": "d1dce480bd8d6848ff7204b26819e47d",
+      "sni": "settle-up-live.firebaseio.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "settleup.app"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "4dd57e239ae34b70fc0eb9a8c7e8d4f3",
+      "sni": "settleup.io"
+    }
+  ],
+  "twitter": [
+    {
+      "client_ja3": "d4447443dfafef72775bb3265782c662",
+      "server_ja3": "9549a3e4518fcac3a149b97e02329ece",
+      "sni": "pbs.twimg.com"
+    },
+    {
+      "client_ja3": "d4447443dfafef72775bb3265782c662",
+      "server_ja3": "3f19537706de253d6e9a0d6e90d1a02f",
+      "sni": "video.twimg.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "eb4f1642b128da0c5488e2e4e602cfac",
+      "sni": "api.twitter.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "e293f1ec8126c26edef897c78c6fb7bb",
+      "sni": "twitter.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "3f19537706de253d6e9a0d6e90d1a02f",
+      "sni": "pbs.twimg.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "e293f1ec8126c26edef897c78c6fb7bb",
+      "sni": "api.twitter.com"
+    },
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "3f19537706de253d6e9a0d6e90d1a02f",
+      "sni": "video.twimg.com"
+    }
+  ],
+  "youtube": [
+    {
+      "client_ja3": "c593cf7fbad9fb23fdebd3411ac97d31",
+      "server_ja3": "a7d27786c6d670778b338c7f0a605736",
+      "sni": "youtubei.googleapis.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "redirector.googlevideo.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "youtubei.googleapis.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "i.ytimg.com"
+    },
+    {
+      "client_ja3": "709c6b4bc7678a83ccc13a529103c873",
+      "server_ja3": "77f87cbba1f72fcf7fbc308d9dcb561d",
+      "sni": "www.youtube.com"
+    }
+  ],
+  "yr": [
+    {
+      "client_ja3": "43d10d52d666fe15e9407b872a88dea5",
+      "server_ja3": "3f19537706de253d6e9a0d6e90d1a02f",
+      "sni": "www.yr.no"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Testování a vyhodnocení}
+\label{sec_testing}
+
+Pro otestování a vyhodnocení úspěšnosti detekce byla vytvořena testovací datová sada. Byly sesbírány $3$~\texttt{pcap} soubory s~komunikací každé z~natrénovaných aplikací a $10$~\texttt{pcap} souborů s~neznámou komunikací. Testovací datová sada byla vytvořena stejným způsobem jako trénovací.
+
+Z~každého testovacího pcap souboru byly vyextrahovány všechny TLS \textit{Client Hello} a TLS \textit{Server Hello} packety. Byly spočítány jejich JA3 otisky a přes IP adresy a čísla portů byly propojeny. Takto byl sestaven příznak komunikace. Tímto způsobem byly z~konkrétního pcap souboru vyextrahovány všechny příznaky. Ty byly následně porovnávány se známými příznaky v~databázi. Aplikace která měla nejvíce shod byla vybrána.
+
+Byly spočítány hodnoty TP (\textit{true positive}~--~skutečně pozitivní), FP (\textit{false positive}~--~falešně pozitivní), TN (\textit{true negative}~--~skutečně negativní) a FN (\textit{false negative}~--~falešně negativní) a z~nich metriky \textit{accuracy}, \textit{recall}, \textit{precision}. Kompletní výsledky testování jsou zaneseny v~tabulce~\ref{table_vysledky}.
+
+\begin{itemize}
+    \item $TP = 30$,\;\;$FP = 1$,\;\;$TN = 9$,\;\;$FN = 0$
+    \item $Accuracy = \frac{TP + TN}{TP + TN + FP + FN} = 0,975$
+    \item $Recall = \frac{TP}{TP + FN} = 1$
+    \item $Precision = \frac{TP}{TP + FP} \approx 0,968$
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Jméno souboru                       & Detekovaná aplikace & Výsledek   \\ \hhline{|=|=|=|}
+        \path{forest-01.pcapng}             & Forest              & \checkmark \\ \hline
+        \path{forest-02.pcapng}             & Forest              & \checkmark \\ \hline
+        \path{forest-03.pcapng}             & Forest              & \checkmark \\ \hline
+        \path{forza-01.pcapng}              & Forza               & \checkmark \\ \hline
+        \path{forza-02.pcapng}              & Forza               & \checkmark \\ \hline
+        \path{forza-03.pcapng}              & Forza               & \checkmark \\ \hline
+        \path{github-01.pcapng}             & GitHub              & \checkmark \\ \hline
+        \path{github-02.pcapng}             & GitHub              & \checkmark \\ \hline
+        \path{github-03.pcapng}             & GitHub              & \checkmark \\ \hline
+        \path{netflix-01.pcapng}            & Netflix             & \checkmark \\ \hline
+        \path{netflix-02.pcapng}            & Netflix             & \checkmark \\ \hline
+        \path{netflix-03.pcapng}            & Netflix             & \checkmark \\ \hline
+        \path{phoenix-01.pcapng}            & Phoenix             & \checkmark \\ \hline
+        \path{phoenix-02.pcapng}            & Phoenix             & \checkmark \\ \hline
+        \path{phoenix-03.pcapng}            & Phoenix             & \checkmark \\ \hline
+        \path{revolut-01.pcapng}            & Revolut             & \checkmark \\ \hline
+        \path{revolut-02.pcapng}            & Revolut             & \checkmark \\ \hline
+        \path{revolut-03.pcapng}            & Revolut             & \checkmark \\ \hline
+        \path{settleup-01.pcapng}           & Settle Up            & \checkmark \\ \hline
+        \path{settleup-02.pcapng}           & Settle Up           & \checkmark \\ \hline
+        \path{settleup-03.pcapng}           & Settle Up            & \checkmark \\ \hline
+        \path{twitter-01.pcapng}            & Twitter             & \checkmark \\ \hline
+        \path{twitter-02.pcapng}            & Twitter             & \checkmark \\ \hline
+        \path{twitter-03.pcapng}            & Twitter             & \checkmark \\ \hline
+        \path{uknown-bitcoin.pcapng}        & $\times$            & \checkmark \\ \hline
+        \path{uknown-gmail.pcapng}          & Twitter             & $\times$   \\ \hline
+        \path{uknown-seznam.pcapng}         & $\times$            & \checkmark \\ \hline
+        \path{unknown-damejidlo.pcapng}     & $\times$            & \checkmark \\ \hline
+        \path{unknown-facebook.pcapng}      & $\times$            & \checkmark \\ \hline
+        \path{unknown-google\_maps.pcapng}  & $\times$            & \checkmark \\ \hline
+        \path{unknown-google\_photo.pcapng} & $\times$            & \checkmark \\ \hline
+        \path{unknown-linkedin.pcapng}      & $\times$            & \checkmark \\ \hline
+        \path{unknown-livesport.pcapng}     & $\times$            & \checkmark \\ \hline
+        \path{unknown-stackoverflow.pcapng} & $\times$            & \checkmark \\ \hline
+        \path{youtube-01.pcapng}            & YouTube             & \checkmark \\ \hline
+        \path{youtube-02.pcapng}            & YouTube             & \checkmark \\ \hline
+        \path{youtube-03.pcapng}            & YouTube             & \checkmark \\ \hline
+        \path{yr-01.pcapng}                 & Yr                  & \checkmark \\ \hline
+        \path{yr-02.pcapng}                 & Yr                  & \checkmark \\ \hline
+        \path{yr-03.pcapng}                 & Yr                  & \checkmark \\ \hline
+    \end{tabular}
+    \caption{Tabulka s~kompletními výsledky testování úspěšnosti detekce.}
+    \label{table_vysledky}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

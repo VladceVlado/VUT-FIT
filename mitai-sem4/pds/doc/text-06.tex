@@ -1,0 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Závěr}
+\label{sec_conclusion}
+
+Natrénový detektor využívající kombinace JA3 otisku pro \textit{Client Hello} packet, JA3 otisku pro \textit{Server Hello} packet a doménového jména serveru dosáhl velmi dobrých výsledků na testovacích datech. Byla zaznamenána pouze jediná chyba, kdy provoz neznámé aplikace Gmail byl detekován jako aplikace Twitter.
+
+Detekce neznámého TLS provozu pouze na základě JA3 otisků nemusí být příliš úspěšná~\cite{bib_matousek}. Tato úspěšnost může být zvýšena přídáním dalších informací do příznaků. Přidání doménového jména serveru, vyzkoušená v~tomto projektu, se ukázala jako velmi spolehlivá.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
